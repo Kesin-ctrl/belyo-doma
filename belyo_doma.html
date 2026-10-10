@@ -23,34 +23,62 @@
 }
 
 *{box-sizing:border-box}
-
 html{scroll-behavior:smooth}
-
 body{
   margin:0;
-  background:linear-gradient(180deg,#faf6f2 0,#f5f1ed 100%);
+  background:linear-gradient(180deg,#faf6f2,#f5f1ed);
   color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
+body.theme-pink{
+  --sage:#d99aaf;
+  --sage-dark:#a96f83;
+  --sage-soft:#f8e5ec;
+  --pink:#e9b8c7;
+  --pink-soft:#f9e9ee;
+}
+body.theme-lilac{
+  --sage:#a99bc9;
+  --sage-dark:#7e6e9e;
+  --sage-soft:#eee9f7;
+  --pink:#d4c3ec;
+  --pink-soft:#f1ecf9;
+}
+body.theme-dark{
+  --sage:#8fa996;
+  --sage-dark:#536e5c;
+  --sage-soft:#36453a;
+  --pink:#c993a5;
+  --pink-soft:#48333c;
+  --cream:#242924;
+  --cream-2:#2d332d;
+  --ink:#f4f1ec;
+  --muted:#b1b8b0;
+  --line:#444b44;
+  --white:#303730;
+  --shadow:0 12px 32px rgba(0,0,0,.18);
+  background:#202520;
+}
+body.theme-dark .card,
+body.theme-dark .bottom-nav{background:var(--cream-2)}
+body.theme-dark input,
+body.theme-dark select{background:#353c35;color:var(--ink)}
+body.theme-dark .action,
+body.theme-dark .cancel-button{background:#3c443c;color:var(--ink)}
+body.theme-dark .notice{background:#3c392e;color:#e8d8b8}
 
 button,input,select{font:inherit}
-
 button{
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
 }
-
 .app{
   width:min(100%,520px);
   margin:auto;
   min-height:100vh;
-  padding-bottom:100px;
+  padding-bottom:110px;
 }
-
-header{
-  padding:28px 18px 14px;
-}
-
+header{padding:28px 18px 14px}
 .eyebrow{
   color:var(--sage-dark);
   font-size:12px;
@@ -58,374 +86,180 @@ header{
   letter-spacing:1.6px;
   text-transform:uppercase;
 }
-
-h1{
-  margin:6px 0 5px;
-  font-size:32px;
-  line-height:1.05;
-}
-
-.subtitle{
-  margin:0;
-  color:var(--muted);
-  font-size:15px;
-}
-
+h1{margin:6px 0 5px;font-size:32px;line-height:1.05}
+.subtitle{margin:0;color:var(--muted);font-size:15px}
 .card{
   margin:12px 16px;
   padding:17px;
-  background:rgba(255,250,247,.92);
+  background:rgba(255,250,247,.94);
   border:1px solid rgba(120,120,110,.07);
   border-radius:24px;
   box-shadow:var(--shadow);
 }
-
 .weather-card{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  background:linear-gradient(135deg,var(--sage-soft),#f5eee9);
+  background:linear-gradient(135deg,var(--sage-soft),var(--cream-2));
 }
-
-.weather-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
+.weather-left{display:flex;align-items:center;gap:12px}
 .weather-icon{
-  width:50px;
-  height:50px;
-  display:grid;
-  place-items:center;
+  width:50px;height:50px;
+  display:grid;place-items:center;
   border-radius:17px;
-  background:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.65);
   font-size:27px;
 }
-
-.weather-temp{
-  font-size:24px;
-  font-weight:850;
-}
-
-.weather-text{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:12px;
-}
-
+.weather-temp{font-size:24px;font-weight:850}
+.weather-text{margin-top:3px;color:var(--muted);font-size:12px}
 .small-button{
-  border:0;
-  padding:9px 11px;
-  border-radius:13px;
-  background:rgba(255,255,255,.75);
-  color:var(--sage-dark);
-  font-weight:750;
+  border:0;padding:9px 11px;border-radius:13px;
+  background:var(--white);color:var(--sage-dark);font-weight:750;
 }
-
 .section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin:24px 18px 9px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin:24px 18px 9px;gap:10px;
 }
-
-.section-head h2{
-  margin:0;
-  font-size:20px;
-}
-
+.section-head h2{margin:0;font-size:20px}
 .counter{
-  min-width:27px;
-  padding:5px 9px;
-  border-radius:999px;
-  background:var(--pink-soft);
-  color:#a46c7a;
-  font-size:12px;
-  font-weight:800;
-  text-align:center;
+  min-width:27px;padding:5px 9px;border-radius:999px;
+  background:var(--pink-soft);color:var(--sage-dark);
+  font-size:12px;font-weight:800;text-align:center;
 }
-
-.empty{
-  text-align:center;
-  padding:30px 16px;
-  color:var(--muted);
-}
-
-.empty-icon{
-  font-size:44px;
-  margin-bottom:8px;
-}
-
-.empty-title{
-  color:var(--ink);
-  font-size:16px;
-  font-weight:800;
-}
-
-.load-card{
-  position:relative;
-  overflow:hidden;
-}
-
-.load-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-}
-
-.load-name{
-  font-size:18px;
-  font-weight:850;
-}
-
-.load-place{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:12px;
-}
-
+.empty{text-align:center;padding:30px 16px;color:var(--muted)}
+.empty-icon{font-size:44px;margin-bottom:8px}
+.empty-title{color:var(--ink);font-size:16px;font-weight:800}
+.load-card{position:relative;overflow:hidden}
+.load-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.load-name{font-size:18px;font-weight:850;overflow-wrap:anywhere}
+.load-place{margin-top:4px;color:var(--muted);font-size:12px}
 .badge{
-  flex-shrink:0;
-  padding:7px 10px;
-  border-radius:999px;
-  background:var(--pink-soft);
-  color:#9f6573;
-  font-size:11px;
-  font-weight:850;
+  flex-shrink:0;padding:7px 10px;border-radius:999px;
+  background:var(--pink-soft);color:var(--sage-dark);
+  font-size:11px;font-weight:850;
 }
-
 .progress-wrap{
-  height:9px;
-  margin:17px 0 10px;
-  overflow:hidden;
-  border-radius:999px;
-  background:#eee8e2;
+  height:9px;margin:17px 0 10px;overflow:hidden;
+  border-radius:999px;background:var(--line);
 }
-
 .progress{
-  height:100%;
-  border-radius:999px;
-  background:linear-gradient(90deg,var(--sage),#a9bea9);
+  height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--sage),#b6c9b5);
   transition:width .3s ease;
 }
-
 .info{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  color:var(--muted);
-  font-size:12px;
+  display:flex;justify-content:space-between;gap:10px;
+  color:var(--muted);font-size:12px;margin-top:6px;
 }
-
-.info strong{
-  color:var(--ink);
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
+.info strong{color:var(--ink)}
+.actions{display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}
 .action{
-  flex:1;
-  border:0;
-  padding:11px 8px;
-  border-radius:14px;
-  background:#f0ebe6;
-  color:var(--ink);
-  font-size:12px;
-  font-weight:750;
+  flex:1;min-width:75px;border:0;padding:11px 7px;
+  border-radius:14px;background:#f0ebe6;color:var(--ink);
+  font-size:12px;font-weight:750;
 }
-
-.action.primary{
-  background:var(--sage-dark);
-  color:white;
-}
-
-.action.pink{
-  background:var(--pink-soft);
-  color:#985f6d;
-}
-
+.action.primary{background:var(--sage-dark);color:white}
+.action.pink{background:var(--pink-soft);color:var(--sage-dark)}
 .add-button{
-  width:calc(100% - 32px);
-  margin:18px 16px;
-  padding:17px;
-  border:0;
-  border-radius:19px;
-  background:var(--sage-dark);
-  color:#fff;
-  font-size:16px;
-  font-weight:850;
+  width:calc(100% - 32px);margin:18px 16px;padding:17px;
+  border:0;border-radius:19px;background:var(--sage-dark);
+  color:white;font-size:16px;font-weight:850;
   box-shadow:0 10px 24px rgba(99,125,107,.22);
 }
-
-.form-card{
-  display:none;
-}
-
-.form-card.active{
-  display:block;
-}
-
-.form-title{
-  margin:0 0 4px;
-  font-size:21px;
-}
-
-.form-subtitle{
-  margin:0 0 17px;
-  color:var(--muted);
-  font-size:12px;
-}
-
+.form-card{display:none}
+.form-card.active{display:block}
+.form-title{margin:0 0 4px;font-size:21px}
+.form-subtitle{margin:0 0 17px;color:var(--muted);font-size:12px}
 label{
-  display:block;
-  margin:14px 0 7px;
-  color:var(--sage-dark);
-  font-size:12px;
-  font-weight:800;
+  display:block;margin:14px 0 7px;
+  color:var(--sage-dark);font-size:12px;font-weight:800;
 }
-
 input,select{
-  width:100%;
-  min-height:47px;
-  padding:12px 13px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  outline:0;
-  background:#fff;
-  color:var(--ink);
+  width:100%;min-height:47px;padding:12px 13px;
+  border:1px solid var(--line);border-radius:15px;
+  outline:0;background:var(--white);color:var(--ink);
 }
-
 input:focus,select:focus{
   border-color:var(--sage);
   box-shadow:0 0 0 3px rgba(143,169,150,.13);
 }
-
-.form-buttons{
-  display:flex;
-  gap:9px;
-  margin-top:18px;
-}
-
+.form-buttons{display:flex;gap:9px;margin-top:18px}
 .form-buttons button{
-  flex:1;
-  padding:14px;
-  border:0;
-  border-radius:15px;
-  font-weight:800;
+  flex:1;padding:14px;border:0;border-radius:15px;font-weight:800;
 }
-
-.save-button{
-  background:var(--sage);
-  color:white;
-}
-
-.cancel-button{
-  background:#eee8e2;
-  color:var(--ink);
-}
-
+.save-button{background:var(--sage);color:white}
+.cancel-button{background:#eee8e2;color:var(--ink)}
 .notice{
-  margin:14px 18px;
-  padding:13px 14px;
-  border-radius:17px;
-  background:#fff5e5;
-  color:#876f50;
-  font-size:11px;
-  line-height:1.5;
+  margin:14px 18px;padding:13px 14px;border-radius:17px;
+  background:#fff5e5;color:#876f50;font-size:11px;line-height:1.5;
 }
-
 .bottom-nav{
-  position:fixed;
-  z-index:20;
-  left:50%;
-  bottom:10px;
-  width:min(490px,calc(100% - 22px));
-  transform:translateX(-50%);
-  display:flex;
-  justify-content:space-around;
-  padding:8px 5px;
-  border:1px solid rgba(120,120,110,.09);
-  border-radius:23px;
+  position:fixed;z-index:20;left:50%;bottom:10px;
+  width:min(490px,calc(100% - 22px));transform:translateX(-50%);
+  display:flex;justify-content:space-around;padding:8px 5px;
+  border:1px solid rgba(120,120,110,.09);border-radius:23px;
   background:rgba(255,250,247,.94);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   box-shadow:0 10px 35px rgba(70,60,50,.15);
 }
-
 .nav-button{
-  flex:1;
-  padding:7px 5px;
-  border:0;
-  border-radius:15px;
-  background:transparent;
-  color:var(--muted);
-  font-size:10px;
-  font-weight:650;
+  flex:1;padding:7px 3px;border:0;border-radius:15px;
+  background:transparent;color:var(--muted);
+  font-size:10px;font-weight:650;
 }
-
-.nav-icon{
-  display:block;
-  margin-bottom:3px;
-  font-size:20px;
-}
-
-.nav-button.active{
-  background:var(--sage-soft);
-  color:var(--sage-dark);
-}
-
+.nav-icon{display:block;margin-bottom:3px;font-size:20px}
+.nav-button.active{background:var(--sage-soft);color:var(--sage-dark)}
 .toast{
-  position:fixed;
-  z-index:50;
-  left:50%;
-  bottom:92px;
-  max-width:calc(100% - 40px);
-  padding:12px 17px;
-  border-radius:15px;
-  transform:translate(-50%,20px);
-  opacity:0;
-  pointer-events:none;
-  background:#3f473f;
-  color:white;
-  font-size:12px;
-  text-align:center;
-  transition:.25s ease;
+  position:fixed;z-index:50;left:50%;bottom:92px;
+  max-width:calc(100% - 40px);padding:12px 17px;
+  border-radius:15px;transform:translate(-50%,20px);
+  opacity:0;pointer-events:none;background:#3f473f;color:white;
+  font-size:12px;text-align:center;transition:.25s ease;
 }
-
-.toast.show{
-  transform:translate(-50%,0);
-  opacity:1;
+.toast.show{transform:translate(-50%,0);opacity:1}
+.hidden{display:none!important}
+.settings-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:13px 0;border-bottom:1px solid var(--line);
 }
-
-.hidden{
-  display:none!important;
+.settings-row:last-child{border-bottom:0}
+.settings-label{font-size:14px;font-weight:700}
+.settings-help{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}
+.settings-row select{width:48%;min-height:42px;padding:8px;font-size:12px}
+.settings-row input[type=checkbox]{width:22px;min-height:22px;accent-color:var(--sage-dark)}
+.settings-row input[type=text]{width:48%;min-height:42px;padding:8px;font-size:12px}
+.settings-action{
+  width:100%;margin-top:10px;padding:13px;border:0;
+  border-radius:14px;background:var(--sage-soft);
+  color:var(--sage-dark);font-weight:800;text-align:left;
 }
-
+.page-title{margin:25px 18px 12px;font-size:22px}
+.section-caption{margin:0 18px 12px;color:var(--muted);font-size:12px;line-height:1.5}
+.machine-chip{
+  display:inline-block;margin:5px 5px 0 0;padding:7px 10px;
+  border-radius:999px;background:var(--sage-soft);
+  color:var(--sage-dark);font-size:11px;font-weight:750;
+}
+.small-note{font-size:11px;color:var(--muted);line-height:1.5}
 @media(max-width:360px){
   h1{font-size:29px}
   .action{font-size:11px;padding:10px 5px}
+  .nav-button{font-size:9px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <header>
   <div class="eyebrow">Бельё дома ♡</div>
-  <h1>Привет! 🧺</h1>
-  <p class="subtitle">Посмотрим, что сейчас сушится?</p>
+  <h1 id="greeting">Привет! 🧺</h1>
+  <p class="subtitle" id="subtitle">Посмотрим, что сейчас сушится?</p>
 </header>
 
-<div class="card weather-card">
+<div class="card weather-card" id="weatherCard">
   <div class="weather-left">
     <div class="weather-icon" id="weatherIcon">☁️</div>
     <div>
@@ -433,1077 +267,1150 @@ input:focus,select:focus{
       <div class="weather-text" id="weatherText">Загружаем погоду…</div>
     </div>
   </div>
-
-  <button class="small-button" id="refreshWeather">↻</button>
+  <button class="small-button" id="refreshWeather" aria-label="Обновить погоду">↻</button>
 </div>
 
-<main id="homePage">
-
-  <div class="section-head">
-    <h2>Сейчас сушится</h2>
-    <span class="counter" id="loadCount">0</span>
-  </div>
-
-  <div id="loads"></div>
-
-  <button class="add-button" id="addButton">
-    ＋ Добавить стирку
-  </button>
-
-</main>
-
-<section class="card form-card" id="formCard">
-
-  <h2 class="form-title" id="formTitle">Новая стирка</h2>
-  <p class="form-subtitle">
-    Расскажите немного о белье — я примерно посчитаю время сушки.
-  </p>
-
-  <label for="name">Название</label>
-  <input id="name" type="text" placeholder="Например, постельное бельё">
-
-  <label for="duration">Сколько длится стирка?</label>
-  <select id="duration">
-    <option value="45">45 минут</option>
-    <option value="60" selected>1 час</option>
-    <option value="90">1 час 30 минут</option>
-    <option value="120">2 часа</option>
-    <option value="150">2 часа 30 минут</option>
-    <option value="180">3 часа</option>
-  </select>
-
-  <label for="fabric">Что стираем?</label>
-  <select id="fabric">
-    <option value="cotton">Хлопок</option>
-    <option value="synthetic">Синтетика</option>
-    <option value="mixed" selected>Смешанная ткань</option>
-    <option value="delicate">Деликатное</option>
-    <option value="towels">Полотенца</option>
-    <option value="bed">Постельное бельё</option>
-  </select>
-
-  <label for="spin">Отжим</label>
-  <select id="spin">
-    <option value="low">Низкий</option>
-    <option value="medium" selected>Средний</option>
-    <option value="high">Высокий</option>
-  </select>
-
-  <label for="place">Где будет сушиться?</label>
-  <select id="place">
-    <option value="balcony" selected>Балкон</option>
-    <option value="glazed">Застеклённый балкон</option>
-    <option value="radiator">Батарея</option>
-    <option value="room">В комнате</option>
-  </select>
-
-  <label for="amount">Количество белья</label>
-  <select id="amount">
-    <option value="small">Немного</option>
-    <option value="medium" selected>Средняя загрузка</option>
-    <option value="large">Много</option>
-  </select>
-
-  <label for="air">Движение воздуха</label>
-  <select id="air">
-    <option value="still">Почти нет воздуха</option>
-    <option value="normal" selected>Обычное</option>
-    <option value="windy">Хорошо проветривается</option>
-  </select>
-
-  <label for="startMode">Когда началась стирка?</label>
-  <select id="startMode">
-    <option value="now" selected>Сейчас</option>
-    <option value="custom">Указать время</option>
-  </select>
-
-  <input id="customStart" type="datetime-local" class="hidden">
-
-  <div class="form-buttons">
-    <button class="cancel-button" id="cancelButton">Отмена</button>
-    <button class="save-button" id="saveButton">Сохранить</button>
-  </div>
-
-</section>
-
-<div class="notice">
-  💡 Время сушки — ориентировочный расчёт. На него влияют температура,
-  влажность, материал, количество белья и движение воздуха.
-</div>
+<main id="pageContent"></main>
 
 <nav class="bottom-nav">
-
-  <button class="nav-button active" id="navHome">
-    <span class="nav-icon">🏠</span>
-    Главная
+  <button class="nav-button active" data-page="home">
+    <span class="nav-icon">🏠</span>Главная
   </button>
-
-  <button class="nav-button" id="navLaundry">
-    <span class="nav-icon">🧺</span>
-    Стирки
+  <button class="nav-button" data-page="laundry">
+    <span class="nav-icon">🧺</span>Стирки
   </button>
-
-  <button class="nav-button" id="navHistory">
-    <span class="nav-icon">🕊️</span>
-    История
+  <button class="nav-button" data-page="history">
+    <span class="nav-icon">🕊️</span>История
   </button>
-
-  <button class="nav-button" id="navSettings">
-    <span class="nav-icon">⚙️</span>
-    Настройки
+  <button class="nav-button" data-page="settings">
+    <span class="nav-icon">⚙️</span>Настройки
   </button>
-
 </nav>
 
 <div class="toast" id="toast"></div>
-
 </div>
 
 <script>
+'use strict';
+
 const STORAGE_KEY = 'belyo_doma_v2';
+const SETTINGS_KEY = 'belyo_doma_settings_v1';
+const MACHINES_KEY = 'belyo_doma_machines_v1';
+const PROGRAMS_KEY = 'belyo_doma_programs_v1';
 
 let loads = [];
-let editingId = null;
-let weather = {
-  temp:null,
-  humidity:null,
-  code:null
+let settings = {
+  theme:'sage',
+  timeFormat:'24',
+  notifications:false,
+  showWeather:true,
+  defaultMachine:'Машинка 1',
+  language:'ru'
 };
-
+let machines = ['Машинка 1'];
+let customPrograms = [];
+let editingId = null;
+let currentPage = 'home';
+let weather = {temp:null,humidity:null,code:null};
 let notified = new Set();
+let toastTimer = null;
 
 const $ = id => document.getElementById(id);
 
 function toast(message){
   const el = $('toast');
-
   el.textContent = message;
   el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'),2600);
+}
 
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer = setTimeout(()=>{
-    el.classList.remove('show');
-  },2300);
+function readStorage(key,fallback){
+  try{
+    const value = JSON.parse(localStorage.getItem(key));
+    return value === null ? fallback : value;
+  }catch(e){
+    return fallback;
+  }
 }
 
 function save(){
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(loads)
-  );
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(loads));
+  }catch(e){
+    toast('Не удалось сохранить данные. Проверь память браузера.');
+  }
+}
+
+function saveSettings(){
+  localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));
+}
+
+function saveMachines(){
+  localStorage.setItem(MACHINES_KEY,JSON.stringify(machines));
+}
+
+function savePrograms(){
+  localStorage.setItem(PROGRAMS_KEY,JSON.stringify(customPrograms));
 }
 
 function loadSaved(){
-  try{
-    const saved = JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    );
+  const saved = readStorage(STORAGE_KEY,[]);
+  loads = Array.isArray(saved) ? saved : [];
 
-    if(Array.isArray(saved)){
-      loads = saved;
-    }
-  }catch(e){
-    loads = [];
-  }
-}
-
-function openForm(id=null){
-
-  editingId = id;
-
-  $('homePage').style.display = 'none';
-  $('formCard').classList.add('active');
-
-  if(id){
-
-    const item = loads.find(x=>x.id===id);
-
-    if(!item)return;
-
-    $('formTitle').textContent = 'Изменить стирку';
-
-    $('name').value = item.name || '';
-    $('duration').value = item.duration || 60;
-    $('fabric').value = item.fabric || 'mixed';
-    $('spin').value = item.spin || 'medium';
-    $('place').value = item.place || 'balcony';
-    $('amount').value = item.amount || 'medium';
-    $('air').value = item.air || 'normal';
-
-  }else{
-
-    $('formTitle').textContent = 'Новая стирка';
-
-    $('name').value = '';
-    $('duration').value = '60';
-    $('fabric').value = 'mixed';
-    $('spin').value = 'medium';
-    $('place').value = 'balcony';
-    $('amount').value = 'medium';
-    $('air').value = 'normal';
-    $('startMode').value = 'now';
-    $('customStart').value = '';
-    $('customStart').classList.add('hidden');
-  }
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-}
-
-function closeForm(){
-
-  editingId = null;
-
-  $('formCard').classList.remove('active');
-  $('homePage').style.display = 'block';
-
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
-  });
-}
-
-function startTime(){
-
-  if(
-    $('startMode').value === 'custom' &&
-    $('customStart').value
-  ){
-
-    const date = new Date(
-      $('customStart').value
-    );
-
-    if(!isNaN(date.getTime())){
-      return date.getTime();
-    }
-  }
-
-  return Date.now();
-}
-
-function saveLoad(){
-
-  const name =
-    $('name').value.trim() ||
-    'Моя стирка';
-
-  const data = {
-    id: editingId || String(Date.now()),
-    name,
-    duration:Number($('duration').value),
-    fabric:$('fabric').value,
-    spin:$('spin').value,
-    place:$('place').value,
-    amount:$('amount').value,
-    air:$('air').value,
-    startedAt:startTime(),
-    createdAt:Date.now(),
-    done:false
+  settings = {
+    ...settings,
+    ...readStorage(SETTINGS_KEY,{})
   };
 
-  if(editingId){
+  const savedMachines = readStorage(MACHINES_KEY,['Машинка 1']);
+  machines = Array.isArray(savedMachines) && savedMachines.length
+    ? savedMachines : ['Машинка 1'];
 
-    const index =
-      loads.findIndex(x=>x.id===editingId);
+  const savedPrograms = readStorage(PROGRAMS_KEY,[]);
+  customPrograms = Array.isArray(savedPrograms) ? savedPrograms : [];
 
-    if(index!==-1){
+  // Поддерживаем старые записи, созданные предыдущей версией сайта.
+  loads = loads.map(item=>({
+    ...item,
+    machine:item.machine || machines[0] || 'Машинка 1',
+    startedAt:Number(item.startedAt) || Number(item.createdAt) || Date.now(),
+    duration:Number(item.duration) || 60,
+    done:Boolean(item.done)
+  }));
 
-      data.createdAt =
-        loads[index].createdAt;
-
-      data.done =
-        loads[index].done || false;
-
-      loads[index] = data;
-    }
-
-  }else{
-
-    loads.unshift(data);
-  }
-
-  save();
-  closeForm();
-  render();
-
-  toast(
-    editingId
-      ? 'Стирка обновлена ✨'
-      : 'Стирка добавлена 🧺'
-  );
-
-  editingId = null;
+  applyTheme();
 }
 
-function deleteLoad(id){
-
-  if(!confirm('Удалить эту стирку?')){
-    return;
-  }
-
-  loads =
-    loads.filter(x=>x.id!==id);
-
-  save();
-  render();
-
-  toast('Стирка удалена');
+function applyTheme(){
+  document.body.classList.remove('theme-pink','theme-lilac','theme-dark');
+  if(settings.theme==='pink') document.body.classList.add('theme-pink');
+  if(settings.theme==='lilac') document.body.classList.add('theme-lilac');
+  if(settings.theme==='dark') document.body.classList.add('theme-dark');
+  $('weatherCard').classList.toggle('hidden',!settings.showWeather);
 }
 
-function markDone(id){
+function formatClock(timestamp){
+  const date = new Date(timestamp);
+  if(isNaN(date.getTime())) return '—';
+  const options = {
+    hour:'2-digit',
+    minute:'2-digit',
+    hour12:settings.timeFormat==='12'
+  };
+  return date.toLocaleTimeString('ru-RU',options);
+}
 
-  const item =
-    loads.find(x=>x.id===id);
+function formatDateTime(timestamp){
+  const date = new Date(timestamp);
+  if(isNaN(date.getTime())) return '—';
+  return date.toLocaleDateString('ru-RU',{
+    day:'2-digit',month:'short'
+  })+' · '+formatClock(timestamp);
+}
 
-  if(!item)return;
-
-  item.done = true;
-  item.finishedAt = Date.now();
-
-  save();
-  render();
-
-  toast('Бельё отмечено как сухое ✨');
+function escapeHtml(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 }
 
 function fabricName(value){
-
   const names = {
     cotton:'Хлопок',
     synthetic:'Синтетика',
-    mixed:'Смешанная',
+    mixed:'Смешанная ткань',
     delicate:'Деликатное',
     towels:'Полотенца',
     bed:'Постельное бельё'
   };
-
-  return names[value] || value;
+  return names[value] || value || 'Не указано';
 }
 
 function placeName(value){
-
   const names = {
     balcony:'Балкон',
     glazed:'Застеклённый балкон',
     radiator:'Батарея',
-    room:'В комнате'
+    room:'В комнате',
+    dryer:'Сушильная машина'
   };
+  return names[value] || value || 'Не указано';
+}
 
-  return names[value] || value;
+function spinName(value){
+  return ({low:'Низкий',medium:'Средний',high:'Высокий'})[value] || 'Средний';
+}
+
+function amountName(value){
+  return ({small:'Немного',medium:'Средняя загрузка',large:'Много'})[value] || 'Средняя загрузка';
+}
+
+function airName(value){
+  return ({still:'Почти нет воздуха',normal:'Обычное',windy:'Хорошее проветривание'})[value] || 'Обычное';
 }
 
 function dryMinutes(item){
-
-  let minutes = 145;
-
-  const fabricBase = {
+  let minutes = ({
     cotton:165,
     synthetic:100,
     mixed:135,
     delicate:115,
     towels:190,
     bed:180
-  };
+  })[item.fabric] || 145;
 
-  minutes =
-    fabricBase[item.fabric] || 145;
+  if(item.spin==='low') minutes += 35;
+  if(item.spin==='high') minutes -= 20;
+  if(item.amount==='small') minutes -= 20;
+  if(item.amount==='large') minutes += 35;
+  if(item.air==='still') minutes += 25;
+  if(item.air==='windy') minutes -= 30;
+  if(item.place==='glazed') minutes += 10;
+  if(item.place==='radiator') minutes -= 25;
+  if(item.place==='room') minutes += 30;
+  if(item.place==='dryer') minutes = Math.min(minutes,90);
 
-  if(item.spin==='low'){
-    minutes += 35;
+  if(weather.humidity!==null && item.place!=='dryer'){
+    if(weather.humidity>=80) minutes += 35;
+    else if(weather.humidity>=65) minutes += 20;
+    else if(weather.humidity<=40) minutes -= 15;
   }
 
-  if(item.spin==='high'){
-    minutes -= 20;
+  if(weather.temp!==null && item.place!=='dryer'){
+    if(weather.temp<5) minutes += 25;
+    else if(weather.temp>25) minutes -= 15;
   }
 
-  if(item.amount==='small'){
-    minutes -= 20;
-  }
-
-  if(item.amount==='large'){
-    minutes += 35;
-  }
-
-  if(item.air==='still'){
-    minutes += 25;
-  }
-
-  if(item.air==='windy'){
-    minutes -= 30;
-  }
-
-  if(item.place==='glazed'){
-    minutes += 10;
-  }
-
-  if(item.place==='radiator'){
-    minutes -= 25;
-  }
-
-  if(item.place==='room'){
-    minutes += 30;
-  }
-
-  if(weather.humidity!==null){
-
-    if(weather.humidity>=80){
-      minutes += 35;
-    }else if(weather.humidity>=65){
-      minutes += 20;
-    }else if(weather.humidity<=40){
-      minutes -= 15;
-    }
-  }
-
-  if(weather.temp!==null){
-
-    if(weather.temp<5){
-      minutes += 25;
-    }else if(weather.temp>25){
-      minutes -= 15;
-    }
-  }
-
-  return Math.max(
-    45,
-    Math.round(minutes/5)*5
-  );
+  return Math.max(30,Math.round(minutes/5)*5);
 }
 
-function formatTime(ms){
-
-  if(ms<=0){
-    return 'сейчас';
-  }
-
-  const minutes =
-    Math.ceil(ms/60000);
-
-  if(minutes<60){
-    return `${minutes} мин`;
-  }
-
-  const hours =
-    Math.floor(minutes/60);
-
-  const mins =
-    minutes%60;
-
-  if(mins===0){
-    return `${hours} ч`;
-  }
-
-  return `${hours} ч ${mins} мин`;
+function formatDuration(ms){
+  if(ms<=0) return 'сейчас';
+  const minutes = Math.ceil(ms/60000);
+  if(minutes<60) return minutes+' мин';
+  const hours = Math.floor(minutes/60);
+  const rest = minutes%60;
+  return rest ? hours+' ч '+rest+' мин' : hours+' ч';
 }
 
 function stage(item){
-
   if(item.done){
-
     return {
-      stage:2,
-      title:'Готово ✨',
-      progress:100,
-      remaining:'Сухое'
+      stage:2,title:'Завершено ✨',progress:100,
+      remaining:'Готово',endTime:item.finishedAt || null
     };
   }
 
   const now = Date.now();
-
-  const washEnd =
-    item.startedAt +
-    item.duration*60000;
+  const washEnd = item.startedAt + item.duration*60000;
 
   if(now<washEnd){
-
-    const progress =
-      Math.max(
-        1,
-        Math.min(
-          99,
-          Math.round(
-            ((now-item.startedAt) /
-            (item.duration*60000))*100
-          )
-        )
-      );
-
+    const progress = Math.max(1,Math.min(99,
+      Math.round((now-item.startedAt)/(item.duration*60000)*100)
+    ));
     return {
-      stage:0,
-      title:'Стирается',
-      progress,
-      remaining:formatTime(
-        washEnd-now
-      )
+      stage:0,title:'Стирается',progress,
+      remaining:formatDuration(washEnd-now),
+      endTime:washEnd
     };
   }
 
-  const drying =
-    dryMinutes(item);
-
-  const dryEnd =
-    washEnd +
-    drying*60000;
+  const drying = dryMinutes(item);
+  const dryEnd = washEnd + drying*60000;
 
   if(now<dryEnd){
-
-    const total =
-      dryEnd-washEnd;
-
-    const passed =
-      now-washEnd;
-
-    const progress =
-      Math.max(
-        1,
-        Math.min(
-          99,
-          Math.round(
-            passed/total*100
-          )
-        )
-      );
-
+    const progress = Math.max(1,Math.min(99,
+      Math.round((now-washEnd)/(drying*60000)*100)
+    ));
     return {
-      stage:1,
-      title:'Сушится',
-      progress,
-      remaining:formatTime(
-        dryEnd-now
-      )
+      stage:1,title:'Сушится',progress,
+      remaining:formatDuration(dryEnd-now),
+      endTime:dryEnd
     };
   }
 
   return {
-    stage:2,
-    title:'Пора проверить',
-    progress:100,
-    remaining:'Проверь бельё'
+    stage:2,title:'Пора проверить',progress:100,
+    remaining:'Время проверить бельё',endTime:dryEnd
   };
 }
 
-function escapeHtml(text){
+function activeLoads(){
+  return loads.filter(x=>!x.done);
+}
 
-  return String(text)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'","&#039;");
+function sortedLoads(list){
+  return [...list].sort((a,b)=>{
+    const sa=stage(a), sb=stage(b);
+    if(sa.stage!==sb.stage) return sa.stage-sb.stage;
+    return a.startedAt-b.startedAt;
+  });
+}
+
+function machineOptions(selected){
+  return machines.map(machine=>
+    `<option value="${escapeHtml(machine)}" ${machine===selected?'selected':''}>${escapeHtml(machine)}</option>`
+  ).join('');
+}
+
+function programOptions(selected){
+  const builtIn = [
+    ['cotton','Хлопок'],
+    ['synthetic','Синтетика'],
+    ['mixed','Смешанная ткань'],
+    ['delicate','Деликатное'],
+    ['towels','Полотенца'],
+    ['bed','Постельное бельё']
+  ];
+  const all = builtIn.concat(customPrograms.map(p=>[p.fabric,p.name]));
+  return all.map(([value,name])=>
+    `<option value="${escapeHtml(value)}" ${value===selected?'selected':''}>${escapeHtml(name)}</option>`
+  ).join('');
+}
+
+function loadCard(item,historyMode=false){
+  const s = stage(item);
+  const dry = dryMinutes(item);
+  const washEnd = item.startedAt + item.duration*60000;
+  const dryEnd = washEnd + dry*60000;
+  const actualDone = item.done;
+
+  return `
+    <div class="card load-card">
+      <div class="load-top">
+        <div>
+          <div class="load-name">${escapeHtml(item.name)}</div>
+          <div class="load-place">${escapeHtml(item.machine || machines[0])} · ${escapeHtml(placeName(item.place))}</div>
+        </div>
+        <div class="badge">${actualDone?'Завершено ✓':s.title}</div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress" style="width:${s.progress}%"></div>
+      </div>
+
+      <div class="info">
+        <span>${actualDone?'Завершено':s.stage===0?'До конца стирки':'До окончания сушки'}</span>
+        <strong>${actualDone?formatClock(item.finishedAt || item.startedAt):s.remaining}</strong>
+      </div>
+
+      <div class="info">
+        <span>Начало</span>
+        <span>${formatDateTime(item.startedAt)}</span>
+      </div>
+
+      <div class="info">
+        <span>Окончание стирки</span>
+        <span>${formatClock(washEnd)}</span>
+      </div>
+
+      <div class="info">
+        <span>Ориентировочно сухое</span>
+        <span>${formatClock(dryEnd)}</span>
+      </div>
+
+      <div class="info">
+        <span>Ткань · отжим</span>
+        <span>${escapeHtml(fabricName(item.fabric))} · ${escapeHtml(spinName(item.spin))}</span>
+      </div>
+
+      ${item.notes?`<div class="info"><span>Заметка</span><span>${escapeHtml(item.notes)}</span></div>`:''}
+
+      <div class="actions">
+        ${!historyMode?`
+          <button class="action" data-action="edit" data-id="${escapeHtml(item.id)}">Изменить</button>
+          ${!item.done?`<button class="action primary" data-action="finish" data-id="${escapeHtml(item.id)}">Готово ✓</button>`:''}
+          <button class="action pink" data-action="delete" data-id="${escapeHtml(item.id)}">Удалить</button>
+        `:`
+          <button class="action" data-action="restore" data-id="${escapeHtml(item.id)}">Вернуть в стирки</button>
+          <button class="action pink" data-action="delete" data-id="${escapeHtml(item.id)}">Удалить</button>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function renderHome(){
+  const list = sortedLoads(activeLoads());
+  return `
+    <div class="section-head">
+      <h2>Сейчас сушится</h2>
+      <span class="counter">${list.filter(x=>stage(x).stage===1).length}</span>
+    </div>
+    <div class="section-caption">Здесь отображаются все незавершённые стирки. Можно вести несколько одновременно.</div>
+    ${list.length?list.map(x=>loadCard(x)).join(''):`
+      <div class="card empty">
+        <div class="empty-icon">🧺</div>
+        <div class="empty-title">Пока здесь пусто</div>
+        <div style="margin-top:5px">Добавь первую стирку — будем следить за ней вместе ♡</div>
+      </div>
+    `}
+    <button class="add-button" data-action="add">＋ Добавить стирку</button>
+    <div class="notice">💡 Время сушки — ориентировочное. На него влияют материал, отжим, количество белья, температура и влажность. Погода снаружи не всегда отражает условия внутри помещения.</div>
+  `;
+}
+
+function renderLaundry(){
+  const list = sortedLoads(activeLoads());
+  return `
+    <h2 class="page-title">Мои стирки 🧺</h2>
+    <p class="section-caption">Добавляй новые загрузки, даже если другая машинка уже работает.</p>
+    <div class="card">
+      <div class="settings-label">Машинки</div>
+      ${machines.map(m=>`<span class="machine-chip">${escapeHtml(m)}</span>`).join('')}
+    </div>
+    ${list.length?list.map(x=>loadCard(x)).join(''):`
+      <div class="card empty">
+        <div class="empty-icon">🫧</div>
+        <div class="empty-title">Активных стирок пока нет</div>
+        <div style="margin-top:5px">Можно запустить новую в любое время.</div>
+      </div>
+    `}
+    <button class="add-button" data-action="add">＋ Добавить стирку</button>
+    <div class="card">
+      <h3 style="margin:0 0 8px">Быстрый совет ♡</h3>
+      <div class="small-note">Время окончания рассчитывается отдельно для каждой загрузки. Если изменишь время начала или параметры белья, прогноз пересчитается.</div>
+    </div>
+  `;
+}
+
+function renderHistory(){
+  const list = loads.filter(x=>x.done).sort((a,b)=>
+    (b.finishedAt||b.createdAt||0)-(a.finishedAt||a.createdAt||0)
+  );
+  const total = list.length;
+  return `
+    <h2 class="page-title">История стирок 🕊️</h2>
+    <p class="section-caption">Завершённые загрузки сохраняются здесь, пока ты сама их не удалишь.</p>
+    <div class="card">
+      <div class="settings-row">
+        <div>
+          <div class="settings-label">Всего завершено</div>
+          <div class="settings-help">Количество записей в истории</div>
+        </div>
+        <span class="counter">${total}</span>
+      </div>
+      ${total?`<button class="settings-action" data-action="clearHistory">Очистить историю</button>`:''}
+    </div>
+    ${list.length?list.map(x=>loadCard(x,true)).join(''):`
+      <div class="card empty">
+        <div class="empty-icon">🕊️</div>
+        <div class="empty-title">История пока пустая</div>
+        <div style="margin-top:5px">Когда отметишь бельё готовым, запись появится здесь.</div>
+      </div>
+    `}
+  `;
+}
+
+function renderSettings(){
+  return `
+    <h2 class="page-title">Настройки ⚙️</h2>
+    <p class="section-caption">Настрой «Бельё дома» под себя. Изменения сохраняются на этом устройстве.</p>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">🎨 Внешний вид</h3>
+      <div class="settings-row">
+        <div><div class="settings-label">Тема</div><div class="settings-help">Выбери любимое оформление</div></div>
+        <select id="settingTheme">
+          <option value="sage" ${settings.theme==='sage'?'selected':''}>Sage & Milk</option>
+          <option value="pink" ${settings.theme==='pink'?'selected':''}>Pink Laundry</option>
+          <option value="lilac" ${settings.theme==='lilac'?'selected':''}>Лавандовая</option>
+          <option value="dark" ${settings.theme==='dark'?'selected':''}>Тёмная</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">Формат времени</div><div class="settings-help">Например, 18:30 или 6:30 PM</div></div>
+        <select id="settingTime">
+          <option value="24" ${settings.timeFormat==='24'?'selected':''}>24 часа</option>
+          <option value="12" ${settings.timeFormat==='12'?'selected':''}>12 часов</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-label">Показывать погоду</div><div class="settings-help">Погода помогает оценить сушку на воздухе</div></div>
+        <input type="checkbox" id="settingWeather" ${settings.showWeather?'checked':''}>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">🧺 Машинки и места</h3>
+      <div class="settings-row">
+        <div><div class="settings-label">Машинок добавлено</div><div class="settings-help">Можно вести несколько машин</div></div>
+        <span class="counter">${machines.length}</span>
+      </div>
+      ${machines.map((m,i)=>`
+        <div class="settings-row">
+          <div><div class="settings-label">${escapeHtml(m)}</div><div class="settings-help">${loads.filter(x=>x.machine===m&&!x.done).length} активных загрузок</div></div>
+          <button class="action pink" data-action="removeMachine" data-index="${i}" ${machines.length===1?'disabled':''}>Удалить</button>
+        </div>
+      `).join('')}
+      <button class="settings-action" data-action="addMachine">＋ Добавить машинку</button>
+      <div class="settings-row">
+        <div><div class="settings-label">Машинка по умолчанию</div></div>
+        <select id="settingDefaultMachine">${machineOptions(settings.defaultMachine)}</select>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">🫧 Свои программы</h3>
+      <div class="small-note">Создавай собственные названия программ. Для них можно выбрать тип ткани при добавлении стирки.</div>
+      ${customPrograms.length?customPrograms.map((p,i)=>`
+        <div class="settings-row">
+          <div><div class="settings-label">${escapeHtml(p.name)}</div><div class="settings-help">${escapeHtml(fabricName(p.fabric))}</div></div>
+          <button class="action pink" data-action="removeProgram" data-index="${i}">Удалить</button>
+        </div>
+      `).join(''):`<p class="small-note">Пока нет собственных программ.</p>`}
+      <button class="settings-action" data-action="addProgram">＋ Добавить программу</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">🔔 Уведомления</h3>
+      <div class="settings-row">
+        <div><div class="settings-label">Напоминания</div><div class="settings-help">Уведомление о завершении стирки и расчётной сушке, пока сайт открыт</div></div>
+        <input type="checkbox" id="settingNotifications" ${settings.notifications?'checked':''}>
+      </div>
+      <button class="settings-action" data-action="testNotification">Проверить уведомления</button>
+      <p class="small-note">На iPhone уведомления браузера могут требовать разрешения и не гарантируют срабатывание, когда страница закрыта. Для надёжной работы держи сайт открытым.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">💾 Данные</h3>
+      <div class="small-note">Стирки, история, настройки и программы хранятся локально в браузере на этом устройстве. Очистка данных Safari может удалить их.</div>
+      <button class="settings-action" data-action="exportData">Экспортировать резервную копию</button>
+      <button class="settings-action" data-action="importData">Импортировать резервную копию</button>
+      <input class="hidden" id="importFile" type="file" accept="application/json,.json">
+      <button class="settings-action" data-action="resetSettings">Сбросить настройки</button>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 5px">♡ О проекте</h3>
+      <div class="small-note">«Бельё дома» — уютный помощник для стирки и сушки. Бесплатные функции доступны без подписки. Будущие премиум-возможности можно добавить отдельно.</div>
+      <div class="small-note" style="margin-top:10px">Версия 2.0 · данные сохраняются на устройстве</div>
+    </div>
+  `;
 }
 
 function render(){
+  const page = $('pageContent');
+  if(currentPage==='home') page.innerHTML=renderHome();
+  else if(currentPage==='laundry') page.innerHTML=renderLaundry();
+  else if(currentPage==='history') page.innerHTML=renderHistory();
+  else if(currentPage==='settings') page.innerHTML=renderSettings();
 
-  const container =
-    $('loads');
+  document.querySelectorAll('.nav-button').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.page===currentPage);
+  });
 
-  $('loadCount').textContent =
-    loads.length;
+  $('weatherCard').classList.toggle('hidden',!settings.showWeather);
+  $('greeting').textContent = 'Привет! 🧺';
+  $('subtitle').textContent = currentPage==='settings'
+    ? 'Всё можно настроить под себя ♡'
+    : currentPage==='history'
+      ? 'Все твои завершённые стирки в одном месте.'
+      : currentPage==='laundry'
+        ? 'Следим за каждой загрузкой.'
+        : 'Посмотрим, что сейчас сушится?';
+}
 
-  if(!loads.length){
-
-    container.innerHTML = `
-      <div class="card empty">
-        <div class="empty-icon">🧺</div>
-
-        <div class="empty-title">
-          Пока здесь пусто
-        </div>
-
-        <div style="margin-top:5px">
-          Добавь первую стирку —
-          будем следить за ней вместе ♡
-        </div>
-      </div>
-    `;
-
+function openForm(id=null){
+  editingId=id;
+  const old = id ? loads.find(x=>x.id===id) : null;
+  if(id && !old){
+    toast('Не удалось найти эту стирку');
     return;
   }
 
-  container.innerHTML =
-    loads.map(item=>{
+  $('pageContent').innerHTML = `
+    <section class="card form-card active">
+      <h2 class="form-title">${old?'Изменить стирку':'Новая стирка'}</h2>
+      <p class="form-subtitle">Заполни параметры — я рассчитаю примерное время окончания сушки.</p>
 
-      const s = stage(item);
+      <label for="name">Название</label>
+      <input id="name" type="text" maxlength="80" placeholder="Например, постельное бельё" value="${escapeHtml(old?.name||'')}">
 
-      return `
-        <div class="card load-card">
+      <label for="machine">Какая машинка?</label>
+      <select id="machine">${machineOptions(old?.machine||settings.defaultMachine||machines[0])}</select>
 
-          <div class="load-top">
+      <label for="duration">Длительность стирки</label>
+      <select id="duration">
+        <option value="15">15 минут</option>
+        <option value="30">30 минут</option>
+        <option value="45">45 минут</option>
+        <option value="60">1 час</option>
+        <option value="75">1 час 15 минут</option>
+        <option value="90">1 час 30 минут</option>
+        <option value="105">1 час 45 минут</option>
+        <option value="120">2 часа</option>
+        <option value="150">2 часа 30 минут</option>
+        <option value="180">3 часа</option>
+        <option value="240">4 часа</option>
+        <option value="custom">Своё время…</option>
+      </select>
+      <label for="customDuration">Своя длительность в минутах</label>
+      <input id="customDuration" type="number" min="1" max="1440" placeholder="Например, 80" class="hidden">
 
-            <div>
-              <div class="load-name">
-                ${escapeHtml(item.name)}
-              </div>
+      <label for="fabric">Что стираем?</label>
+      <select id="fabric">${programOptions(old?.fabric||'mixed')}</select>
 
-              <div class="load-place">
-                ${placeName(item.place)}
-              </div>
-            </div>
+      <label for="spin">Отжим</label>
+      <select id="spin">
+        <option value="low">Низкий</option>
+        <option value="medium">Средний</option>
+        <option value="high">Высокий</option>
+      </select>
 
-            <div class="badge">
-              ${s.title}
-            </div>
+      <label for="place">Где будет сушиться?</label>
+      <select id="place">
+        <option value="balcony">Балкон</option>
+        <option value="glazed">Застеклённый балкон</option>
+        <option value="radiator">Батарея</option>
+        <option value="room">В комнате</option>
+        <option value="dryer">Сушильная машина</option>
+      </select>
 
-          </div>
+      <label for="amount">Количество белья</label>
+      <select id="amount">
+        <option value="small">Немного</option>
+        <option value="medium">Средняя загрузка</option>
+        <option value="large">Много</option>
+      </select>
 
-          <div class="progress-wrap">
-            <div
-              class="progress"
-              style="width:${s.progress}%"
-            ></div>
-          </div>
+      <label for="air">Движение воздуха</label>
+      <select id="air">
+        <option value="still">Почти нет воздуха</option>
+        <option value="normal">Обычное</option>
+        <option value="windy">Хорошо проветривается</option>
+      </select>
 
-          <div class="info">
-            <span>Осталось</span>
-            <strong>${s.remaining}</strong>
-          </div>
+      <label for="startMode">Когда началась стирка?</label>
+      <select id="startMode">
+        <option value="now">Сейчас</option>
+        <option value="custom">Указать дату и время</option>
+      </select>
+      <input id="customStart" type="datetime-local" class="hidden">
 
-          <div class="info" style="margin-top:6px">
-            <span>Ткань</span>
-            <span>${fabricName(item.fabric)}</span>
-          </div>
+      <label for="notes">Заметка (необязательно)</label>
+      <input id="notes" type="text" maxlength="120" placeholder="Например, белые вещи">
 
-          <div class="actions">
+      <div class="form-buttons">
+        <button class="cancel-button" data-action="cancelForm">Отмена</button>
+        <button class="save-button" data-action="saveLoad">Сохранить</button>
+      </div>
+    </section>
+    <div class="notice">💡 Расчёт приблизительный. Фактическое время сушки зависит от условий и ткани.</div>
+  `;
 
-            <button
-              class="action"
-              onclick="openForm('${item.id}')">
-              Изменить
-            </button>
+  $('duration').value=String(old?.duration||60);
+  if(![15,30,45,60,75,90,105,120,150,180,240].includes(Number(old?.duration||60))){
+    $('duration').value='custom';
+    $('customDuration').value=old.duration;
+    $('customDuration').classList.remove('hidden');
+  }
 
-            ${
-              s.stage>=2 && !item.done
-              ? `
-                <button
-                  class="action primary"
-                  onclick="markDone('${item.id}')">
-                  Сухо ✓
-                </button>
-              `
-              : ''
-            }
+  $('fabric').value=old?.fabric||'mixed';
+  $('spin').value=old?.spin||'medium';
+  $('place').value=old?.place||'balcony';
+  $('amount').value=old?.amount||'medium';
+  $('air').value=old?.air||'normal';
+  $('notes').value=old?.notes||'';
 
-            <button
-              class="action pink"
-              onclick="deleteLoad('${item.id}')">
-              Удалить
-            </button>
+  $('startMode').value=old?'custom':'now';
+  if(old){
+    const date = new Date(old.startedAt);
+    $('customStart').value =
+      `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}T${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
+    $('customStart').classList.remove('hidden');
+  }
 
-          </div>
-
-        </div>
-      `;
-    }).join('');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function weatherDescription(code){
-
-  if(code===0){
-    return {
-      icon:'☀️',
-      text:'Ясно'
-    };
-  }
-
-  if([1,2,3].includes(code)){
-    return {
-      icon:'🌤️',
-      text:'Облачно'
-    };
-  }
-
-  if([45,48].includes(code)){
-    return {
-      icon:'🌫️',
-      text:'Туман'
-    };
-  }
-
-  if([51,53,55,56,57].includes(code)){
-    return {
-      icon:'🌦️',
-      text:'Морось'
-    };
-  }
-
-  if([61,63,65,66,67].includes(code)){
-    return {
-      icon:'🌧️',
-      text:'Дождь'
-    };
-  }
-
-  if([71,73,75,77].includes(code)){
-    return {
-      icon:'🌨️',
-      text:'Снег'
-    };
-  }
-
-  if([80,81,82].includes(code)){
-    return {
-      icon:'🌦️',
-      text:'Ливень'
-    };
-  }
-
-  if([95,96,99].includes(code)){
-    return {
-      icon:'⛈️',
-      text:'Гроза'
-    };
-  }
-
-  return {
-    icon:'☁️',
-    text:'Погода'
-  };
+function cancelForm(){
+  currentPage='home';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function loadWeather(){
-
-  $('weatherText').textContent =
-    'Обновляем погоду…';
-
-  try{
-
-    let latitude = 55.79;
-    let longitude = 42.74;
-
-    if(navigator.geolocation){
-
-      try{
-
-        const position =
-          await new Promise(
-            (resolve,reject)=>{
-
-              navigator.geolocation.getCurrentPosition(
-                resolve,
-                reject,
-                {
-                  enableHighAccuracy:false,
-                  timeout:4000,
-                  maximumAge:600000
-                }
-              );
-
-            }
-          );
-
-        latitude =
-          position.coords.latitude;
-
-        longitude =
-          position.coords.longitude;
-
-      }catch(e){}
+function getDuration(){
+  if($('duration').value==='custom'){
+    const custom=Number($('customDuration').value);
+    if(!Number.isFinite(custom)||custom<1||custom>1440){
+      toast('Укажи длительность от 1 до 1440 минут');
+      return null;
     }
-
-    const url =
-      'https://api.open-meteo.com/v1/forecast' +
-      `?latitude=${latitude}` +
-      `&longitude=${longitude}` +
-      '&current=temperature_2m,relative_humidity_2m,weather_code' +
-      '&timezone=auto';
-
-    const response =
-      await fetch(url);
-
-    const data =
-      await response.json();
-
-    weather.temp =
-      Math.round(
-        data.current.temperature_2m
-      );
-
-    weather.humidity =
-      data.current.relative_humidity_2m;
-
-    weather.code =
-      data.current.weather_code;
-
-    const info =
-      weatherDescription(weather.code);
-
-    $('weatherIcon').textContent =
-      info.icon;
-
-    $('weatherTemp').textContent =
-      `${weather.temp>0?'+':''}${weather.temp}°`;
-
-    $('weatherText').textContent =
-      `${info.text} · влажность ${weather.humidity}%`;
-
-    render();
-
-  }catch(e){
-
-    $('weatherIcon').textContent='🌤️';
-    $('weatherTemp').textContent='—°';
-
-    $('weatherText').textContent =
-      'Погода временно недоступна';
+    return Math.round(custom);
   }
+  return Number($('duration').value);
+}
+
+function getStartTime(){
+  if($('startMode').value==='custom'){
+    if(!$('customStart').value){
+      toast('Укажи дату и время начала');
+      return null;
+    }
+    const date=new Date($('customStart').value);
+    if(isNaN(date.getTime())){
+      toast('Проверь дату и время');
+      return null;
+    }
+    if(date.getTime()>Date.now()+60000){
+      toast('Время начала не может быть в будущем');
+      return null;
+    }
+    return date.getTime();
+  }
+  return Date.now();
+}
+
+function saveLoad(){
+  const duration=getDuration();
+  if(duration===null) return;
+
+  const startedAt=getStartTime();
+  if(startedAt===null) return;
+
+  const id=editingId||String(Date.now())+'_'+Math.random().toString(36).slice(2,7);
+  const old=loads.find(x=>x.id===id);
+
+  const data={
+    id,
+    name:$('name').value.trim()||'Моя стирка',
+    machine:$('machine').value||machines[0],
+    duration,
+    fabric:$('fabric').value,
+    spin:$('spin').value,
+    place:$('place').value,
+    amount:$('amount').value,
+    air:$('air').value,
+    notes:$('notes').value.trim(),
+    startedAt,
+    createdAt:old?.createdAt||Date.now(),
+    done:old?.done||false,
+    finishedAt:old?.finishedAt||null
+  };
+
+  if(old){
+    const index=loads.findIndex(x=>x.id===id);
+    loads[index]=data;
+  }else{
+    loads.unshift(data);
+  }
+
+  save();
+  currentPage='home';
+  editingId=null;
+  render();
+  toast(old?'Стирка обновлена ✨':'Стирка добавлена 🧺');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteLoad(id){
+  if(!confirm('Удалить эту стирку?')) return;
+  loads=loads.filter(x=>x.id!==id);
+  save();
+  render();
+  toast('Стирка удалена');
+}
+
+function markDone(id){
+  const item=loads.find(x=>x.id===id);
+  if(!item) return;
+  item.done=true;
+  item.finishedAt=Date.now();
+  save();
+  render();
+  toast('Записала в историю ✨');
+}
+
+function restoreLoad(id){
+  const item=loads.find(x=>x.id===id);
+  if(!item) return;
+  item.done=false;
+  item.finishedAt=null;
+  // Не начинаем старую стирку заново: время остаётся прежним.
+  save();
+  currentPage='laundry';
+  render();
+  toast('Вернула в активные стирки');
+}
+
+function changePage(page){
+  currentPage=page;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function addMachine(){
+  const name=prompt('Как назвать машинку? Например, Машинка 2');
+  if(!name) return;
+  const clean=name.trim().slice(0,40);
+  if(!clean) return;
+  if(machines.some(x=>x.toLowerCase()===clean.toLowerCase())){
+    toast('Такая машинка уже есть');
+    return;
+  }
+  machines.push(clean);
+  settings.defaultMachine=clean;
+  saveMachines();
+  saveSettings();
+  render();
+  toast('Машинка добавлена 🧺');
+}
+
+function removeMachine(index){
+  if(machines.length<=1){
+    toast('Нужно оставить хотя бы одну машинку');
+    return;
+  }
+  const name=machines[index];
+  if(loads.some(x=>x.machine===name&&!x.done)){
+    if(!confirm('У этой машинки есть активные стирки. Удалить её из списка?')) return;
+  }else if(!confirm('Удалить машинку «'+name+'»?')) return;
+
+  const replacement=machines.find((_,i)=>i!==index);
+  machines.splice(index,1);
+  loads.forEach(x=>{
+    if(x.machine===name) x.machine=replacement;
+  });
+  if(settings.defaultMachine===name) settings.defaultMachine=replacement;
+  saveMachines();
+  saveSettings();
+  save();
+  render();
+  toast('Список машинок обновлён');
+}
+
+function addProgram(){
+  const name=prompt('Название своей программы, например «Детские вещи»');
+  if(!name||!name.trim()) return;
+  const clean=name.trim().slice(0,50);
+  const fabric=prompt('Тип ткани: cotton, synthetic, mixed, delicate, towels или bed','mixed');
+  const allowed=['cotton','synthetic','mixed','delicate','towels','bed'];
+  const chosen=(fabric||'mixed').trim().toLowerCase();
+  if(!allowed.includes(chosen)){
+    toast('Неизвестный тип ткани. Используй mixed, cotton и т. д.');
+    return;
+  }
+  if(customPrograms.some(p=>p.name.toLowerCase()===clean.toLowerCase())){
+    toast('Программа с таким названием уже есть');
+    return;
+  }
+  customPrograms.push({name:clean,fabric:chosen});
+  savePrograms();
+  render();
+  toast('Своя программа добавлена ♡');
+}
+
+function removeProgram(index){
+  if(!confirm('Удалить эту программу из списка?')) return;
+  customPrograms.splice(index,1);
+  savePrograms();
+  render();
+  toast('Программа удалена');
+}
+
+function exportData(){
+  const data={
+    version:2,
+    exportedAt:new Date().toISOString(),
+    loads,settings,machines,customPrograms
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='belyo-doma-backup.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('Резервная копия подготовлена');
+}
+
+function importData(){
+  $('importFile').click();
+}
+
+function resetSettings(){
+  if(!confirm('Сбросить оформление и настройки? Стирки и история останутся.')) return;
+  settings={
+    theme:'sage',
+    timeFormat:'24',
+    notifications:false,
+    showWeather:true,
+    defaultMachine:machines[0]||'Машинка 1',
+    language:'ru'
+  };
+  saveSettings();
+  applyTheme();
+  render();
+  toast('Настройки сброшены');
 }
 
 async function requestNotifications(){
-
   if(!('Notification' in window)){
-
-    toast(
-      'Этот браузер не поддерживает уведомления'
-    );
-
-    return;
+    toast('Этот браузер не поддерживает уведомления');
+    return false;
   }
-
   try{
-
-    const permission =
-      await Notification.requestPermission();
-
+    const permission=await Notification.requestPermission();
     if(permission==='granted'){
-
-      toast(
-        'Уведомления включены 🔔'
-      );
-
-    }else{
-
-      toast(
-        'Уведомления не разрешены'
-      );
+      settings.notifications=true;
+      saveSettings();
+      toast('Уведомления разрешены 🔔');
+      render();
+      return true;
     }
-
+    settings.notifications=false;
+    saveSettings();
+    toast('Разрешение на уведомления не выдано');
+    render();
+    return false;
   }catch(e){
-
-    toast(
-      'Не удалось включить уведомления'
-    );
+    toast('Не удалось включить уведомления');
+    return false;
   }
 }
 
 function alertUser(title,body){
-
-  if(
-    'Notification' in window &&
-    Notification.permission==='granted'
-  ){
-
+  if(settings.notifications &&
+     'Notification' in window &&
+     Notification.permission==='granted'){
     try{
-
-      new Notification(
-        title,
-        {body}
-
-      );
-
-    }catch(e){
-
-      toast(
-        title+' — '+body
-      );
-    }
-
-  }else{
-
-    toast(
-      title+' — '+body
-    );
+      new Notification(title,{body});
+      return;
+    }catch(e){}
   }
+  toast(title+': '+body);
 }
 
 function checkAlerts(){
-
   for(const item of loads){
+    if(item.done) continue;
+    const s=stage(item);
+    const washEnd=item.startedAt+item.duration*60000;
 
-    if(item.done){
-      continue;
+    if(s.stage>=1 && Date.now()>=washEnd && !notified.has(item.id+':wash')){
+      notified.add(item.id+':wash');
+      alertUser('Стирка закончилась','«'+item.name+'»: пора развесить бельё.');
     }
-
-    const s =
-      stage(item);
-
-    if(
-      s.stage>=1 &&
-      !notified.has(item.id+':wash')
-    ){
-
-      const washEnd =
-        item.startedAt +
-        item.duration*60000;
-
-      if(Date.now()>=washEnd){
-
-        notified.add(
-          item.id+':wash'
-        );
-
-        alertUser(
-          'Стирка закончилась',
-          `«${item.name}»: пора развесить бельё.`
-        );
-      }
-    }
-
-    if(
-      s.stage>=2 &&
-      !notified.has(item.id+':dry')
-    ){
-
-      notified.add(
-        item.id+':dry'
-      );
-
-      alertUser(
-        'Пора проверить бельё',
-        `«${item.name}»: расчётное время сушки прошло.`
-      );
+    if(s.stage>=2 && !notified.has(item.id+':dry')){
+      notified.add(item.id+':dry');
+      alertUser('Пора проверить бельё','«'+item.name+'»: расчётное время сушки прошло.');
     }
   }
-
-  render();
+  if(currentPage==='home'||currentPage==='laundry') render();
 }
 
-function setActiveNav(button){
-
-  document
-    .querySelectorAll('.nav-button')
-    .forEach(btn=>{
-      btn.classList.remove('active');
-    });
-
-  button.classList.add('active');
+function weatherDescription(code){
+  if(code===0) return {icon:'☀️',text:'Ясно'};
+  if([1,2,3].includes(code)) return {icon:'🌤️',text:'Облачно'};
+  if([45,48].includes(code)) return {icon:'🌫️',text:'Туман'};
+  if([51,53,55,56,57].includes(code)) return {icon:'🌦️',text:'Морось'};
+  if([61,63,65,66,67].includes(code)) return {icon:'🌧️',text:'Дождь'};
+  if([71,73,75,77].includes(code)) return {icon:'🌨️',text:'Снег'};
+  if([80,81,82].includes(code)) return {icon:'🌦️',text:'Ливень'};
+  if([95,96,99].includes(code)) return {icon:'⛈️',text:'Гроза'};
+  return {icon:'☁️',text:'Погода'};
 }
 
-$('addButton').addEventListener(
-  'click',
-  ()=>{
-    openForm();
+async function loadWeather(){
+  if(!settings.showWeather) return;
+  $('weatherText').textContent='Обновляем погоду…';
+
+  try{
+    let latitude=55.79;
+    let longitude=42.74;
+
+    if(navigator.geolocation){
+      try{
+        const position=await new Promise((resolve,reject)=>{
+          navigator.geolocation.getCurrentPosition(resolve,reject,{
+            enableHighAccuracy:false,timeout:4000,maximumAge:600000
+          });
+        });
+        latitude=position.coords.latitude;
+        longitude=position.coords.longitude;
+      }catch(e){}
+    }
+
+    const url='https://api.open-meteo.com/v1/forecast'
+      +'?latitude='+latitude
+      +'&longitude='+longitude
+      +'&current=temperature_2m,relative_humidity_2m,weather_code'
+      +'&timezone=auto';
+
+    const response=await fetch(url);
+    if(!response.ok) throw new Error('Weather request failed');
+    const data=await response.json();
+    if(!data.current) throw new Error('No weather data');
+
+    weather.temp=Math.round(data.current.temperature_2m);
+    weather.humidity=data.current.relative_humidity_2m;
+    weather.code=data.current.weather_code;
+
+    const info=weatherDescription(weather.code);
+    $('weatherIcon').textContent=info.icon;
+    $('weatherTemp').textContent=(weather.temp>0?'+':'')+weather.temp+'°';
+    $('weatherText').textContent=info.text+' · влажность '+weather.humidity+'%';
+
+    if(currentPage==='home'||currentPage==='laundry') render();
+  }catch(e){
+    $('weatherIcon').textContent='🌤️';
+    $('weatherTemp').textContent='—°';
+    $('weatherText').textContent='Погода временно недоступна';
   }
-);
+}
 
-$('cancelButton').addEventListener(
-  'click',
-  closeForm
-);
+$('pageContent').addEventListener('click',async event=>{
+  const button=event.target.closest('[data-action]');
+  if(!button) return;
 
-$('saveButton').addEventListener(
-  'click',
-  saveLoad
-);
+  const action=button.dataset.action;
+  const id=button.dataset.id;
 
-$('startMode').addEventListener(
-  'change',
-  ()=>{
-    $('customStart')
-      .classList.toggle(
-        'hidden',
-        $('startMode').value!=='custom'
-      );
-  }
-);
-
-$('refreshWeather').addEventListener(
-  'click',
-  loadWeather
-);
-
-$('navHome').addEventListener(
-  'click',
-  ()=>{
-    setActiveNav($('navHome'));
-    closeForm();
-  }
-);
-
-$('navLaundry').addEventListener(
-  'click',
-  ()=>{
-    setActiveNav($('navLaundry'));
-    openForm();
-  }
-);
-
-$('navHistory').addEventListener(
-  'click',
-  ()=>{
-    setActiveNav($('navHistory'));
-
-    const completed =
-      loads.filter(x=>x.done);
-
-    if(completed.length){
-
-      toast(
-        `В истории ${completed.length} стирок 🕊️`
-      );
-
-    }else{
-
-      toast(
-        'История пока пустая 🕊️'
-      );
+  if(action==='add') openForm();
+  else if(action==='edit') openForm(id);
+  else if(action==='delete') deleteLoad(id);
+  else if(action==='finish') markDone(id);
+  else if(action==='restore') restoreLoad(id);
+  else if(action==='cancelForm') cancelForm();
+  else if(action==='saveLoad') saveLoad();
+  else if(action==='addMachine') addMachine();
+  else if(action==='removeMachine') removeMachine(Number(button.dataset.index));
+  else if(action==='addProgram') addProgram();
+  else if(action==='removeProgram') removeProgram(Number(button.dataset.index));
+  else if(action==='exportData') exportData();
+  else if(action==='importData') importData();
+  else if(action==='resetSettings') resetSettings();
+  else if(action==='clearHistory'){
+    if(confirm('Удалить все завершённые стирки из истории?')){
+      loads=loads.filter(x=>!x.done);
+      save();
+      render();
+      toast('История очищена');
     }
   }
-);
-
-$('navSettings').addEventListener(
-  'click',
-  ()=>{
-    setActiveNav($('navSettings'));
-
-    requestNotifications();
+  else if(action==='testNotification'){
+    if(!settings.notifications){
+      const granted=await requestNotifications();
+      if(!granted) return;
+    }
+    alertUser('Бельё дома 🧺','Проверка уведомлений прошла успешно!');
   }
-);
+});
 
-$('refreshBtn')?.addEventListener(
-  'click',
-  ()=>{
-    loads.forEach(
-      item=>{
-        item.dry =
-          dryMinutes(item);
-      }
-    );
+$('pageContent').addEventListener('change',async event=>{
+  const el=event.target;
 
-    save();
+  if(el.id==='duration'){
+    $('customDuration').classList.toggle('hidden',el.value!=='custom');
+  }
 
+  if(el.id==='startMode'){
+    $('customStart').classList.toggle('hidden',el.value!=='custom');
+    if(el.value==='custom'&&!$('customStart').value){
+      const now=new Date();
+      $('customStart').value=
+        `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}T${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    }
+  }
+
+  if(el.id==='settingTheme'){
+    settings.theme=el.value;
+    saveSettings();
+    applyTheme();
+    toast('Тема обновлена 🎨');
+  }
+
+  if(el.id==='settingTime'){
+    settings.timeFormat=el.value;
+    saveSettings();
     render();
-
-    toast(
-      'Расчёт обновлён'
-    );
+    toast('Формат времени изменён');
   }
-);
+
+  if(el.id==='settingWeather'){
+    settings.showWeather=el.checked;
+    saveSettings();
+    applyTheme();
+    render();
+    if(el.checked) loadWeather();
+  }
+
+  if(el.id==='settingDefaultMachine'){
+    settings.defaultMachine=el.value;
+    saveSettings();
+    toast('Машинка по умолчанию изменена');
+  }
+
+  if(el.id==='settingNotifications'){
+    if(el.checked){
+      await requestNotifications();
+    }else{
+      settings.notifications=false;
+      saveSettings();
+      render();
+      toast('Напоминания выключены');
+    }
+  }
+});
+
+$('pageContent').addEventListener('change',async event=>{
+  if(event.target.id!=='importFile') return;
+  const file=event.target.files && event.target.files[0];
+  if(!file) return;
+
+  try{
+    const data=JSON.parse(await file.text());
+    if(!data || !Array.isArray(data.loads) || !Array.isArray(data.machines)){
+      throw new Error('Invalid backup');
+    }
+    if(!confirm('Импортировать резервную копию? Текущие стирки и настройки будут заменены.')) return;
+
+    loads=data.loads;
+    if(data.settings && typeof data.settings==='object') settings={...settings,...data.settings};
+    machines=data.machines.length?data.machines:['Машинка 1'];
+    customPrograms=Array.isArray(data.customPrograms)?data.customPrograms:[];
+    save();
+    saveSettings();
+    saveMachines();
+    savePrograms();
+    applyTheme();
+    render();
+    toast('Резервная копия восстановлена ✨');
+  }catch(e){
+    toast('Не удалось прочитать файл резервной копии');
+  }finally{
+    event.target.value='';
+  }
+});
+
+document.querySelectorAll('.nav-button').forEach(button=>{
+  button.addEventListener('click',()=>changePage(button.dataset.page));
+});
+
+$('refreshWeather').addEventListener('click',loadWeather);
+
+document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+    loads=readStorage(STORAGE_KEY,loads);
+    render();
+    checkAlerts();
+  }
+});
 
 loadSaved();
 render();
 loadWeather();
 
-setInterval(
-  checkAlerts,
-  15000
-);
-
-document.addEventListener(
-  'visibilitychange',
-  ()=>{
-    if(!document.hidden){
-      loadSaved();
-      render();
-      checkAlerts();
-    }
-  }
-);
-
+setInterval(()=>{
+  checkAlerts();
+},15000);
 </script>
-
 </body>
 </html>
