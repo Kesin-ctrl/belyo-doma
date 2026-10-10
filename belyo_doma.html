@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f8ff">
+<title>Бельё дома — стирка и сушка</title>
+<style>
+:root{--blue:#3864df;--blue2:#244fc6;--ink:#171923;--muted:#747987;--line:#e5e9f2;--bg:#f7f8fc;--white:#fff;--mint:#eaf8f1;--orange:#fff3e4;--shadow:0 10px 30px rgba(42,65,130,.08)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f9faff 0,#f6f7fb 45%,#f8f8fc 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:920px;margin:auto;padding:20px 15px 50px}.hero{background:linear-gradient(135deg,#315fdf,#6d87ed);border-radius:27px;color:#fff;padding:23px 22px 21px;box-shadow:0 14px 35px #4168d52c;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:180px;height:180px;border:28px solid #ffffff16;border-radius:50%;right:-60px;top:-80px}.eyebrow{font-size:12px;letter-spacing:.13em;font-weight:800;opacity:.82;text-transform:uppercase}.hero h1{font-size:clamp(28px,7vw,39px);line-height:1.05;margin:10px 0 9px;letter-spacing:-.04em}.hero p{margin:0;max-width:560px;line-height:1.5;color:#eef1ff;font-size:14px}.weather{margin-top:18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.weather-pill{background:#ffffff20;border:1px solid #ffffff40;border-radius:14px;padding:9px 12px;font-size:13px}.weather button{background:#fff;color:var(--blue2);border:0;border-radius:12px;padding:10px 13px;font-weight:750;font-size:13px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 2px 12px}.section-title h2{font-size:20px;margin:0;letter-spacing:-.02em}.small{font-size:12px;color:var(--muted);line-height:1.45}.panel{background:var(--white);border:1px solid #e9ecf5;border-radius:22px;padding:18px;box-shadow:var(--shadow)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label{font-size:12px;color:#606779;font-weight:750}.field input,.field select{width:100%;min-width:0;border:1px solid #dfe4ef;border-radius:12px;padding:12px 11px;background:#fbfcff;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:#7190f2;box-shadow:0 0 0 3px #3864df18}.full{grid-column:1/-1}.primary{background:var(--blue);color:#fff;border:0;border-radius:13px;padding:14px 16px;font-weight:800;box-shadow:0 7px 14px #3864df26}.primary:active{transform:scale(.99)}.secondary{background:#f1f4ff;color:var(--blue2);border:1px solid #dfe6ff;border-radius:12px;padding:10px 12px;font-weight:750}.rowbtns{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.rowbtns .primary{flex:1}.cards{display:grid;gap:14px}.empty{text-align:center;padding:28px 18px;color:var(--muted);background:#fff;border:1px dashed #d7deed;border-radius:20px}.empty .icon{font-size:30px;margin-bottom:8px}.loadcard{background:#fff;border:1px solid #e8ebf4;border-radius:22px;padding:17px;box-shadow:var(--shadow)}.loadtop{display:flex;gap:12px;align-items:flex-start}.badge{width:44px;height:44px;border-radius:15px;background:#edf1ff;display:grid;place-items:center;font-size:22px;flex-shrink:0}.loadname{font-size:20px;font-weight:850;letter-spacing:-.025em;overflow-wrap:anywhere}.meta{color:var(--muted);font-size:13px;margin-top:5px;line-height:1.5}.status{margin-left:auto;white-space:nowrap;background:#edf1ff;color:var(--blue2);padding:6px 9px;border-radius:99px;font-size:11px;font-weight:800}.status.done{background:var(--mint);color:#18744b}.timeline{display:flex;justify-content:space-between;align-items:center;gap:5px;margin:17px 0 12px}.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;color:#a2a7b4;font-size:11px;font-weight:750;text-align:center}.step .circle{width:35px;height:35px;border-radius:50%;border:2px solid #dce1eb;background:#fff;display:grid;place-items:center;font-size:16px}.step.active{color:var(--blue)}.step.active .circle{border-color:var(--blue);background:#edf1ff}.step.done{color:#21875d}.step.done .circle{border-color:#70c8a1;background:#eaf8f1}.progress{height:7px;background:#edf0f7;border-radius:10px;overflow:hidden;margin:12px 0 14px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#3864df,#8297f7);border-radius:10px;transition:width .3s}.cardbottom{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:13px}.bigtime{font-size:25px;color:var(--blue);font-weight:900;letter-spacing:-.04em}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.actions button{border:1px solid #e1e5ef;background:#fff;border-radius:10px;padding:8px 10px;color:#545c6d;font-size:12px;font-weight:750}.actions button.blue{background:#edf1ff;border-color:#dfe6ff;color:var(--blue2)}.notice{margin-top:15px;border-radius:14px;background:#fff8e9;border:1px solid #ffebc5;padding:12px 13px;color:#77551c;font-size:12px;line-height:1.5}.footer{text-align:center;color:#8a90a0;font-size:11px;line-height:1.6;padding:22px 10px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);max-width:calc(100% - 30px);background:#202536;color:#fff;border-radius:13px;padding:12px 16px;font-size:13px;box-shadow:0 8px 24px #0002;z-index:10;display:none}.hidden{display:none!important}@media(min-width:700px){.layout{display:grid;grid-template-columns: .92fr 1.08fr;gap:18px;align-items:start}.layout .section-title{margin-top:0}.formgrid{grid-template-columns:1fr 1fr}}@media(max-width:420px){.wrap{padding:12px 10px 35px}.hero{padding:20px 17px;border-radius:22px}.panel{padding:14px}.formgrid{gap:10px}.field input,.field select{padding:11px 9px;font-size:14px}.loadcard{padding:14px}.loadname{font-size:18px}.cardbottom{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.status{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+ <div class="eyebrow">ТВОЙ ДОМАШНИЙ ПОМОЩНИК</div>
+ <h1>Бельё дома 🧺</h1>
+ <p>Все стирки в одном месте. Время стирки задаёшь сама, а примерное время сушки рассчитывается по ткани, отжиму и погоде.</p>
+ <div class="weather">
+  <div class="weather-pill" id="weatherText">🌡️ Погода ещё не загружена</div>
+  <button type="button" id="weatherBtn">Определить погоду</button>
+ </div>
+</header>
+<div class="layout">
+<section>
+ <div class="section-title"><h2>＋ Добавить стирку</h2></div>
+ <form class="panel" id="washForm">
+  <div class="formgrid">
+   <div class="field full"><label for="name">Название стирки</label><input id="name" maxlength="50" placeholder="Например, постельное бельё" required></div>
+   <div class="field"><label for="duration">Время стирки, минут</label><input id="duration" type="number" min="1" max="600" value="120" required></div>
+   <div class="field"><label for="mode">Режим стирки</label><select id="mode"><option value="обычный">Обычная</option><option value="хлопок">Хлопок</option><option value="быстрая">Быстрая</option><option value="деликатная">Деликатная</option><option value="синтетика">Синтетика</option><option value="шерсть">Шерсть</option><option value="постельное">Постельное бельё</option><option value="полотенца">Полотенца</option><option value="ручная">Ручная стирка</option></select></div>
+   <div class="field"><label for="fabric">Основная ткань</label><select id="fabric"><option value="смешанная">Смешанная</option><option value="хлопок">Хлопок / лён</option><option value="синтетика">Синтетика</option><option value="тонкая">Тонкая ткань</option><option value="шерсть">Шерсть</option><option value="махра">Махра / полотенца</option><option value="постельное">Постельное бельё</option><option value="джинса">Джинса / плотная ткань</option></select></div>
+   <div class="field"><label for="spin">Отжим</label><select id="spin"><option value="1400">1200–1400 об/мин</option><option value="1000">800–1000 об/мин</option><option value="600">400–600 об/мин</option><option value="0">Без отжима</option></select></div>
+   <div class="field"><label for="place">Где сушится</label><select id="place"><option value="balcony">Застеклённый балкон</option><option value="radiator">На батарее</option><option value="room">В комнате</option><option value="outside">На улице</option></select></div>
+   <div class="field"><label for="amount">Количество белья</label><select id="amount"><option value="small">Немного</option><option value="medium" selected>Обычная загрузка</option><option value="large">Много / плотная развеска</option></select></div>
+   <div class="field"><label for="air">Проветривание</label><select id="air"><option value="normal">Обычное</option><option value="good">Хорошее / окно открыто</option><option value="poor">Почти нет</option></select></div>
+   <div class="field full"><label for="startAt">Когда запускаешь стирку</label><select id="startAt"><option value="now">Сейчас</option><option value="custom">Указать время вручную</option></select></div>
+   <div class="field full hidden" id="customStartWrap"><label for="customStart">Дата и время запуска</label><input id="customStart" type="datetime-local"></div>
+  </div>
+  <div class="rowbtns"><button class="primary" type="submit">Добавить стирку</button><button class="secondary" type="button" id="notifyBtn">Включить уведомления</button></div>
+  <div class="small" style="margin-top:11px">После завершения стирки появится этап сушки и её примерная длительность. Можно добавлять сколько угодно партий.</div>
+ </form>
+ <div class="notice">💡 Расчёт сушки — ориентир, а не точное измерение. Внутри застеклённого балкона влажность может отличаться от прогноза на улице. Проверь бельё руками перед тем, как убирать.</div>
+</section>
+<section>
+ <div class="section-title"><h2>Твои стирки</h2><span class="small" id="count">0 партий</span></div>
+ <div class="cards" id="cards"></div>
+ <div class="empty" id="empty"><div class="icon">🧺</div><b>Пока здесь пусто</b><div class="small" style="margin-top:6px">Добавь первую стирку — она появится здесь отдельной карточкой.</div></div>
+ <div class="rowbtns"><button class="secondary" type="button" id="refreshBtn">Обновить расчёт сушки</button><button class="secondary" type="button" id="clearDoneBtn">Удалить завершённые</button></div>
+</section>
+</div>
+<div class="footer">Погода: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · бесплатно, без ключа API.<br>Стирки хранятся в памяти браузера на этом устройстве. Для уведомлений разреши их в Safari; на iPhone надёжнее работает после добавления сайта на экран «Домой».</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const STORE='belyo_doma_v1';
+let loads=JSON.parse(localStorage.getItem(STORE)||'[]');
+let weather=null;
+let notified=new Set();
+const icons={balcony:'🪟',radiator:'🔥',room:'🏠',outside:'🌤️'};
+const placeNames={balcony:'Застеклённый балкон',radiator:'На батарее',room:'В комнате',outside:'На улице'};
+const fmt=(d)=>new Intl.DateTimeFormat('ru-RU',{hour:'2-digit',minute:'2-digit'}).format(new Date(d));
+const dateTimeLocal=(d)=>{let x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,16)};
+function save(){localStorage.setItem(STORE,JSON.stringify(loads));render()}
+function toast(t){let el=$('toast');el.textContent=t;el.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>el.style.display='none',3200)}
+function elapsed(l){return Math.max(0,Date.now()-l.started)}
+function washEnd(l){return l.started+l.duration*60000}
+function dryMinutes(l){
+ let base={смешанная:330,хлопок:390,синтетика:180,тонкая:150,шерсть:360,махра:480,постельное:420,джинса:540}[l.fabric]||330;
+ const spinFactor={'1400':.68,'1000':.82,'600':1.08,'0':1.55}[l.spin]||.82;
+ const amountFactor={small:.72,medium:1,large:1.35}[l.amount]||1;
+ const airFactor={good:.78,normal:1,poor:1.35}[l.air]||1;
+ let placeFactor={balcony:1.02,radiator:.66,room:1.15,outside:.85}[l.place]||1;
+ if(weather){
+   let temp=weather.temp,hum=weather.humidity,wind=weather.wind;
+   let f=1+Math.max(-.2,Math.min(.55,(20-temp)*.012))+Math.max(-.12,Math.min(.5,(hum-50)*.006))-Math.min(.18,wind*.008);
+   if(l.place==='radiator') f=1+Math.max(-.1,Math.min(.2,(hum-50)*.002));
+   placeFactor*=Math.max(.68,Math.min(1.6,f));
+ }
+ let modeFactor={быстрая:.9,деликатная:1.05,шерсть:1.12,постельное:1.08,полотенца:1.15,ручная:1.18,хлопок:1.05,синтетика:.88,обычный:1}[l.mode]||1;
+ return Math.max(35,Math.round(base*spinFactor*amountFactor*airFactor*placeFactor*modeFactor/5)*5);
+}
+function stage(l){if(l.done)return 3;const end=washEnd(l);if(Date.now()<end)return 0;if(Date.now()<end+l.dry*60000)return 1;return 2}
+function stageTimes(l){let s=stage(l),d=l.dry||dryMinutes(l),end=washEnd(l);return {s,d,end,dryEnd:end+d*60000}}
+function remaining(ms){if(ms<=0)return '0 мин';let m=Math.ceil(ms/60000);if(m>=60){let h=Math.floor(m/60),r=m%60;return r?`${h} ч ${r} мин`:`${h} ч`};return `${m} мин`}
+function render(){
+ let root=$('cards');root.innerHTML='';$('empty').classList.toggle('hidden',loads.length>0);$('count').textContent=`${loads.length} ${loads.length===1?'партия':loads.length<5?'партии':'партий'}`;
+ loads.sort((a,b)=>a.started-b.started);
+ for(const l of loads){
+  let s=stage(l),t=stageTimes(l),end=s===0?t.end:s===1?t.dryEnd:Date.now(),rem=end-Date.now();
+  let name=s===0?'Стирается':s===1?'Сушится':s===2?'Проверь бельё':'Готово';
+  let percent=s===0?Math.min(100,Math.max(3,elapsed(l)/(l.duration*60000)*100)):s===1?Math.min(100,Math.max(3,(elapsed(l)-l.duration*60000)/(l.dry*60000)*100)):100;
+  let card=document.createElement('article');card.className='loadcard';
+  card.innerHTML=`<div class="loadtop"><div class="badge">${s===0?'💧':s===1?'☀️':'👕'}</div><div style="flex:1;min-width:0"><div class="loadname">${esc(l.name)}</div><div class="meta">${esc(l.mode)} · ${esc(l.fabric)} · отжим ${l.spin==='0'?'без отжима':l.spin+' об/мин'}<br>${icons[l.place]} ${placeNames[l.place]} · запущено в ${fmt(l.started)}</div></div><span class="status ${s===3?'done':''}">${name}</span></div>
+  <div class="timeline"><div class="step ${s===0?'active':s>0?'done':''}"><span class="circle">${s>0?'✓':'💧'}</span><span>Стирается</span></div><div class="step ${s===1?'active':s>1?'done':''}"><span class="circle">${s>1?'✓':'☀️'}</span><span>Сушится</span></div><div class="step ${s>=2?'active':''}"><span class="circle">👕</span><span>Пора сложить</span></div></div>
+  <div class="progress"><span style="width:${percent}%"></span></div>
+  <div class="cardbottom"><div><div class="small">${s===0?'Стирка закончится примерно в':s===1?'Сушка закончится примерно в':'Всё готово!'}</div><div class="bigtime">${s===2?'Проверь 👕':s===3?'Готово 🎉':remaining(rem)}</div><div class="meta">${s===0?`Ожидается в ${fmt(t.end)} · сушка около ${remaining(l.dry*60000)}`:s===1?`Ожидается в ${fmt(t.dryEnd)} · сушится примерно ${remaining(Math.max(0,l.dry*60000-(elapsed(l)-l.duration*60000)))}`:s===2?'Расчётное время прошло — проверь бельё':'Можно убирать бельё'}</div></div>
+  <div class="actions">${s===0?`<button class="blue" data-action="dry" data-id="${l.id}">Стирка закончилась</button>`:''}${s===1||s===2?`<button class="blue" data-action="done" data-id="${l.id}">${s===2?'Убрать бельё':'Уже высохло'}</button>`:''}<button data-action="edit" data-id="${l.id}">Изменить время</button><button data-action="delete" data-id="${l.id}">Удалить</button></div></div>`;
+  root.appendChild(card);
+ }
+}
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('startAt').addEventListener('change',()=>{$('customStartWrap').classList.toggle('hidden',$('startAt').value!=='custom');if($('startAt').value==='custom')$('customStart').value=dateTimeLocal(Date.now())});
+$('washForm').addEventListener('submit',e=>{e.preventDefault();let start=$('startAt').value==='custom'?new Date($('customStart').value).getTime():Date.now();if(!Number.isFinite(start)){toast('Укажи корректное время запуска');return}
+ const l={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random()),name:$('name').value.trim(),duration:Math.max(1,Math.min(600,Number($('duration').value)||120)),mode:$('mode').value,fabric:$('fabric').value,spin:$('spin').value,place:$('place').value,amount:$('amount').value,air:$('air').value,started:start,created:Date.now(),dry:0,done:false};
+ l.dry=dryMinutes(l);loads.push(l);save();$('name').value='';toast('Стирка добавлена!');});
+$('cards').addEventListener('click',e=>{let b=e.target.closest('button[data-action]');if(!b)return;let l=loads.find(x=>x.id===b.dataset.id);if(!l)return;
+ if(b.dataset.action==='delete'){loads=loads.filter(x=>x.id!==l.id);save();return}
+ if(b.dataset.action==='dry'){l.duration=Math.max(1,Math.round((Date.now()-l.started)/60000));l.dry=dryMinutes(l);l.started=Date.now()-l.duration*60000; l.manualDryStart=Date.now();save();toast('Начали отсчёт сушки');return}
+ if(b.dataset.action==='done'){l.done=true;save();toast('Отмечено как высохшее!');return}
+ if(b.dataset.action==='edit'){let v=prompt('Сколько минут осталось до окончания стирки? Введите 0, если стирка уже закончилась.',String(Math.max(0,Math.ceil((washEnd(l)-Date.now())/60000))));if(v===null)return;let m=Number(v);if(!Number.isFinite(m)||m<0){toast('Введи количество минут');return}l.started=Date.now()-(l.duration-m)*60000;if(m===0)l.started=Date.now()-l.duration*60000;l.dry=dryMinutes(l);save()}
+});
+async function loadWeather(lat,lon,label='ваше местоположение'){
+ try{
+  const u=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&timezone=auto`;
+  const r=await fetch(u,{cache:'no-store'}); if(!r.ok) throw Error('weather');
+  const d=await r.json();
+  weather={temp:d.current.temperature_2m,humidity:d.current.relative_humidity_2m,wind:d.current.wind_speed_10m};
+  $('weatherText').textContent=`📍 ${label} · ${Math.round(weather.temp)}°C · влажность ${weather.humidity}% · ветер ${Math.round(weather.wind)} км/ч`;
+  loads.forEach(l=>l.dry=dryMinutes(l)); save(); toast('Погода обновлена, расчёт сушки пересчитан');
+  return true;
+ }catch(e){return false}
+}
+async function loadWeatherByIP(){
+ try{
+  const r=await fetch('https://ipapi.co/json/',{cache:'no-store'}); if(!r.ok) throw Error();
+  const d=await r.json();
+  if(!d.latitude||!d.longitude) throw Error();
+  return await loadWeather(d.latitude,d.longitude,d.city||'Ваш город');
+ }catch(e){return false}
+}
+$('weatherBtn').addEventListener('click',async()=>{
+ $('weatherText').textContent='📍 Определяем погоду…';
+ // Важно: если HTML открыт как локальный файл (file://), Safari может
+ // блокировать точную геолокацию. Сначала пробуем её, затем — город по IP.
+ let precise=false;
+ try{
+  if(navigator.geolocation){
+   await new Promise(resolve=>{
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      precise=await loadWeather(pos.coords.latitude,pos.coords.longitude,'Ваше местоположение'); resolve();
+    },()=>resolve(),{enableHighAccuracy:false,timeout:7000,maximumAge:600000});
+   });
+  }
+ }catch(e){}
+ if(!precise){
+   const ok=await loadWeatherByIP();
+   if(!ok){
+    $('weatherText').textContent='Погода не загрузилась';
+    toast('Safari не дал доступ к геолокации, а определение города по IP не сработало. Открой сайт через HTTPS или введи город вручную.');
+   }else{
+    toast('Город определён автоматически. Для более точной погоды открой сайт через HTTPS.');
+   }
+ }
+});
+$('notifyBtn').addEventListener('click',async()=>{if(!('Notification'in window)){toast('Уведомления не поддерживаются этим способом открытия. Оставь страницу открытой.');return}
+ try{let p=await Notification.requestPermission();toast(p==='granted'?'Уведомления разрешены':'Уведомления не разрешены')}catch(e){toast('Не удалось включить уведомления')}});
+$('refreshBtn').addEventListener('click',()=>{loads.forEach(l=>l.dry=dryMinutes(l));save();toast('Время сушки пересчитано')});
+$('clearDoneBtn').addEventListener('click',()=>{loads=loads.filter(l=>!l.done);save();toast('Завершённые стирки удалены')});
+function checkAlerts(){
+ for(const l of loads){if(l.done)continue;let s=stage(l);let key=l.id+':'+s;
+  if(s>=1&&!notified.has(l.id+':wash')){notified.add(l.id+':wash');alertUser('Стирка закончилась',`«${l.name}»: пора развесить бельё.`)}
+  if(s>=2&&!notified.has(l.id+':dry')){notified.add(l.id+':dry');alertUser('Пора проверить бельё',`«${l.name}»: расчётное время сушки прошло. Проверь, высохло ли оно.`)}
+ }
+ render();
+}
+function alertUser(title,body){if('Notification'in window&&Notification.permission==='granted'){try{new Notification(title,{body,tag:title+body})}catch(e){toast(title+' — '+body)}}else toast(title+' — '+body)}
+setInterval(checkAlerts,15000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkAlerts()});render();
+</script>
+</body>
+</html>
