@@ -1,341 +1,418 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f7f1e9">
-<title>Бельё дома</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f8f3ee">
+<title>Бельё дома — стирка и сушка</title>
 
 <style>
 :root{
-  --cream:#f7f1e9;
-  --milk:#fffaf5;
-  --sage:#91a58f;
-  --sage-dark:#60745f;
-  --sage-light:#dce6d9;
-  --pink:#e9b9c4;
-  --pink-light:#f7dfe4;
-  --brown:#594e48;
-  --muted:#8d827b;
-  --white:#ffffff;
-  --shadow:0 10px 30px rgba(92,77,67,.10);
-  --radius:24px;
+  --sage:#8fa996;
+  --sage-dark:#637d6b;
+  --sage-soft:#e9f0e9;
+  --pink:#e9b8c7;
+  --pink-soft:#f9e9ee;
+  --cream:#f8f3ee;
+  --cream-2:#fffaf7;
+  --ink:#30352f;
+  --muted:#7d837d;
+  --line:#e7e4df;
+  --white:#fff;
+  --shadow:0 12px 32px rgba(82,92,78,.10);
 }
 
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
-  background:var(--cream);
-  color:var(--brown);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  background:linear-gradient(180deg,#faf6f2 0,#f5f1ed 100%);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
 }
 
-button,input,select{
-  font:inherit;
-}
+button,input,select{font:inherit}
 
 button{
-  border:0;
   cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
 }
 
 .app{
-  width:100%;
-  max-width:520px;
-  min-height:100vh;
+  width:min(100%,520px);
   margin:auto;
-  padding-bottom:95px;
+  min-height:100vh;
+  padding-bottom:100px;
 }
 
 header{
-  padding:28px 20px 12px;
+  padding:28px 18px 14px;
 }
 
 .eyebrow{
-  font-size:12px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
   color:var(--sage-dark);
-  font-weight:700;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
 }
 
 h1{
-  margin:5px 0 0;
+  margin:6px 0 5px;
   font-size:32px;
-  line-height:1.1;
+  line-height:1.05;
 }
 
 .subtitle{
-  margin:8px 0 0;
+  margin:0;
   color:var(--muted);
   font-size:15px;
 }
 
 .card{
-  background:rgba(255,250,245,.9);
-  border-radius:var(--radius);
+  margin:12px 16px;
+  padding:17px;
+  background:rgba(255,250,247,.92);
+  border:1px solid rgba(120,120,110,.07);
+  border-radius:24px;
   box-shadow:var(--shadow);
-  margin:14px 16px;
-  padding:18px;
 }
 
-.weather{
+.weather-card{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  background:var(--sage-light);
+  gap:12px;
+  background:linear-gradient(135deg,var(--sage-soft),#f5eee9);
 }
 
-.weather-main{
+.weather-left{
   display:flex;
   align-items:center;
   gap:12px;
 }
 
 .weather-icon{
-  font-size:34px;
+  width:50px;
+  height:50px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  background:rgba(255,255,255,.7);
+  font-size:27px;
 }
 
 .weather-temp{
   font-size:24px;
-  font-weight:800;
+  font-weight:850;
 }
 
 .weather-text{
-  font-size:13px;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.small-button{
+  border:0;
+  padding:9px 11px;
+  border-radius:13px;
+  background:rgba(255,255,255,.75);
   color:var(--sage-dark);
+  font-weight:750;
 }
 
-.section-title{
+.section-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  margin:24px 20px 10px;
+  justify-content:space-between;
+  margin:24px 18px 9px;
 }
 
-.section-title h2{
+.section-head h2{
   margin:0;
   font-size:20px;
 }
 
-.empty{
+.counter{
+  min-width:27px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:var(--pink-soft);
+  color:#a46c7a;
+  font-size:12px;
+  font-weight:800;
   text-align:center;
-  color:var(--muted);
-  padding:30px 10px;
 }
 
-.laundry-card{
+.empty{
+  text-align:center;
+  padding:30px 16px;
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:44px;
+  margin-bottom:8px;
+}
+
+.empty-title{
+  color:var(--ink);
+  font-size:16px;
+  font-weight:800;
+}
+
+.load-card{
   position:relative;
   overflow:hidden;
 }
 
-.laundry-top{
+.load-top{
   display:flex;
+  align-items:flex-start;
   justify-content:space-between;
   gap:12px;
 }
 
-.laundry-name{
+.load-name{
   font-size:18px;
-  font-weight:750;
+  font-weight:850;
+}
+
+.load-place{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:12px;
 }
 
 .badge{
-  padding:6px 10px;
+  flex-shrink:0;
+  padding:7px 10px;
   border-radius:999px;
-  background:var(--pink-light);
-  color:#9c6370;
+  background:var(--pink-soft);
+  color:#9f6573;
   font-size:11px;
-  font-weight:700;
-  white-space:nowrap;
+  font-weight:850;
+}
+
+.progress-wrap{
+  height:9px;
+  margin:17px 0 10px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#eee8e2;
 }
 
 .progress{
-  height:9px;
-  background:#eee5dc;
-  border-radius:99px;
-  overflow:hidden;
-  margin:16px 0 10px;
-}
-
-.progress-bar{
   height:100%;
-  background:var(--sage);
-  border-radius:99px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--sage),#a9bea9);
   transition:width .3s ease;
 }
 
-.info-row{
+.info{
   display:flex;
   justify-content:space-between;
   gap:10px;
   color:var(--muted);
-  font-size:13px;
+  font-size:12px;
+}
+
+.info strong{
+  color:var(--ink);
 }
 
 .actions{
   display:flex;
   gap:8px;
-  margin-top:14px;
+  margin-top:15px;
 }
 
 .action{
   flex:1;
+  border:0;
   padding:11px 8px;
   border-radius:14px;
-  background:#f1ebe4;
-  color:var(--brown);
-  font-size:13px;
-  font-weight:650;
+  background:#f0ebe6;
+  color:var(--ink);
+  font-size:12px;
+  font-weight:750;
 }
 
 .action.primary{
-  background:var(--sage);
+  background:var(--sage-dark);
   color:white;
 }
 
-.action.danger{
-  background:#f5dede;
-  color:#a65e68;
+.action.pink{
+  background:var(--pink-soft);
+  color:#985f6d;
 }
 
 .add-button{
   width:calc(100% - 32px);
   margin:18px 16px;
   padding:17px;
-  border-radius:20px;
+  border:0;
+  border-radius:19px;
   background:var(--sage-dark);
-  color:white;
+  color:#fff;
   font-size:16px;
-  font-weight:750;
-  box-shadow:0 10px 20px rgba(96,116,95,.2);
+  font-weight:850;
+  box-shadow:0 10px 24px rgba(99,125,107,.22);
 }
 
-.form{
+.form-card{
   display:none;
 }
 
-.form.active{
+.form-card.active{
   display:block;
+}
+
+.form-title{
+  margin:0 0 4px;
+  font-size:21px;
+}
+
+.form-subtitle{
+  margin:0 0 17px;
+  color:var(--muted);
+  font-size:12px;
 }
 
 label{
   display:block;
   margin:14px 0 7px;
-  font-size:13px;
-  font-weight:700;
   color:var(--sage-dark);
+  font-size:12px;
+  font-weight:800;
 }
 
 input,select{
   width:100%;
-  border:1px solid #e7ddd4;
-  background:white;
-  color:var(--brown);
+  min-height:47px;
+  padding:12px 13px;
+  border:1px solid var(--line);
   border-radius:15px;
-  padding:13px 14px;
-  outline:none;
+  outline:0;
+  background:#fff;
+  color:var(--ink);
 }
 
 input:focus,select:focus{
   border-color:var(--sage);
+  box-shadow:0 0 0 3px rgba(143,169,150,.13);
 }
 
 .form-buttons{
   display:flex;
-  gap:10px;
+  gap:9px;
   margin-top:18px;
 }
 
 .form-buttons button{
   flex:1;
   padding:14px;
-  border-radius:16px;
-  font-weight:700;
+  border:0;
+  border-radius:15px;
+  font-weight:800;
 }
 
-.save{
+.save-button{
   background:var(--sage);
   color:white;
 }
 
-.cancel{
-  background:#eee7df;
-  color:var(--brown);
+.cancel-button{
+  background:#eee8e2;
+  color:var(--ink);
+}
+
+.notice{
+  margin:14px 18px;
+  padding:13px 14px;
+  border-radius:17px;
+  background:#fff5e5;
+  color:#876f50;
+  font-size:11px;
+  line-height:1.5;
 }
 
 .bottom-nav{
   position:fixed;
+  z-index:20;
   left:50%;
   bottom:10px;
+  width:min(490px,calc(100% - 22px));
   transform:translateX(-50%);
-  width:min(490px,calc(100% - 24px));
   display:flex;
   justify-content:space-around;
-  padding:10px 6px;
-  background:rgba(255,250,245,.94);
+  padding:8px 5px;
+  border:1px solid rgba(120,120,110,.09);
+  border-radius:23px;
+  background:rgba(255,250,247,.94);
   backdrop-filter:blur(18px);
-  border:1px solid rgba(120,100,90,.08);
-  border-radius:22px;
-  box-shadow:0 8px 30px rgba(70,55,45,.14);
-  z-index:20;
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 10px 35px rgba(70,60,50,.15);
 }
 
-.nav-btn{
+.nav-button{
+  flex:1;
+  padding:7px 5px;
+  border:0;
+  border-radius:15px;
   background:transparent;
   color:var(--muted);
-  padding:7px 12px;
-  border-radius:14px;
-  font-size:11px;
-  text-align:center;
+  font-size:10px;
+  font-weight:650;
 }
 
-.nav-btn span{
+.nav-icon{
   display:block;
-  font-size:21px;
-  margin-bottom:2px;
+  margin-bottom:3px;
+  font-size:20px;
 }
 
-.nav-btn.active{
+.nav-button.active{
+  background:var(--sage-soft);
   color:var(--sage-dark);
-  background:var(--sage-light);
-}
-
-.notice{
-  margin:12px 20px;
-  padding:12px 14px;
-  border-radius:16px;
-  background:#fff4df;
-  color:#8b7352;
-  font-size:12px;
-  line-height:1.45;
 }
 
 .toast{
   position:fixed;
+  z-index:50;
   left:50%;
   bottom:92px;
-  transform:translateX(-50%) translateY(20px);
+  max-width:calc(100% - 40px);
+  padding:12px 17px;
+  border-radius:15px;
+  transform:translate(-50%,20px);
   opacity:0;
   pointer-events:none;
-  background:#594e48;
+  background:#3f473f;
   color:white;
-  padding:12px 18px;
-  border-radius:14px;
-  font-size:13px;
-  z-index:50;
-  transition:.25s;
+  font-size:12px;
+  text-align:center;
+  transition:.25s ease;
 }
 
 .toast.show{
+  transform:translate(-50%,0);
   opacity:1;
-  transform:translateX(-50%) translateY(0);
 }
- </style>
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:360px){
+  h1{font-size:29px}
+  .action{font-size:11px;padding:10px 5px}
+}
+</style>
 </head>
 
 <body>
@@ -348,69 +425,71 @@ input:focus,select:focus{
   <p class="subtitle">Посмотрим, что сейчас сушится?</p>
 </header>
 
-<div class="card weather">
-  <div class="weather-main">
+<div class="card weather-card">
+  <div class="weather-left">
     <div class="weather-icon" id="weatherIcon">☁️</div>
     <div>
       <div class="weather-temp" id="weatherTemp">—°</div>
       <div class="weather-text" id="weatherText">Загружаем погоду…</div>
     </div>
   </div>
-  <button class="action" onclick="loadWeather()">↻</button>
+
+  <button class="small-button" id="refreshWeather">↻</button>
 </div>
 
-<div id="homePage">
+<main id="homePage">
 
-  <div class="section-title">
+  <div class="section-head">
     <h2>Сейчас сушится</h2>
-    <span id="laundryCount"></span>
+    <span class="counter" id="loadCount">0</span>
   </div>
 
-  <div id="laundryList"></div>
+  <div id="loads"></div>
 
-  <button class="add-button" onclick="openForm()">
+  <button class="add-button" id="addButton">
     ＋ Добавить стирку
   </button>
 
-</div>
+</main>
 
-<div class="card form" id="laundryForm">
+<section class="card form-card" id="formCard">
 
-  <div class="section-title" style="margin:0 0 8px">
-    <h2 id="formTitle">Новая стирка</h2>
-  </div>
+  <h2 class="form-title" id="formTitle">Новая стирка</h2>
+  <p class="form-subtitle">
+    Расскажите немного о белье — я примерно посчитаю время сушки.
+  </p>
 
-  <label>Название</label>
+  <label for="name">Название</label>
   <input id="name" type="text" placeholder="Например, постельное бельё">
 
-  <label>Стирка</label>
+  <label for="duration">Сколько длится стирка?</label>
   <select id="duration">
     <option value="45">45 минут</option>
     <option value="60" selected>1 час</option>
-    <option value="90">1,5 часа</option>
+    <option value="90">1 час 30 минут</option>
     <option value="120">2 часа</option>
-    <option value="150">2,5 часа</option>
+    <option value="150">2 часа 30 минут</option>
     <option value="180">3 часа</option>
   </select>
 
-  <label>Ткань</label>
+  <label for="fabric">Что стираем?</label>
   <select id="fabric">
     <option value="cotton">Хлопок</option>
     <option value="synthetic">Синтетика</option>
-    <option value="mixed" selected>Смешанная</option>
-    <option value="delicate">Деликатная</option>
-    <option value="towel">Полотенца</option>
+    <option value="mixed" selected>Смешанная ткань</option>
+    <option value="delicate">Деликатное</option>
+    <option value="towels">Полотенца</option>
     <option value="bed">Постельное бельё</option>
   </select>
 
-  <label>Отжим</label>
+  <label for="spin">Отжим</label>
   <select id="spin">
     <option value="low">Низкий</option>
     <option value="medium" selected>Средний</option>
     <option value="high">Высокий</option>
   </select>
 
-  <label>Где сушим?</label>
+  <label for="place">Где будет сушиться?</label>
   <select id="place">
     <option value="balcony" selected>Балкон</option>
     <option value="glazed">Застеклённый балкон</option>
@@ -418,61 +497,59 @@ input:focus,select:focus{
     <option value="room">В комнате</option>
   </select>
 
-  <label>Количество белья</label>
+  <label for="amount">Количество белья</label>
   <select id="amount">
     <option value="small">Немного</option>
     <option value="medium" selected>Средняя загрузка</option>
     <option value="large">Много</option>
   </select>
 
-  <label>Воздух</label>
+  <label for="air">Движение воздуха</label>
   <select id="air">
-    <option value="still">Почти нет движения воздуха</option>
-    <option value="normal" selected>Обычный</option>
+    <option value="still">Почти нет воздуха</option>
+    <option value="normal" selected>Обычное</option>
     <option value="windy">Хорошо проветривается</option>
   </select>
 
-  <label>Когда началась стирка?</label>
-  <select id="startMode" onchange="toggleCustomStart()">
+  <label for="startMode">Когда началась стирка?</label>
+  <select id="startMode">
     <option value="now" selected>Сейчас</option>
     <option value="custom">Указать время</option>
   </select>
 
-  <input id="customStart" type="datetime-local" style="display:none">
+  <input id="customStart" type="datetime-local" class="hidden">
 
   <div class="form-buttons">
-    <button class="cancel" onclick="closeForm()">Отмена</button>
-    <button class="save" onclick="saveLaundry()">Сохранить</button>
+    <button class="cancel-button" id="cancelButton">Отмена</button>
+    <button class="save-button" id="saveButton">Сохранить</button>
   </div>
 
-</div>
+</section>
 
 <div class="notice">
-  💡 Время сушки — это ориентировочный расчёт. На него влияют влажность,
-  температура, вентиляция, количество белья и материал ткани.
-</div>
-
+  💡 Время сушки — ориентировочный расчёт. На него влияют температура,
+  влажность, материал, количество белья и движение воздуха.
 </div>
 
 <nav class="bottom-nav">
 
-  <button class="nav-btn active" onclick="showHome(this)">
-    <span>🏠</span>
+  <button class="nav-button active" id="navHome">
+    <span class="nav-icon">🏠</span>
     Главная
   </button>
 
-  <button class="nav-btn" onclick="openForm();setNav(this)">
-    <span>🧺</span>
+  <button class="nav-button" id="navLaundry">
+    <span class="nav-icon">🧺</span>
     Стирки
   </button>
 
-  <button class="nav-btn" onclick="showHistory(this)">
-    <span>🕊️</span>
+  <button class="nav-button" id="navHistory">
+    <span class="nav-icon">🕊️</span>
     История
   </button>
 
-  <button class="nav-btn" onclick="showSettings(this)">
-    <span>⚙️</span>
+  <button class="nav-button" id="navSettings">
+    <span class="nav-icon">⚙️</span>
     Настройки
   </button>
 
@@ -480,660 +557,951 @@ input:focus,select:focus{
 
 <div class="toast" id="toast"></div>
 
-<script>
-const STORAGE_KEY = "belyo_doma_v2";
+</div>
 
-let laundry = [];
+<script>
+const STORAGE_KEY = 'belyo_doma_v2';
+
+let loads = [];
 let editingId = null;
 let weather = {
-  temp: null,
-  humidity: null,
-  description: "Погода пока неизвестна"
+  temp:null,
+  humidity:null,
+  code:null
 };
+
+let notified = new Set();
 
 const $ = id => document.getElementById(id);
 
-function loadData(){
-  try{
-    laundry = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  }catch(e){
-    laundry = [];
-  }
-
-  render();
-}
-
-function saveData(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(laundry));
-}
-
 function toast(message){
-  const el = $("toast");
+  const el = $('toast');
+
   el.textContent = message;
-  el.classList.add("show");
+  el.classList.add('show');
 
   clearTimeout(window.toastTimer);
 
   window.toastTimer = setTimeout(()=>{
-    el.classList.remove("show");
-  },2200);
+    el.classList.remove('show');
+  },2300);
 }
 
-function openForm(){
-  $("homePage").style.display = "none";
-  $("laundryForm").classList.add("active");
+function save(){
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(loads)
+  );
+}
 
-  if(!editingId){
-    $("formTitle").textContent = "Новая стирка";
+function loadSaved(){
+  try{
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+    );
+
+    if(Array.isArray(saved)){
+      loads = saved;
+    }
+  }catch(e){
+    loads = [];
   }
 }
 
+function openForm(id=null){
+
+  editingId = id;
+
+  $('homePage').style.display = 'none';
+  $('formCard').classList.add('active');
+
+  if(id){
+
+    const item = loads.find(x=>x.id===id);
+
+    if(!item)return;
+
+    $('formTitle').textContent = 'Изменить стирку';
+
+    $('name').value = item.name || '';
+    $('duration').value = item.duration || 60;
+    $('fabric').value = item.fabric || 'mixed';
+    $('spin').value = item.spin || 'medium';
+    $('place').value = item.place || 'balcony';
+    $('amount').value = item.amount || 'medium';
+    $('air').value = item.air || 'normal';
+
+  }else{
+
+    $('formTitle').textContent = 'Новая стирка';
+
+    $('name').value = '';
+    $('duration').value = '60';
+    $('fabric').value = 'mixed';
+    $('spin').value = 'medium';
+    $('place').value = 'balcony';
+    $('amount').value = 'medium';
+    $('air').value = 'normal';
+    $('startMode').value = 'now';
+    $('customStart').value = '';
+    $('customStart').classList.add('hidden');
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+
 function closeForm(){
+
   editingId = null;
-  $("laundryForm").classList.remove("active");
-  $("homePage").style.display = "block";
-  resetForm();
+
+  $('formCard').classList.remove('active');
+  $('homePage').style.display = 'block';
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
 }
 
-function resetForm(){
-  $("name").value = "";
-  $("duration").value = "60";
-  $("fabric").value = "mixed";
-  $("spin").value = "medium";
-  $("place").value = "balcony";
-  $("amount").value = "medium";
-  $("air").value = "normal";
-  $("startMode").value = "now";
-  $("customStart").style.display = "none";
-  $("customStart").value = "";
-}
+function startTime(){
 
-function toggleCustomStart(){
-  $("customStart").style.display =
-    $("startMode").value === "custom" ? "block" : "none";
-}
+  if(
+    $('startMode').value === 'custom' &&
+    $('customStart').value
+  ){
 
-function getStartTime(){
-  if($("startMode").value === "custom"){
-    const value = $("customStart").value;
+    const date = new Date(
+      $('customStart').value
+    );
 
-    if(value){
-      const date = new Date(value);
-      if(!isNaN(date.getTime())) return date.getTime();
+    if(!isNaN(date.getTime())){
+      return date.getTime();
     }
   }
 
   return Date.now();
 }
 
-function calculateDrying(item){
-  let minutes = 150;
+function saveLoad(){
 
-  const fabric = {
-    cotton: 165,
-    synthetic: 100,
-    mixed: 135,
-    delicate: 115,
-    towel: 190,
-    bed: 180
-  };
+  const name =
+    $('name').value.trim() ||
+    'Моя стирка';
 
-  minutes = fabric[item.fabric] || 150;
-
-  if(item.spin === "low") minutes += 35;
-  if(item.spin === "high") minutes -= 20;
-
-  if(item.amount === "small") minutes -= 20;
-  if(item.amount === "large") minutes += 35;
-
-  if(item.air === "windy") minutes -= 30;
-  if(item.air === "still") minutes += 25;
-
-  if(item.place === "glazed") minutes += 10;
-  if(item.place === "radiator") minutes -= 25;
-  if(item.place === "room") minutes += 30;
-
-  if(weather.humidity !== null){
-    if(weather.humidity >= 80) minutes += 35;
-    else if(weather.humidity >= 65) minutes += 20;
-    else if(weather.humidity <= 40) minutes -= 15;
-  }
-
-  if(weather.temp !== null){
-    if(weather.temp < 5) minutes += 25;
-    else if(weather.temp > 25) minutes -= 15;
-  }
-
-  return Math.max(45, Math.round(minutes / 5) * 5);
-}
-
-function saveLaundry(){
-  const name = $("name").value.trim() || "Моя стирка";
-
-  const item = {
-    id: editingId || Date.now().toString(),
+  const data = {
+    id: editingId || String(Date.now()),
     name,
-    duration: Number($("duration").value),
-    fabric: $("fabric").value,
-    spin: $("spin").value,
-    place: $("place").value,
-    amount: $("amount").value,
-    air: $("air").value,
-    startedAt: getStartTime(),
-    stage: "washing",
-    createdAt: Date.now()
+    duration:Number($('duration').value),
+    fabric:$('fabric').value,
+    spin:$('spin').value,
+    place:$('place').value,
+    amount:$('amount').value,
+    air:$('air').value,
+    startedAt:startTime(),
+    createdAt:Date.now(),
+    done:false
   };
 
   if(editingId){
-    const index = laundry.findIndex(x => x.id === editingId);
 
-    if(index !== -1){
-      item.createdAt = laundry[index].createdAt;
-      laundry[index] = item;
+    const index =
+      loads.findIndex(x=>x.id===editingId);
+
+    if(index!==-1){
+
+      data.createdAt =
+        loads[index].createdAt;
+
+      data.done =
+        loads[index].done || false;
+
+      loads[index] = data;
     }
+
   }else{
-    laundry.unshift(item);
+
+    loads.unshift(data);
   }
 
-  saveData();
+  save();
+  closeForm();
+  render();
+
+  toast(
+    editingId
+      ? 'Стирка обновлена ✨'
+      : 'Стирка добавлена 🧺'
+  );
 
   editingId = null;
-  closeForm();
+}
 
+function deleteLoad(id){
+
+  if(!confirm('Удалить эту стирку?')){
+    return;
+  }
+
+  loads =
+    loads.filter(x=>x.id!==id);
+
+  save();
   render();
 
-  toast("Стирка добавлена 🧺");
+  toast('Стирка удалена');
 }
 
-function editLaundry(id){
-  const item = laundry.find(x => x.id === id);
-  if(!item) return;
+function markDone(id){
 
-  editingId = id;
+  const item =
+    loads.find(x=>x.id===id);
 
-  $("formTitle").textContent = "Изменить стирку";
-  $("name").value = item.name;
-  $("duration").value = item.duration;
-  $("fabric").value = item.fabric;
-  $("spin").value = item.spin;
-  $("place").value = item.place;
-  $("amount").value = item.amount;
-  $("air").value = item.air;
+  if(!item)return;
 
-  openForm();
-}
-
-function deleteLaundry(id){
-  if(!confirm("Удалить эту стирку?")) return;
-
-  laundry = laundry.filter(x => x.id !== id);
-
-  saveData();
-  render();
-
-  toast("Стирка удалена");
-}
-
-function markDry(id){
-  const item = laundry.find(x => x.id === id);
-  if(!item) return;
-
-  item.stage = "done";
+  item.done = true;
   item.finishedAt = Date.now();
 
-  saveData();
+  save();
   render();
 
-  toast("Бельё отмечено как сухое ✨");
+  toast('Бельё отмечено как сухое ✨');
 }
 
-function getStage(item){
-  const now = Date.now();
-  const washEnd = item.startedAt + item.duration * 60000;
+function fabricName(value){
 
-  if(item.stage === "done"){
-    return {
-      title:"Готово ✨",
-      progress:100,
-      remaining:"Высохло"
-    };
-  }
-
-  if(now < washEnd){
-    const progress = Math.min(
-      99,
-      Math.max(
-        1,
-        Math.round((now - item.startedAt) / (item.duration * 60000) * 100)
-      )
-    );
-
-    return {
-      title:"Стирается",
-      progress,
-      remaining:formatRemaining(washEnd - now)
-    };
-  }
-
-  const dryMinutes = calculateDrying(item);
-  const dryEnd = washEnd + dryMinutes * 60000;
-
-  if(now < dryEnd){
-    const total = dryEnd - washEnd;
-    const passed = now - washEnd;
-
-    return {
-      title:"Сушится",
-      progress:Math.min(
-        99,
-        Math.max(1,Math.round(passed / total * 100))
-      ),
-      remaining:formatRemaining(dryEnd - now)
-    };
-  }
-
-  return {
-    title:"Возможно, уже сухо",
-    progress:100,
-    remaining:"Пора проверить"
+  const names = {
+    cotton:'Хлопок',
+    synthetic:'Синтетика',
+    mixed:'Смешанная',
+    delicate:'Деликатное',
+    towels:'Полотенца',
+    bed:'Постельное бельё'
   };
+
+  return names[value] || value;
 }
 
-function formatRemaining(ms){
-  if(ms <= 0) return "сейчас";
+function placeName(value){
 
-  const minutes = Math.ceil(ms / 60000);
+  const names = {
+    balcony:'Балкон',
+    glazed:'Застеклённый балкон',
+    radiator:'Батарея',
+    room:'В комнате'
+  };
 
-  if(minutes < 60){
+  return names[value] || value;
+}
+
+function dryMinutes(item){
+
+  let minutes = 145;
+
+  const fabricBase = {
+    cotton:165,
+    synthetic:100,
+    mixed:135,
+    delicate:115,
+    towels:190,
+    bed:180
+  };
+
+  minutes =
+    fabricBase[item.fabric] || 145;
+
+  if(item.spin==='low'){
+    minutes += 35;
+  }
+
+  if(item.spin==='high'){
+    minutes -= 20;
+  }
+
+  if(item.amount==='small'){
+    minutes -= 20;
+  }
+
+  if(item.amount==='large'){
+    minutes += 35;
+  }
+
+  if(item.air==='still'){
+    minutes += 25;
+  }
+
+  if(item.air==='windy'){
+    minutes -= 30;
+  }
+
+  if(item.place==='glazed'){
+    minutes += 10;
+  }
+
+  if(item.place==='radiator'){
+    minutes -= 25;
+  }
+
+  if(item.place==='room'){
+    minutes += 30;
+  }
+
+  if(weather.humidity!==null){
+
+    if(weather.humidity>=80){
+      minutes += 35;
+    }else if(weather.humidity>=65){
+      minutes += 20;
+    }else if(weather.humidity<=40){
+      minutes -= 15;
+    }
+  }
+
+  if(weather.temp!==null){
+
+    if(weather.temp<5){
+      minutes += 25;
+    }else if(weather.temp>25){
+      minutes -= 15;
+    }
+  }
+
+  return Math.max(
+    45,
+    Math.round(minutes/5)*5
+  );
+}
+
+function formatTime(ms){
+
+  if(ms<=0){
+    return 'сейчас';
+  }
+
+  const minutes =
+    Math.ceil(ms/60000);
+
+  if(minutes<60){
     return `${minutes} мин`;
   }
 
-  const hours = Math.floor(minutes / 60);
-  const mins = minutes % 60;
+  const hours =
+    Math.floor(minutes/60);
 
-  if(mins === 0){
+  const mins =
+    minutes%60;
+
+  if(mins===0){
     return `${hours} ч`;
   }
 
   return `${hours} ч ${mins} мин`;
 }
 
-function placeName(place){
-  return {
-    balcony:"Балкон",
-    glazed:"Застеклённый балкон",
-    radiator:"Батарея",
-    room:"Комната"
-  }[place] || place;
-}
+function stage(item){
 
-function render(){
-  const list = $("laundryList");
+  if(item.done){
 
-  $("laundryCount").textContent =
-    laundry.length ? `${laundry.length}` : "";
-
-  if(!laundry.length){
-    list.innerHTML = `
-      <div class="card empty">
-        <div style="font-size:42px">🧺</div>
-        <div style="margin-top:10px;font-weight:700">
-          Пока здесь пусто
-        </div>
-        <div style="margin-top:5px">
-          Добавь первую стирку — будем следить за ней вместе ♡
-        </div>
-      </div>
-    `;
-
-    return;
+    return {
+      stage:2,
+      title:'Готово ✨',
+      progress:100,
+      remaining:'Сухое'
+    };
   }
 
-  list.innerHTML = laundry.map(item=>{
-    const stage = getStage(item);
+  const now = Date.now();
 
-    return `
-      <div class="card laundry-card">
+  const washEnd =
+    item.startedAt +
+    item.duration*60000;
 
-        <div class="laundry-top">
-          <div>
-            <div class="laundry-name">
-              ${escapeHtml(item.name)}
-            </div>
+  if(now<washEnd){
 
-            <div class="info-row" style="margin-top:5px">
-              ${placeName(item.place)}
-            </div>
-          </div>
+    const progress =
+      Math.max(
+        1,
+        Math.min(
+          99,
+          Math.round(
+            ((now-item.startedAt) /
+            (item.duration*60000))*100
+          )
+        )
+      );
 
-          <div class="badge">
-            ${stage.title}
-          </div>
-        </div>
+    return {
+      stage:0,
+      title:'Стирается',
+      progress,
+      remaining:formatTime(
+        washEnd-now
+      )
+    };
+  }
 
-        <div class="progress">
-          <div
-            class="progress-bar"
-            style="width:${stage.progress}%"
-          ></div>
-        </div>
+  const drying =
+    dryMinutes(item);
 
-        <div class="info-row">
-          <span>Осталось</span>
-          <strong>${stage.remaining}</strong>
-        </div>
+  const dryEnd =
+    washEnd +
+    drying*60000;
 
-        <div class="info-row" style="margin-top:6px">
-          <span>Ткань</span>
-          <span>${fabricName(item.fabric)}</span>
-        </div>
+  if(now<dryEnd){
 
-        <div class="actions">
-          <button
-            class="action"
-            onclick="editLaundry('${item.id}')">
-            Изменить
-          </button>
+    const total =
+      dryEnd-washEnd;
 
-          ${
-            stage.progress >= 100 && item.stage !== "done"
-            ? `
-              <button
-                class="action primary"
-                onclick="markDry('${item.id}')">
-                Сухо ✓
-              </button>
-            `
-            : ""
-          }
+    const passed =
+      now-washEnd;
 
-          <button
-            class="action danger"
-            onclick="deleteLaundry('${item.id}')">
-            Удалить
-          </button>
-        </div>
+    const progress =
+      Math.max(
+        1,
+        Math.min(
+          99,
+          Math.round(
+            passed/total*100
+          )
+        )
+      );
 
-      </div>
-    `;
-  }).join("");
-}
+    return {
+      stage:1,
+      title:'Сушится',
+      progress,
+      remaining:formatTime(
+        dryEnd-now
+      )
+    };
+  }
 
-function fabricName(value){
   return {
-    cotton:"Хлопок",
-    synthetic:"Синтетика",
-    mixed:"Смешанная",
-    delicate:"Деликатная",
-    towel:"Полотенца",
-    bed:"Постельное бельё"
-  }[value] || value;
+    stage:2,
+    title:'Пора проверить',
+    progress:100,
+    remaining:'Проверь бельё'
+  };
 }
 
 function escapeHtml(text){
+
   return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
     .replaceAll("'","&#039;");
 }
- <script>
-function showHome(button){
-  $("homePage").style.display = "block";
-  $("laundryForm").classList.remove("active");
 
-  document.querySelectorAll(".nav-btn")
-    .forEach(btn => btn.classList.remove("active"));
+function render(){
 
-  if(button){
-    button.classList.add("active");
-  }
-}
+  const container =
+    $('loads');
 
-function setNav(button){
-  document.querySelectorAll(".nav-btn")
-    .forEach(btn => btn.classList.remove("active"));
+  $('loadCount').textContent =
+    loads.length;
 
-  if(button){
-    button.classList.add("active");
-  }
-}
+  if(!loads.length){
 
-function showHistory(button){
-  setNav(button);
+    container.innerHTML = `
+      <div class="card empty">
+        <div class="empty-icon">🧺</div>
 
-  const completed = laundry.filter(
-    item => item.stage === "done"
-  );
+        <div class="empty-title">
+          Пока здесь пусто
+        </div>
 
-  if(!completed.length){
-    toast("История пока пустая 🕊️");
+        <div style="margin-top:5px">
+          Добавь первую стирку —
+          будем следить за ней вместе ♡
+        </div>
+      </div>
+    `;
+
     return;
   }
 
-  toast(`В истории ${completed.length} стирок`);
-}
+  container.innerHTML =
+    loads.map(item=>{
 
-function showSettings(button){
-  setNav(button);
+      const s = stage(item);
 
-  toast("Настройки скоро появятся ⚙️");
-}
+      return `
+        <div class="card load-card">
 
-async function loadWeather(){
-  $("weatherText").textContent = "Обновляем погоду…";
+          <div class="load-top">
 
-  try{
-    let latitude = 55.79;
-    let longitude = 42.74;
+            <div>
+              <div class="load-name">
+                ${escapeHtml(item.name)}
+              </div>
 
-    if(navigator.geolocation){
-      try{
-        const position = await new Promise((resolve,reject)=>{
-          navigator.geolocation.getCurrentPosition(
-            resolve,
-            reject,
-            {
-              enableHighAccuracy:false,
-              timeout:4000,
-              maximumAge:600000
+              <div class="load-place">
+                ${placeName(item.place)}
+              </div>
+            </div>
+
+            <div class="badge">
+              ${s.title}
+            </div>
+
+          </div>
+
+          <div class="progress-wrap">
+            <div
+              class="progress"
+              style="width:${s.progress}%"
+            ></div>
+          </div>
+
+          <div class="info">
+            <span>Осталось</span>
+            <strong>${s.remaining}</strong>
+          </div>
+
+          <div class="info" style="margin-top:6px">
+            <span>Ткань</span>
+            <span>${fabricName(item.fabric)}</span>
+          </div>
+
+          <div class="actions">
+
+            <button
+              class="action"
+              onclick="openForm('${item.id}')">
+              Изменить
+            </button>
+
+            ${
+              s.stage>=2 && !item.done
+              ? `
+                <button
+                  class="action primary"
+                  onclick="markDone('${item.id}')">
+                  Сухо ✓
+                </button>
+              `
+              : ''
             }
-          );
-        });
 
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-      }catch(e){
-        // Используем резервные координаты
-      }
-    }
+            <button
+              class="action pink"
+              onclick="deleteLoad('${item.id}')">
+              Удалить
+            </button>
 
-    const url =
-      `https://api.open-meteo.com/v1/forecast` +
-      `?latitude=${latitude}` +
-      `&longitude=${longitude}` +
-      `&current=temperature_2m,relative_humidity_2m,weather_code` +
-      `&timezone=auto`;
+          </div>
 
-    const response = await fetch(url);
-    const data = await response.json();
-
-    weather.temp =
-      Math.round(data.current.temperature_2m);
-
-    weather.humidity =
-      data.current.relative_humidity_2m;
-
-    const code = data.current.weather_code;
-
-    const weatherInfo = getWeatherInfo(code);
-
-    $("weatherIcon").textContent = weatherInfo.icon;
-
-    $("weatherTemp").textContent =
-      `${weather.temp > 0 ? "+" : ""}${weather.temp}°`;
-
-    $("weatherText").textContent =
-      `${weatherInfo.text} · влажность ${weather.humidity}%`;
-
-    render();
-
-  }catch(error){
-
-    $("weatherIcon").textContent = "🌤️";
-    $("weatherTemp").textContent = "—°";
-    $("weatherText").textContent =
-      "Не удалось получить погоду";
-
-  }
+        </div>
+      `;
+    }).join('');
 }
 
-function getWeatherInfo(code){
+function weatherDescription(code){
 
-  if(code === 0){
+  if(code===0){
     return {
-      icon:"☀️",
-      text:"Ясно"
+      icon:'☀️',
+      text:'Ясно'
     };
   }
 
   if([1,2,3].includes(code)){
     return {
-      icon:"🌤️",
-      text:"Облачно"
+      icon:'🌤️',
+      text:'Облачно'
     };
   }
 
   if([45,48].includes(code)){
     return {
-      icon:"🌫️",
-      text:"Туман"
+      icon:'🌫️',
+      text:'Туман'
     };
   }
 
   if([51,53,55,56,57].includes(code)){
     return {
-      icon:"🌦️",
-      text:"Морось"
+      icon:'🌦️',
+      text:'Морось'
     };
   }
 
   if([61,63,65,66,67].includes(code)){
     return {
-      icon:"🌧️",
-      text:"Дождь"
+      icon:'🌧️',
+      text:'Дождь'
     };
   }
 
   if([71,73,75,77].includes(code)){
     return {
-      icon:"🌨️",
-      text:"Снег"
+      icon:'🌨️',
+      text:'Снег'
     };
   }
 
   if([80,81,82].includes(code)){
     return {
-      icon:"🌦️",
-      text:"Ливень"
+      icon:'🌦️',
+      text:'Ливень'
     };
   }
 
   if([95,96,99].includes(code)){
     return {
-      icon:"⛈️",
-      text:"Гроза"
+      icon:'⛈️',
+      text:'Гроза'
     };
   }
 
   return {
-    icon:"☁️",
-    text:"Погода"
+    icon:'☁️',
+    text:'Погода'
   };
 }
 
-function requestNotifications(){
+async function loadWeather(){
 
-  if(!("Notification" in window)){
-    toast("Уведомления не поддерживаются");
-    return;
-  }
+  $('weatherText').textContent =
+    'Обновляем погоду…';
 
-  Notification.requestPermission()
-    .then(permission=>{
+  try{
 
-      if(permission === "granted"){
-        toast("Уведомления разрешены 🔔");
-      }else{
-        toast("Уведомления отключены");
-      }
+    let latitude = 55.79;
+    let longitude = 42.74;
 
-    });
-}
-
-function checkNotifications(){
-
-  if(
-    !("Notification" in window) ||
-    Notification.permission !== "granted"
-  ){
-    return;
-  }
-
-  laundry.forEach(item=>{
-
-    if(item.stage === "done") return;
-
-    const stage = getStage(item);
-
-    if(
-      stage.title === "Сушится" &&
-      stage.progress >= 100 &&
-      !item.notified
-    ){
+    if(navigator.geolocation){
 
       try{
-        new Notification(
-          "Бельё дома 🧺",
-          {
-            body:`Похоже, «${item.name}» уже можно проверить.`
-          }
-        );
 
-        item.notified = true;
-        saveData();
+        const position =
+          await new Promise(
+            (resolve,reject)=>{
+
+              navigator.geolocation.getCurrentPosition(
+                resolve,
+                reject,
+                {
+                  enableHighAccuracy:false,
+                  timeout:4000,
+                  maximumAge:600000
+                }
+              );
+
+            }
+          );
+
+        latitude =
+          position.coords.latitude;
+
+        longitude =
+          position.coords.longitude;
 
       }catch(e){}
     }
 
-  });
+    const url =
+      'https://api.open-meteo.com/v1/forecast' +
+      `?latitude=${latitude}` +
+      `&longitude=${longitude}` +
+      '&current=temperature_2m,relative_humidity_2m,weather_code' +
+      '&timezone=auto';
+
+    const response =
+      await fetch(url);
+
+    const data =
+      await response.json();
+
+    weather.temp =
+      Math.round(
+        data.current.temperature_2m
+      );
+
+    weather.humidity =
+      data.current.relative_humidity_2m;
+
+    weather.code =
+      data.current.weather_code;
+
+    const info =
+      weatherDescription(weather.code);
+
+    $('weatherIcon').textContent =
+      info.icon;
+
+    $('weatherTemp').textContent =
+      `${weather.temp>0?'+':''}${weather.temp}°`;
+
+    $('weatherText').textContent =
+      `${info.text} · влажность ${weather.humidity}%`;
+
+    render();
+
+  }catch(e){
+
+    $('weatherIcon').textContent='🌤️';
+    $('weatherTemp').textContent='—°';
+
+    $('weatherText').textContent =
+      'Погода временно недоступна';
+  }
 }
 
-function updateStages(){
+async function requestNotifications(){
+
+  if(!('Notification' in window)){
+
+    toast(
+      'Этот браузер не поддерживает уведомления'
+    );
+
+    return;
+  }
+
+  try{
+
+    const permission =
+      await Notification.requestPermission();
+
+    if(permission==='granted'){
+
+      toast(
+        'Уведомления включены 🔔'
+      );
+
+    }else{
+
+      toast(
+        'Уведомления не разрешены'
+      );
+    }
+
+  }catch(e){
+
+    toast(
+      'Не удалось включить уведомления'
+    );
+  }
+}
+
+function alertUser(title,body){
+
+  if(
+    'Notification' in window &&
+    Notification.permission==='granted'
+  ){
+
+    try{
+
+      new Notification(
+        title,
+        {body}
+
+      );
+
+    }catch(e){
+
+      toast(
+        title+' — '+body
+      );
+    }
+
+  }else{
+
+    toast(
+      title+' — '+body
+    );
+  }
+}
+
+function checkAlerts(){
+
+  for(const item of loads){
+
+    if(item.done){
+      continue;
+    }
+
+    const s =
+      stage(item);
+
+    if(
+      s.stage>=1 &&
+      !notified.has(item.id+':wash')
+    ){
+
+      const washEnd =
+        item.startedAt +
+        item.duration*60000;
+
+      if(Date.now()>=washEnd){
+
+        notified.add(
+          item.id+':wash'
+        );
+
+        alertUser(
+          'Стирка закончилась',
+          `«${item.name}»: пора развесить бельё.`
+        );
+      }
+    }
+
+    if(
+      s.stage>=2 &&
+      !notified.has(item.id+':dry')
+    ){
+
+      notified.add(
+        item.id+':dry'
+      );
+
+      alertUser(
+        'Пора проверить бельё',
+        `«${item.name}»: расчётное время сушки прошло.`
+      );
+    }
+  }
 
   render();
-  checkNotifications();
-
 }
 
-document.addEventListener(
-  "visibilitychange",
+function setActiveNav(button){
+
+  document
+    .querySelectorAll('.nav-button')
+    .forEach(btn=>{
+      btn.classList.remove('active');
+    });
+
+  button.classList.add('active');
+}
+
+$('addButton').addEventListener(
+  'click',
   ()=>{
-    if(!document.hidden){
-      loadData();
-      loadWeather();
+    openForm();
+  }
+);
+
+$('cancelButton').addEventListener(
+  'click',
+  closeForm
+);
+
+$('saveButton').addEventListener(
+  'click',
+  saveLoad
+);
+
+$('startMode').addEventListener(
+  'change',
+  ()=>{
+    $('customStart')
+      .classList.toggle(
+        'hidden',
+        $('startMode').value!=='custom'
+      );
+  }
+);
+
+$('refreshWeather').addEventListener(
+  'click',
+  loadWeather
+);
+
+$('navHome').addEventListener(
+  'click',
+  ()=>{
+    setActiveNav($('navHome'));
+    closeForm();
+  }
+);
+
+$('navLaundry').addEventListener(
+  'click',
+  ()=>{
+    setActiveNav($('navLaundry'));
+    openForm();
+  }
+);
+
+$('navHistory').addEventListener(
+  'click',
+  ()=>{
+    setActiveNav($('navHistory'));
+
+    const completed =
+      loads.filter(x=>x.done);
+
+    if(completed.length){
+
+      toast(
+        `В истории ${completed.length} стирок 🕊️`
+      );
+
+    }else{
+
+      toast(
+        'История пока пустая 🕊️'
+      );
     }
   }
 );
 
-setInterval(
-  updateStages,
-  30000
+$('navSettings').addEventListener(
+  'click',
+  ()=>{
+    setActiveNav($('navSettings'));
+
+    requestNotifications();
+  }
 );
 
-loadData();
+$('refreshBtn')?.addEventListener(
+  'click',
+  ()=>{
+    loads.forEach(
+      item=>{
+        item.dry =
+          dryMinutes(item);
+      }
+    );
+
+    save();
+
+    render();
+
+    toast(
+      'Расчёт обновлён'
+    );
+  }
+);
+
+loadSaved();
+render();
 loadWeather();
+
+setInterval(
+  checkAlerts,
+  15000
+);
+
+document.addEventListener(
+  'visibilitychange',
+  ()=>{
+    if(!document.hidden){
+      loadSaved();
+      render();
+      checkAlerts();
+    }
+  }
+);
 
 </script>
 
