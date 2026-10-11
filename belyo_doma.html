@@ -4,1413 +4,4126 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f8f3ee">
-<title>Бельё дома — стирка и сушка</title>
-
+<title>Бельё дома — уютный помощник</title>
 <style>
 :root{
-  --sage:#8fa996;
-  --sage-dark:#637d6b;
-  --sage-soft:#e9f0e9;
-  --pink:#e9b8c7;
-  --pink-soft:#f9e9ee;
-  --cream:#f8f3ee;
-  --cream-2:#fffaf7;
-  --ink:#30352f;
-  --muted:#7d837d;
-  --line:#e7e4df;
-  --white:#fff;
-  --shadow:0 12px 32px rgba(82,92,78,.10);
+--sage:#8fa996;--sage-dark:#637d6b;--sage-soft:#e9f0e9;
+--pink:#e9b8c7;--pink-soft:#f9e9ee;--cream:#f8f3ee;
+--cream-2:#fffaf7;--ink:#30352f;--muted:#7d837d;
+--line:#e7e4df;--white:#fff;
+--shadow:0 12px 32px rgba(82,92,78,.10)
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;
-  background:linear-gradient(180deg,#faf6f2,#f5f1ed);
-  color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+margin:0;
+background:linear-gradient(180deg,#faf6f2,#f5f1ed);
+color:var(--ink);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif
 }
 body.theme-pink{
-  --sage:#d99aaf;
-  --sage-dark:#a96f83;
-  --sage-soft:#f8e5ec;
-  --pink:#e9b8c7;
-  --pink-soft:#f9e9ee;
+--sage:#d99aaf;--sage-dark:#a96f83;--sage-soft:#f8e5ec
 }
 body.theme-lilac{
-  --sage:#a99bc9;
-  --sage-dark:#7e6e9e;
-  --sage-soft:#eee9f7;
-  --pink:#d4c3ec;
-  --pink-soft:#f1ecf9;
+--sage:#a99bc9;--sage-dark:#7e6e9e;--sage-soft:#eee9f7
 }
 body.theme-dark{
-  --sage:#8fa996;
-  --sage-dark:#536e5c;
-  --sage-soft:#36453a;
-  --pink:#c993a5;
-  --pink-soft:#48333c;
-  --cream:#242924;
-  --cream-2:#2d332d;
-  --ink:#f4f1ec;
-  --muted:#b1b8b0;
-  --line:#444b44;
-  --white:#303730;
-  --shadow:0 12px 32px rgba(0,0,0,.18);
-  background:#202520;
+--sage:#8fa996;--sage-dark:#536e5c;--sage-soft:#36453a;
+--pink-soft:#48333c;--cream:#242924;--cream-2:#2d332d;
+--ink:#f4f1ec;--muted:#b1b8b0;--line:#444b44;--white:#303730;
+background:#202520
 }
-body.theme-dark .card,
-body.theme-dark .bottom-nav{background:var(--cream-2)}
-body.theme-dark input,
-body.theme-dark select{background:#353c35;color:var(--ink)}
-body.theme-dark .action,
-body.theme-dark .cancel-button{background:#3c443c;color:var(--ink)}
-body.theme-dark .notice{background:#3c392e;color:#e8d8b8}
-
+*{-webkit-tap-highlight-color:transparent}
 button,input,select{font:inherit}
-button{
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
-}
+button{cursor:pointer}
 .app{
-  width:min(100%,520px);
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:110px;
+width:min(100%,520px);
+margin:auto;
+min-height:100vh;
+padding-bottom:105px
 }
 header{padding:28px 18px 14px}
 .eyebrow{
-  color:var(--sage-dark);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:1.6px;
-  text-transform:uppercase;
+color:var(--sage-dark);
+font-size:12px;
+font-weight:800;
+letter-spacing:1.6px;
+text-transform:uppercase
 }
 h1{margin:6px 0 5px;font-size:32px;line-height:1.05}
 .subtitle{margin:0;color:var(--muted);font-size:15px}
 .card{
-  margin:12px 16px;
-  padding:17px;
-  background:rgba(255,250,247,.94);
-  border:1px solid rgba(120,120,110,.07);
-  border-radius:24px;
-  box-shadow:var(--shadow);
+margin:12px 16px;
+padding:17px;
+background:rgba(255,250,247,.94);
+border:1px solid rgba(120,120,110,.07);
+border-radius:24px;
+box-shadow:var(--shadow)
+}
+body.theme-dark .card,
+body.theme-dark .bottom-nav{
+background:var(--cream-2)
+}
+body.theme-dark input,
+body.theme-dark select{
+background:#353c35;
+color:var(--ink)
 }
 .weather-card{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  background:linear-gradient(135deg,var(--sage-soft),var(--cream-2));
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+background:linear-gradient(135deg,var(--sage-soft),var(--cream-2))
 }
-.weather-left{display:flex;align-items:center;gap:12px}
+.weather-left{
+display:flex;
+align-items:center;
+gap:12px
+}
 .weather-icon{
-  width:50px;height:50px;
-  display:grid;place-items:center;
-  border-radius:17px;
-  background:rgba(255,255,255,.65);
-  font-size:27px;
+width:50px;
+height:50px;
+display:grid;
+place-items:center;
+border-radius:17px;
+background:rgba(255,255,255,.65);
+font-size:27px
 }
 .weather-temp{font-size:24px;font-weight:850}
-.weather-text{margin-top:3px;color:var(--muted);font-size:12px}
+.weather-text{
+margin-top:3px;
+color:var(--muted);
+font-size:12px
+}
 .small-button{
-  border:0;padding:9px 11px;border-radius:13px;
-  background:var(--white);color:var(--sage-dark);font-weight:750;
+border:0;
+padding:9px 11px;
+border-radius:13px;
+background:var(--white);
+color:var(--sage-dark);
+font-weight:750
 }
 .section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin:24px 18px 9px;gap:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:24px 18px 9px;
+gap:10px
 }
 .section-head h2{margin:0;font-size:20px}
 .counter{
-  min-width:27px;padding:5px 9px;border-radius:999px;
-  background:var(--pink-soft);color:var(--sage-dark);
-  font-size:12px;font-weight:800;text-align:center;
+min-width:27px;
+padding:5px 9px;
+border-radius:999px;
+background:var(--pink-soft);
+color:var(--sage-dark);
+font-size:12px;
+font-weight:800;
+text-align:center
 }
-.empty{text-align:center;padding:30px 16px;color:var(--muted)}
+.section-caption{
+margin:0 18px 12px;
+color:var(--muted);
+font-size:12px;
+line-height:1.5
+}
+.page-title{
+margin:25px 18px 12px;
+font-size:22px
+}
+.empty{
+text-align:center;
+padding:30px 16px;
+color:var(--muted)
+}
 .empty-icon{font-size:44px;margin-bottom:8px}
-.empty-title{color:var(--ink);font-size:16px;font-weight:800}
+.empty-title{
+color:var(--ink);
+font-size:16px;
+font-weight:800
+}
+.add-button{
+width:calc(100% - 32px);
+margin:18px 16px;
+padding:17px;
+border:0;
+border-radius:19px;
+background:var(--sage-dark);
+color:white;
+font-size:16px;
+font-weight:850;
+box-shadow:0 10px 24px rgba(99,125,107,.22)
+}
+.action{
+border:0;
+padding:11px 10px;
+border-radius:14px;
+background:#f0ebe6;
+color:var(--ink);
+font-size:12px;
+font-weight:750
+}
+.action.primary{
+background:var(--sage-dark);
+color:white
+}
+.action.pink{
+background:var(--pink-soft);
+color:var(--sage-dark)
+}
+.actions{
+display:flex;
+gap:7px;
+margin-top:15px;
+flex-wrap:wrap
+}
+.actions .action{
+flex:1;
+min-width:75px
+}
 .load-card{position:relative;overflow:hidden}
-.load-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.load-name{font-size:18px;font-weight:850;overflow-wrap:anywhere}
-.load-place{margin-top:4px;color:var(--muted);font-size:12px}
+.load-top{
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:12px
+}
+.load-name{
+font-size:18px;
+font-weight:850;
+overflow-wrap:anywhere
+}
+.load-place{
+margin-top:4px;
+color:var(--muted);
+font-size:12px
+}
 .badge{
-  flex-shrink:0;padding:7px 10px;border-radius:999px;
-  background:var(--pink-soft);color:var(--sage-dark);
-  font-size:11px;font-weight:850;
+flex-shrink:0;
+padding:7px 10px;
+border-radius:999px;
+background:var(--pink-soft);
+color:var(--sage-dark);
+font-size:11px;
+font-weight:850
 }
 .progress-wrap{
-  height:9px;margin:17px 0 10px;overflow:hidden;
-  border-radius:999px;background:var(--line);
+height:9px;
+margin:17px 0 10px;
+overflow:hidden;
+border-radius:999px;
+background:var(--line)
 }
 .progress{
-  height:100%;border-radius:999px;
-  background:linear-gradient(90deg,var(--sage),#b6c9b5);
-  transition:width .3s ease;
+height:100%;
+border-radius:999px;
+background:linear-gradient(90deg,var(--sage),#b6c9b5)
 }
 .info{
-  display:flex;justify-content:space-between;gap:10px;
-  color:var(--muted);font-size:12px;margin-top:6px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+color:var(--muted);
+font-size:12px;
+margin-top:6px
 }
 .info strong{color:var(--ink)}
-.actions{display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}
-.action{
-  flex:1;min-width:75px;border:0;padding:11px 7px;
-  border-radius:14px;background:#f0ebe6;color:var(--ink);
-  font-size:12px;font-weight:750;
-}
-.action.primary{background:var(--sage-dark);color:white}
-.action.pink{background:var(--pink-soft);color:var(--sage-dark)}
-.add-button{
-  width:calc(100% - 32px);margin:18px 16px;padding:17px;
-  border:0;border-radius:19px;background:var(--sage-dark);
-  color:white;font-size:16px;font-weight:850;
-  box-shadow:0 10px 24px rgba(99,125,107,.22);
+.notice{
+margin:14px 18px;
+padding:13px 14px;
+border-radius:17px;
+background:#fff5e5;
+color:#876f50;
+font-size:11px;
+line-height:1.5
 }
 .form-card{display:none}
 .form-card.active{display:block}
 .form-title{margin:0 0 4px;font-size:21px}
-.form-subtitle{margin:0 0 17px;color:var(--muted);font-size:12px}
+.form-subtitle{
+margin:0 0 17px;
+color:var(--muted);
+font-size:12px
+}
 label{
-  display:block;margin:14px 0 7px;
-  color:var(--sage-dark);font-size:12px;font-weight:800;
+display:block;
+margin:14px 0 7px;
+color:var(--sage-dark);
+font-size:12px;
+font-weight:800
 }
 input,select{
-  width:100%;min-height:47px;padding:12px 13px;
-  border:1px solid var(--line);border-radius:15px;
-  outline:0;background:var(--white);color:var(--ink);
+width:100%;
+min-height:47px;
+padding:12px 13px;
+border:1px solid var(--line);
+border-radius:15px;
+outline:0;
+background:var(--white);
+color:var(--ink)
 }
 input:focus,select:focus{
-  border-color:var(--sage);
-  box-shadow:0 0 0 3px rgba(143,169,150,.13);
+border-color:var(--sage);
+box-shadow:0 0 0 3px rgba(143,169,150,.13)
 }
-.form-buttons{display:flex;gap:9px;margin-top:18px}
+.form-buttons{
+display:flex;
+gap:9px;
+margin-top:18px
+}
 .form-buttons button{
-  flex:1;padding:14px;border:0;border-radius:15px;font-weight:800;
+flex:1;
+padding:14px;
+border:0;
+border-radius:15px;
+font-weight:800
 }
 .save-button{background:var(--sage);color:white}
 .cancel-button{background:#eee8e2;color:var(--ink)}
-.notice{
-  margin:14px 18px;padding:13px 14px;border-radius:17px;
-  background:#fff5e5;color:#876f50;font-size:11px;line-height:1.5;
-}
-.bottom-nav{
-  position:fixed;z-index:20;left:50%;bottom:10px;
-  width:min(490px,calc(100% - 22px));transform:translateX(-50%);
-  display:flex;justify-content:space-around;padding:8px 5px;
-  border:1px solid rgba(120,120,110,.09);border-radius:23px;
-  background:rgba(255,250,247,.94);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 10px 35px rgba(70,60,50,.15);
-}
-.nav-button{
-  flex:1;padding:7px 3px;border:0;border-radius:15px;
-  background:transparent;color:var(--muted);
-  font-size:10px;font-weight:650;
-}
-.nav-icon{display:block;margin-bottom:3px;font-size:20px}
-.nav-button.active{background:var(--sage-soft);color:var(--sage-dark)}
-.toast{
-  position:fixed;z-index:50;left:50%;bottom:92px;
-  max-width:calc(100% - 40px);padding:12px 17px;
-  border-radius:15px;transform:translate(-50%,20px);
-  opacity:0;pointer-events:none;background:#3f473f;color:white;
-  font-size:12px;text-align:center;transition:.25s ease;
-}
-.toast.show{transform:translate(-50%,0);opacity:1}
-.hidden{display:none!important}
 .settings-row{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:13px 0;border-bottom:1px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+padding:13px 0;
+border-bottom:1px solid var(--line)
 }
 .settings-row:last-child{border-bottom:0}
-.settings-label{font-size:14px;font-weight:700}
-.settings-help{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}
-.settings-row select{width:48%;min-height:42px;padding:8px;font-size:12px}
-.settings-row input[type=checkbox]{width:22px;min-height:22px;accent-color:var(--sage-dark)}
-.settings-row input[type=text]{width:48%;min-height:42px;padding:8px;font-size:12px}
+.settings-label{
+font-size:14px;
+font-weight:700
+}
+.settings-help{
+margin-top:4px;
+color:var(--muted);
+font-size:11px;
+line-height:1.4
+}
+.settings-row select{
+width:48%;
+min-height:42px;
+padding:8px;
+font-size:12px
+}
+.settings-row input[type=checkbox]{
+width:22px;
+min-height:22px;
+accent-color:var(--sage-dark)
+}
+.settings-row input[type=text]{
+width:48%;
+min-height:42px;
+padding:8px;
+font-size:12px
+}
 .settings-action{
-  width:100%;margin-top:10px;padding:13px;border:0;
-  border-radius:14px;background:var(--sage-soft);
-  color:var(--sage-dark);font-weight:800;text-align:left;
+width:100%;
+margin-top:10px;
+padding:13px;
+border:0;
+border-radius:14px;
+background:var(--sage-soft);
+color:var(--sage-dark);
+font-weight:800;
+text-align:left
 }
-.page-title{margin:25px 18px 12px;font-size:22px}
-.section-caption{margin:0 18px 12px;color:var(--muted);font-size:12px;line-height:1.5}
-.machine-chip{
-  display:inline-block;margin:5px 5px 0 0;padding:7px 10px;
-  border-radius:999px;background:var(--sage-soft);
-  color:var(--sage-dark);font-size:11px;font-weight:750;
+.small-note{
+font-size:11px;
+color:var(--muted);
+line-height:1.5
 }
-.small-note{font-size:11px;color:var(--muted);line-height:1.5}
+.machine-chip,.tag{
+display:inline-block;
+margin:5px 5px 0 0;
+padding:7px 10px;
+border-radius:999px;
+background:var(--sage-soft);
+color:var(--sage-dark);
+font-size:11px;
+font-weight:750
+}
+.bottom-nav{
+position:fixed;
+z-index:20;
+left:50%;
+bottom:10px;
+width:min(500px,calc(100% - 12px));
+transform:translateX(-50%);
+display:flex;
+overflow-x:auto;
+justify-content:flex-start;
+padding:8px 5px;
+border:1px solid rgba(120,120,110,.09);
+border-radius:23px;
+background:rgba(255,250,247,.94);
+backdrop-filter:blur(18px);
+box-shadow:0 10px 35px rgba(70,60,50,.15)
+}
+.nav-button{
+flex:0 0 66px;
+padding:7px 3px;
+border:0;
+border-radius:15px;
+background:transparent;
+color:var(--muted);
+font-size:9px;
+font-weight:650
+}
+.nav-icon{
+display:block;
+margin-bottom:3px;
+font-size:19px
+}
+.nav-button.active{
+background:var(--sage-soft);
+color:var(--sage-dark)
+}
+.toast{
+position:fixed;
+z-index:50;
+left:50%;
+bottom:92px;
+max-width:calc(100% - 40px);
+padding:12px 17px;
+border-radius:15px;
+transform:translate(-50%,20px);
+opacity:0;
+pointer-events:none;
+background:#3f473f;
+color:white;
+font-size:12px;
+text-align:center;
+transition:.25s
+}
+.toast.show{
+transform:translate(-50%,0);
+opacity:1
+}
+.hidden{display:none!important}
+.summary-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin:12px 16px
+}
+.summary{
+padding:15px;
+border-radius:19px;
+background:var(--sage-soft)
+}
+.summary .num{
+font-size:20px;
+font-weight:850;
+margin-top:4px
+}
+.summary .lbl{
+font-size:11px;
+color:var(--muted)
+}
+.account{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+padding:13px 0;
+border-bottom:1px solid var(--line)
+}
+.account:last-child{border-bottom:0}
+.account-name{font-weight:800}
+.money{font-weight:850}
+.positive{color:var(--sage-dark)}
+.negative{color:#b25f68}
+.task{
+display:flex;
+gap:11px;
+align-items:flex-start;
+padding:14px 0;
+border-bottom:1px solid var(--line)
+}
+.task:last-child{border-bottom:0}
+.task-check{
+width:28px;
+height:28px;
+border-radius:10px;
+border:1px solid var(--line);
+background:var(--white);
+display:grid;
+place-items:center;
+flex:none
+}
+.task-check.done{
+background:var(--sage);
+color:#fff
+}
+.task-main{
+flex:1;
+min-width:0
+}
+.task-title{
+font-weight:800;
+overflow-wrap:anywhere
+}
+.task.done .task-title{
+text-decoration:line-through;
+color:var(--muted)
+}
+.task-time{
+margin-top:4px;
+color:var(--muted);
+font-size:11px
+}
+.task-actions{
+display:flex;
+gap:5px
+}
+.task-actions button{
+border:0;
+background:transparent;
+color:var(--muted);
+padding:5px
+}
+.hero-mini{
+background:linear-gradient(135deg,var(--sage-soft),var(--pink-soft));
+padding:18px;
+border-radius:24px;
+margin:12px 16px
+}
+.hero-mini h2{
+margin:0 0 6px;
+font-size:19px
+}
+.hero-mini p{
+margin:0;
+color:var(--muted);
+font-size:12px
+}
 @media(max-width:360px){
-  h1{font-size:29px}
-  .action{font-size:11px;padding:10px 5px}
-  .nav-button{font-size:9px}
+h1{font-size:29px}
+.nav-button{flex-basis:62px}
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header>
-  <div class="eyebrow">Бельё дома ♡</div>
-  <h1 id="greeting">Привет! 🧺</h1>
-  <p class="subtitle" id="subtitle">Посмотрим, что сейчас сушится?</p>
+<div class="eyebrow">Бельё дома ♡</div>
+<h1 id="greeting">Привет! 🧺</h1>
+<p class="subtitle" id="subtitle">Твой уютный помощник по дому.</p>
 </header>
 
 <div class="card weather-card" id="weatherCard">
-  <div class="weather-left">
-    <div class="weather-icon" id="weatherIcon">☁️</div>
-    <div>
-      <div class="weather-temp" id="weatherTemp">—°</div>
-      <div class="weather-text" id="weatherText">Загружаем погоду…</div>
-    </div>
-  </div>
-  <button class="small-button" id="refreshWeather" aria-label="Обновить погоду">↻</button>
+
+<div class="weather-left">
+
+<div class="weather-icon" id="weatherIcon">☁️</div>
+
+<div>
+
+<div class="weather-temp" id="weatherTemp">—°</div>
+
+<div class="weather-text" id="weatherText">
+Загружаем погоду…
+</div>
+
+</div>
+
+</div>
+
+<button class="small-button" id="refreshWeather">↻</button>
+
 </div>
 
 <main id="pageContent"></main>
 
 <nav class="bottom-nav">
-  <button class="nav-button active" data-page="home">
-    <span class="nav-icon">🏠</span>Главная
-  </button>
-  <button class="nav-button" data-page="laundry">
-    <span class="nav-icon">🧺</span>Стирки
-  </button>
-  <button class="nav-button" data-page="history">
-    <span class="nav-icon">🕊️</span>История
-  </button>
-  <button class="nav-button" data-page="settings">
-    <span class="nav-icon">⚙️</span>Настройки
-  </button>
+
+<button class="nav-button active" data-page="home">
+<span class="nav-icon">🏠</span>
+Главная
+</button>
+
+<button class="nav-button" data-page="plan">
+<span class="nav-icon">📋</span>
+План
+</button>
+
+<button class="nav-button" data-page="laundry">
+<span class="nav-icon">🧺</span>
+Стирки
+</button>
+
+<button class="nav-button" data-page="budget">
+<span class="nav-icon">💰</span>
+Бюджет
+</button>
+
+<button class="nav-button" data-page="history">
+<span class="nav-icon">🕊️</span>
+История
+</button>
+
+<button class="nav-button" data-page="settings">
+<span class="nav-icon">⚙️</span>
+Настройки
+</button>
+
 </nav>
 
 <div class="toast" id="toast"></div>
+
 </div>
 
 <script>
+
 'use strict';
 
-const STORAGE_KEY = 'belyo_doma_v2';
-const SETTINGS_KEY = 'belyo_doma_settings_v1';
-const MACHINES_KEY = 'belyo_doma_machines_v1';
-const PROGRAMS_KEY = 'belyo_doma_programs_v1';
+const STORAGE_KEY='belyo_doma_v2';
+const SETTINGS_KEY='belyo_doma_settings_v1';
+const MACHINES_KEY='belyo_doma_machines_v1';
+const PROGRAMS_KEY='belyo_doma_programs_v1';
+const TASKS_KEY='belyo_doma_tasks_v1';
+const BUDGET_KEY='belyo_doma_budget_v1';
 
-let loads = [];
-let settings = {
-  theme:'sage',
-  timeFormat:'24',
-  notifications:false,
-  showWeather:true,
-  defaultMachine:'Машинка 1',
-  language:'ru'
+let loads=[];
+let tasks=[];
+
+let settings={
+theme:'sage',
+timeFormat:'24',
+notifications:false,
+showWeather:true,
+defaultMachine:'Машинка 1',
+language:'ru',
+name:''
 };
-let machines = ['Машинка 1'];
-let customPrograms = [];
-let editingId = null;
-let currentPage = 'home';
-let weather = {temp:null,humidity:null,code:null};
-let notified = new Set();
-let toastTimer = null;
 
-const $ = id => document.getElementById(id);
+let machines=['Машинка 1'];
+let customPrograms=[];
 
-function toast(message){
-  const el = $('toast');
-  el.textContent = message;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>el.classList.remove('show'),2600);
+let budget={
+accounts:[],
+transactions:[],
+mandatory:[]
+};
+
+let editingId=null;
+let currentPage='home';
+let toastTimer=null;
+
+let weather={
+temp:null,
+humidity:null,
+code:null
+};
+
+const $=id=>document.getElementById(id);
+
+function esc(v){
+return String(v??'')
+.replace(/&/g,'&amp;')
+.replace(/</g,'&lt;')
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;')
+.replace(/'/g,'&#039;')
 }
 
-function readStorage(key,fallback){
-  try{
-    const value = JSON.parse(localStorage.getItem(key));
-    return value === null ? fallback : value;
-  }catch(e){
-    return fallback;
-  }
+function read(key,fallback){
+try{
+let x=JSON.parse(localStorage.getItem(key));
+return x==null?fallback:x
+}catch(e){
+return fallback
+}
 }
 
-function save(){
-  try{
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(loads));
-  }catch(e){
-    toast('Не удалось сохранить данные. Проверь память браузера.');
-  }
+function toast(m){
+let e=$('toast');
+e.textContent=m;
+e.classList.add('show');
+
+clearTimeout(toastTimer);
+
+toastTimer=setTimeout(()=>{
+e.classList.remove('show')
+},2500)
 }
 
-function saveSettings(){
-  localStorage.setItem(SETTINGS_KEY,JSON.stringify(settings));
+function money(n){
+return new Intl.NumberFormat('ru-RU',{
+style:'currency',
+currency:'RUB',
+maximumFractionDigits:2
+}).format(Number(n)||0)
 }
 
-function saveMachines(){
-  localStorage.setItem(MACHINES_KEY,JSON.stringify(machines));
+function num(v){
+return Number(String(v).replace(',','.'))||0
 }
 
-function savePrograms(){
-  localStorage.setItem(PROGRAMS_KEY,JSON.stringify(customPrograms));
+function today(){
+return new Date().toISOString().slice(0,10)
 }
 
-function loadSaved(){
-  const saved = readStorage(STORAGE_KEY,[]);
-  loads = Array.isArray(saved) ? saved : [];
+function fmtDate(s){
+if(!s)return '';
 
-  settings = {
-    ...settings,
-    ...readStorage(SETTINGS_KEY,{})
-  };
+let d=new Date(s+'T12:00');
 
-  const savedMachines = readStorage(MACHINES_KEY,['Машинка 1']);
-  machines = Array.isArray(savedMachines) && savedMachines.length
-    ? savedMachines : ['Машинка 1'];
+return d.toLocaleDateString('ru-RU',{
+day:'numeric',
+month:'long'
+})
+}
 
-  const savedPrograms = readStorage(PROGRAMS_KEY,[]);
-  customPrograms = Array.isArray(savedPrograms) ? savedPrograms : [];
+function uid(){
+return Date.now()+'_'+Math.random().toString(36).slice(2,8)
+}
 
-  // Поддерживаем старые записи, созданные предыдущей версией сайта.
-  loads = loads.map(item=>({
-    ...item,
-    machine:item.machine || machines[0] || 'Машинка 1',
-    startedAt:Number(item.startedAt) || Number(item.createdAt) || Date.now(),
-    duration:Number(item.duration) || 60,
-    done:Boolean(item.done)
-  }));
+function saveAll(){
 
-  applyTheme();
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(loads)
+);
+
+localStorage.setItem(
+SETTINGS_KEY,
+JSON.stringify(settings)
+);
+
+localStorage.setItem(
+MACHINES_KEY,
+JSON.stringify(machines)
+);
+
+localStorage.setItem(
+PROGRAMS_KEY,
+JSON.stringify(customPrograms)
+);
+
+localStorage.setItem(
+TASKS_KEY,
+JSON.stringify(tasks)
+);
+
+localStorage.setItem(
+BUDGET_KEY,
+JSON.stringify(budget)
+)
+
 }
 
 function applyTheme(){
-  document.body.classList.remove('theme-pink','theme-lilac','theme-dark');
-  if(settings.theme==='pink') document.body.classList.add('theme-pink');
-  if(settings.theme==='lilac') document.body.classList.add('theme-lilac');
-  if(settings.theme==='dark') document.body.classList.add('theme-dark');
-  $('weatherCard').classList.toggle('hidden',!settings.showWeather);
+
+document.body.classList.remove(
+'theme-pink',
+'theme-lilac',
+'theme-dark'
+);
+
+if(settings.theme==='pink')
+document.body.classList.add('theme-pink');
+
+if(settings.theme==='lilac')
+document.body.classList.add('theme-lilac');
+
+if(settings.theme==='dark')
+document.body.classList.add('theme-dark');
+
+$('weatherCard').classList.toggle(
+'hidden',
+!settings.showWeather
+)
+
 }
 
-function formatClock(timestamp){
-  const date = new Date(timestamp);
-  if(isNaN(date.getTime())) return '—';
-  const options = {
-    hour:'2-digit',
-    minute:'2-digit',
-    hour12:settings.timeFormat==='12'
-  };
-  return date.toLocaleTimeString('ru-RU',options);
+function loadSaved(){
+
+loads=read(STORAGE_KEY,[]);
+
+if(!Array.isArray(loads))
+loads=[];
+
+settings={
+...settings,
+...read(SETTINGS_KEY,{})
+};
+
+machines=read(
+MACHINES_KEY,
+['Машинка 1']
+);
+
+if(!Array.isArray(machines)||!machines.length)
+machines=['Машинка 1'];
+
+customPrograms=read(
+PROGRAMS_KEY,
+[]
+);
+
+if(!Array.isArray(customPrograms))
+customPrograms=[];
+
+tasks=read(
+TASKS_KEY,
+[]
+);
+
+if(!Array.isArray(tasks))
+tasks=[];
+
+budget={
+...budget,
+...read(BUDGET_KEY,{})
+};
+
+if(!Array.isArray(budget.accounts))
+budget.accounts=[];
+
+if(!Array.isArray(budget.transactions))
+budget.transactions=[];
+
+if(!Array.isArray(budget.mandatory))
+budget.mandatory=[];
+
+loads=loads.map(x=>({
+...x,
+machine:x.machine||machines[0],
+startedAt:Number(x.startedAt)||Number(x.createdAt)||Date.now(),
+duration:Number(x.duration)||60,
+done:Boolean(x.done)
+}));
+
+applyTheme();
+
 }
 
-function formatDateTime(timestamp){
-  const date = new Date(timestamp);
-  if(isNaN(date.getTime())) return '—';
-  return date.toLocaleDateString('ru-RU',{
-    day:'2-digit',month:'short'
-  })+' · '+formatClock(timestamp);
+function fabricName(v){
+
+return({
+cotton:'Хлопок',
+synthetic:'Синтетика',
+mixed:'Смешанная ткань',
+delicate:'Деликатное',
+towels:'Полотенца',
+bed:'Постельное бельё'
+})[v]||v||'Не указано'
+
 }
 
-function escapeHtml(value){
-  return String(value ?? '')
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#039;');
+function placeName(v){
+
+return({
+balcony:'Балкон',
+glazed:'Застеклённый балкон',
+radiator:'Батарея',
+room:'В комнате',
+dryer:'Сушильная машина'
+})[v]||v||'Не указано'
+
 }
 
-function fabricName(value){
-  const names = {
-    cotton:'Хлопок',
-    synthetic:'Синтетика',
-    mixed:'Смешанная ткань',
-    delicate:'Деликатное',
-    towels:'Полотенца',
-    bed:'Постельное бельё'
-  };
-  return names[value] || value || 'Не указано';
+function spinName(v){
+
+return({
+low:'Низкий',
+medium:'Средний',
+high:'Высокий'
+})[v]||'Средний'
+
 }
 
-function placeName(value){
-  const names = {
-    balcony:'Балкон',
-    glazed:'Застеклённый балкон',
-    radiator:'Батарея',
-    room:'В комнате',
-    dryer:'Сушильная машина'
-  };
-  return names[value] || value || 'Не указано';
+function dryMinutes(x){
+
+let m=({
+cotton:165,
+synthetic:100,
+mixed:135,
+delicate:115,
+towels:190,
+bed:180
+})[x.fabric]||145;
+
+if(x.spin==='low')m+=35;
+
+if(x.spin==='high')m-=20;
+
+if(x.amount==='small')m-=20;
+
+if(x.amount==='large')m+=35;
+
+if(x.air==='still')m+=25;
+
+if(x.air==='windy')m-=30;
+
+if(x.place==='radiator')m-=25;
+
+if(x.place==='room')m+=30;
+
+if(x.place==='dryer')
+m=Math.min(m,90);
+
+if(weather.humidity>=80&&x.place!=='dryer')
+m+=35;
+
+else if(weather.humidity>=65&&x.place!=='dryer')
+m+=20;
+
+return Math.max(
+30,
+Math.round(m/5)*5
+)
+
 }
 
-function spinName(value){
-  return ({low:'Низкий',medium:'Средний',high:'Высокий'})[value] || 'Средний';
+function fmtClock(t){
+
+let d=new Date(t);
+
+return d.toLocaleTimeString(
+'ru-RU',
+{
+hour:'2-digit',
+minute:'2-digit',
+hour12:settings.timeFormat==='12'
+}
+)
+
 }
 
-function amountName(value){
-  return ({small:'Немного',medium:'Средняя загрузка',large:'Много'})[value] || 'Средняя загрузка';
+function fmtDT(t){
+
+let d=new Date(t);
+
+return d.toLocaleDateString(
+'ru-RU',
+{
+day:'2-digit',
+month:'short'
+}
+)+' · '+fmtClock(t)
+
 }
 
-function airName(value){
-  return ({still:'Почти нет воздуха',normal:'Обычное',windy:'Хорошее проветривание'})[value] || 'Обычное';
+function durText(ms){
+
+let m=Math.ceil(ms/60000);
+
+if(m<60)
+return m+' мин';
+
+let h=Math.floor(m/60);
+let r=m%60;
+
+return r?h+' ч '+r+' мин':h+' ч'
+
 }
 
-function dryMinutes(item){
-  let minutes = ({
-    cotton:165,
-    synthetic:100,
-    mixed:135,
-    delicate:115,
-    towels:190,
-    bed:180
-  })[item.fabric] || 145;
+function durLabel(n){
 
-  if(item.spin==='low') minutes += 35;
-  if(item.spin==='high') minutes -= 20;
-  if(item.amount==='small') minutes -= 20;
-  if(item.amount==='large') minutes += 35;
-  if(item.air==='still') minutes += 25;
-  if(item.air==='windy') minutes -= 30;
-  if(item.place==='glazed') minutes += 10;
-  if(item.place==='radiator') minutes -= 25;
-  if(item.place==='room') minutes += 30;
-  if(item.place==='dryer') minutes = Math.min(minutes,90);
+n=Number(n)||0;
 
-  if(weather.humidity!==null && item.place!=='dryer'){
-    if(weather.humidity>=80) minutes += 35;
-    else if(weather.humidity>=65) minutes += 20;
-    else if(weather.humidity<=40) minutes -= 15;
-  }
+if(n<60)
+return n+' мин';
 
-  if(weather.temp!==null && item.place!=='dryer'){
-    if(weather.temp<5) minutes += 25;
-    else if(weather.temp>25) minutes -= 15;
-  }
+let h=Math.floor(n/60);
+let r=n%60;
 
-  return Math.max(30,Math.round(minutes/5)*5);
+return r?h+' ч '+r+' мин':h+' ч'
+
 }
 
-function formatDuration(ms){
-  if(ms<=0) return 'сейчас';
-  const minutes = Math.ceil(ms/60000);
-  if(minutes<60) return minutes+' мин';
-  const hours = Math.floor(minutes/60);
-  const rest = minutes%60;
-  return rest ? hours+' ч '+rest+' мин' : hours+' ч';
+function stage(x){
+
+if(x.done)
+return{
+stage:2,
+title:'Завершено ✨',
+progress:100,
+remaining:'Готово'
+};
+
+let now=Date.now();
+
+let w=x.startedAt+x.duration*60000;
+
+if(now<w)
+
+return{
+stage:0,
+title:'Стирается',
+progress:Math.max(
+1,
+Math.min(
+99,
+Math.round(
+(now-x.startedAt)/
+(x.duration*60000)*100
+)
+)
+),
+remaining:durText(w-now)
+};
+
+let d=dryMinutes(x);
+
+let e=w+d*60000;
+
+if(now<e)
+
+return{
+stage:1,
+title:'Сушится',
+progress:Math.max(
+1,
+Math.min(
+99,
+Math.round(
+(now-w)/(d*60000)*100
+)
+)
+),
+remaining:durText(e-now)
+};
+
+return{
+stage:2,
+title:'Пора проверить',
+progress:100,
+remaining:'Время проверить'
 }
 
-function stage(item){
-  if(item.done){
-    return {
-      stage:2,title:'Завершено ✨',progress:100,
-      remaining:'Готово',endTime:item.finishedAt || null
-    };
-  }
-
-  const now = Date.now();
-  const washEnd = item.startedAt + item.duration*60000;
-
-  if(now<washEnd){
-    const progress = Math.max(1,Math.min(99,
-      Math.round((now-item.startedAt)/(item.duration*60000)*100)
-    ));
-    return {
-      stage:0,title:'Стирается',progress,
-      remaining:formatDuration(washEnd-now),
-      endTime:washEnd
-    };
-  }
-
-  const drying = dryMinutes(item);
-  const dryEnd = washEnd + drying*60000;
-
-  if(now<dryEnd){
-    const progress = Math.max(1,Math.min(99,
-      Math.round((now-washEnd)/(drying*60000)*100)
-    ));
-    return {
-      stage:1,title:'Сушится',progress,
-      remaining:formatDuration(dryEnd-now),
-      endTime:dryEnd
-    };
-  }
-
-  return {
-    stage:2,title:'Пора проверить',progress:100,
-    remaining:'Время проверить бельё',endTime:dryEnd
-  };
 }
 
-function activeLoads(){
-  return loads.filter(x=>!x.done);
+function machineOptions(sel){
+
+return machines.map(m=>`
+<option value="${esc(m)}"
+${m===sel?'selected':''}>
+${esc(m)}
+</option>
+`).join('')
+
 }
 
-function sortedLoads(list){
-  return [...list].sort((a,b)=>{
-    const sa=stage(a), sb=stage(b);
-    if(sa.stage!==sb.stage) return sa.stage-sb.stage;
-    return a.startedAt-b.startedAt;
-  });
+function programOptions(sel){
+
+let a=[
+['cotton','Хлопок'],
+['synthetic','Синтетика'],
+['mixed','Смешанная ткань'],
+['delicate','Деликатное'],
+['towels','Полотенца'],
+['bed','Постельное бельё']
+]
+.concat(
+customPrograms.map(p=>[
+p.fabric,
+p.name
+])
+);
+
+return a.map(p=>`
+<option value="${esc(p[0])}"
+${p[0]===sel?'selected':''}>
+${esc(p[1])}
+</option>
+`).join('')
+
 }
 
-function machineOptions(selected){
-  return machines.map(machine=>
-    `<option value="${escapeHtml(machine)}" ${machine===selected?'selected':''}>${escapeHtml(machine)}</option>`
-  ).join('');
+function loadCard(x,history=false){
+
+let s=stage(x);
+
+let we=x.startedAt+x.duration*60000;
+
+let de=we+dryMinutes(x)*60000;
+
+return `
+<div class="card load-card">
+
+<div class="load-top">
+
+<div>
+
+<div class="load-name">
+${esc(x.name)}
+</div>
+
+<div class="load-place">
+${esc(x.machine)} · ${esc(placeName(x.place))}
+</div>
+
+</div>
+
+<div class="badge">
+${s.title}
+</div>
+
+</div>
+
+<div class="progress-wrap">
+<div class="progress"
+style="width:${s.progress}%">
+</div>
+</div>
+
+<div class="info">
+<span>
+${x.done?'Завершено':
+s.stage===0?'До конца стирки':'До окончания сушки'}
+</span>
+
+<strong>
+${x.done?
+fmtClock(x.finishedAt):
+s.remaining}
+</strong>
+</div>
+
+<div class="info">
+<span>Начало</span>
+<span>${fmtDT(x.startedAt)}</span>
+</div>
+
+<div class="info">
+<span>Ориентировочно сухое</span>
+<span>${fmtClock(de)}</span>
+</div>
+
+<div class="info">
+<span>Ткань · отжим</span>
+<span>
+${esc(fabricName(x.fabric))}
+·
+${esc(spinName(x.spin))}
+</span>
+</div>
+
+${x.notes?
+`
+<div class="info">
+<span>Заметка</span>
+<span>${esc(x.notes)}</span>
+</div>
+`
+:''}
+
+<div class="actions">
+
+${history?
+
+`
+<button class="action"
+data-action="restore"
+data-id="${x.id}">
+Вернуть
+</button>
+`
+
+:
+
+`
+<button class="action"
+data-action="editLoad"
+data-id="${x.id}">
+Изменить
+</button>
+
+${!x.done?
+`
+<button class="action primary"
+data-action="finishLoad"
+data-id="${x.id}">
+Готово ✓
+</button>
+`
+:''}
+
+`}
+
+<button class="action pink"
+data-action="deleteLoad"
+data-id="${x.id}">
+Удалить
+</button>
+
+</div>
+
+</div>
+`
+
 }
 
-function programOptions(selected){
-  const builtIn = [
-    ['cotton','Хлопок'],
-    ['synthetic','Синтетика'],
-    ['mixed','Смешанная ткань'],
-    ['delicate','Деликатное'],
-    ['towels','Полотенца'],
-    ['bed','Постельное бельё']
-  ];
-  const all = builtIn.concat(customPrograms.map(p=>[p.fabric,p.name]));
-  return all.map(([value,name])=>
-    `<option value="${escapeHtml(value)}" ${value===selected?'selected':''}>${escapeHtml(name)}</option>`
-  ).join('');
+function taskWord(n){
+
+let m=n%10;
+let h=n%100;
+
+return m===1&&h!==11
+?'задача'
+:m>=2&&m<=4&&(h<10||h>=20)
+?'задачи'
+:'задач'
+
 }
 
-function loadCard(item,historyMode=false){
-  const s = stage(item);
-  const dry = dryMinutes(item);
-  const washEnd = item.startedAt + item.duration*60000;
-  const dryEnd = washEnd + dry*60000;
-  const actualDone = item.done;
+function taskMini(t){
 
-  return `
-    <div class="card load-card">
-      <div class="load-top">
-        <div>
-          <div class="load-name">${escapeHtml(item.name)}</div>
-          <div class="load-place">${escapeHtml(item.machine || machines[0])} · ${escapeHtml(placeName(item.place))}</div>
-        </div>
-        <div class="badge">${actualDone?'Завершено ✓':s.title}</div>
-      </div>
+return `
+<div class="task ${t.done?'done':''}">
 
-      <div class="progress-wrap">
-        <div class="progress" style="width:${s.progress}%"></div>
-      </div>
+<button
+class="task-check ${t.done?'done':''}"
+data-action="toggleTask"
+data-id="${t.id}">
+${t.done?'✓':''}
+</button>
 
-      <div class="info">
-        <span>${actualDone?'Завершено':s.stage===0?'До конца стирки':'До окончания сушки'}</span>
-        <strong>${actualDone?formatClock(item.finishedAt || item.startedAt):s.remaining}</strong>
-      </div>
+<div class="task-main">
 
-      <div class="info">
-        <span>Начало</span>
-        <span>${formatDateTime(item.startedAt)}</span>
-      </div>
+<div class="task-title">
+${esc(t.title)}
+</div>
 
-      <div class="info">
-        <span>Окончание стирки</span>
-        <span>${formatClock(washEnd)}</span>
-      </div>
+<div class="task-time">
+${t.time||'Без времени'}
+·
+${durLabel(t.duration)}
+</div>
 
-      <div class="info">
-        <span>Ориентировочно сухое</span>
-        <span>${formatClock(dryEnd)}</span>
-      </div>
+</div>
 
-      <div class="info">
-        <span>Ткань · отжим</span>
-        <span>${escapeHtml(fabricName(item.fabric))} · ${escapeHtml(spinName(item.spin))}</span>
-      </div>
+</div>
+`
 
-      ${item.notes?`<div class="info"><span>Заметка</span><span>${escapeHtml(item.notes)}</span></div>`:''}
-
-      <div class="actions">
-        ${!historyMode?`
-          <button class="action" data-action="edit" data-id="${escapeHtml(item.id)}">Изменить</button>
-          ${!item.done?`<button class="action primary" data-action="finish" data-id="${escapeHtml(item.id)}">Готово ✓</button>`:''}
-          <button class="action pink" data-action="delete" data-id="${escapeHtml(item.id)}">Удалить</button>
-        `:`
-          <button class="action" data-action="restore" data-id="${escapeHtml(item.id)}">Вернуть в стирки</button>
-          <button class="action pink" data-action="delete" data-id="${escapeHtml(item.id)}">Удалить</button>
-        `}
-      </div>
-    </div>
-  `;
 }
 
 function renderHome(){
-  const list = sortedLoads(activeLoads());
-  return `
-    <div class="section-head">
-      <h2>Сейчас сушится</h2>
-      <span class="counter">${list.filter(x=>stage(x).stage===1).length}</span>
-    </div>
-    <div class="section-caption">Здесь отображаются все незавершённые стирки. Можно вести несколько одновременно.</div>
-    ${list.length?list.map(x=>loadCard(x)).join(''):`
-      <div class="card empty">
-        <div class="empty-icon">🧺</div>
-        <div class="empty-title">Пока здесь пусто</div>
-        <div style="margin-top:5px">Добавь первую стирку — будем следить за ней вместе ♡</div>
-      </div>
-    `}
-    <button class="add-button" data-action="add">＋ Добавить стирку</button>
-    <div class="notice">💡 Время сушки — ориентировочное. На него влияют материал, отжим, количество белья, температура и влажность. Погода снаружи не всегда отражает условия внутри помещения.</div>
-  `;
+
+let active=loads
+.filter(x=>!x.done)
+.sort((a,b)=>a.startedAt-b.startedAt);
+
+let todayTasks=tasks
+.filter(x=>x.date===today())
+.sort((a,b)=>
+(a.time||'').localeCompare(
+b.time||''
+)
+);
+
+let daily=budgetDaily();
+
+return `
+
+<div class="hero-mini">
+
+<h2>
+${settings.name?
+`Привет, ${esc(settings.name)}! ♡`
+:
+'Привет! ♡'}
+</h2>
+
+<p>
+${
+todayTasks.filter(x=>!x.done).length
+?
+`На сегодня запланировано ${
+todayTasks.filter(x=>!x.done).length
+} ${
+taskWord(
+todayTasks.filter(x=>!x.done).length
+)
+}.`
+:
+'Сегодня пока ничего не запланировано — можно выдохнуть.'
+}
+</p>
+
+</div>
+
+<div class="summary-grid">
+
+<div class="summary">
+<div class="lbl">Задач сегодня</div>
+<div class="num">${todayTasks.length}</div>
+</div>
+
+<div class="summary">
+<div class="lbl">Можно тратить сегодня</div>
+<div class="num">${money(daily)}</div>
+</div>
+
+</div>
+
+<div class="section-head">
+
+<h2>Сейчас сушится</h2>
+
+<span class="counter">
+${active.filter(x=>stage(x).stage===1).length}
+</span>
+
+</div>
+
+<div class="section-caption">
+Твои текущие загрузки.
+</div>
+
+${
+active.length
+?
+active.map(loadCard).join('')
+:
+`
+<div class="card empty">
+
+<div class="empty-icon">🧺</div>
+
+<div class="empty-title">
+Пока здесь пусто
+</div>
+
+<div style="margin-top:5px">
+Добавь первую стирку — будем следить за ней вместе ♡
+</div>
+
+</div>
+`
+}
+
+<button
+class="add-button"
+data-action="addLoad">
+＋ Добавить стирку
+</button>
+
+${
+todayTasks.length
+?
+`
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+📋 Сегодня
+</h3>
+
+${todayTasks.slice(0,4).map(taskMini).join('')}
+
+<button
+class="settings-action"
+data-page-go="plan">
+Открыть план дня
+</button>
+
+</div>
+`
+:''
+}
+
+<div class="notice">
+
+💡 Время сушки ориентировочное.
+На него влияют ткань, отжим, количество белья,
+температура и влажность.
+
+</div>
+
+`
+
 }
 
 function renderLaundry(){
-  const list = sortedLoads(activeLoads());
-  return `
-    <h2 class="page-title">Мои стирки 🧺</h2>
-    <p class="section-caption">Добавляй новые загрузки, даже если другая машинка уже работает.</p>
-    <div class="card">
-      <div class="settings-label">Машинки</div>
-      ${machines.map(m=>`<span class="machine-chip">${escapeHtml(m)}</span>`).join('')}
-    </div>
-    ${list.length?list.map(x=>loadCard(x)).join(''):`
-      <div class="card empty">
-        <div class="empty-icon">🫧</div>
-        <div class="empty-title">Активных стирок пока нет</div>
-        <div style="margin-top:5px">Можно запустить новую в любое время.</div>
-      </div>
-    `}
-    <button class="add-button" data-action="add">＋ Добавить стирку</button>
-    <div class="card">
-      <h3 style="margin:0 0 8px">Быстрый совет ♡</h3>
-      <div class="small-note">Время окончания рассчитывается отдельно для каждой загрузки. Если изменишь время начала или параметры белья, прогноз пересчитается.</div>
-    </div>
-  `;
+
+let a=loads
+.filter(x=>!x.done)
+.sort((x,y)=>x.startedAt-y.startedAt);
+
+return `
+
+<h2 class="page-title">
+Мои стирки 🧺
+</h2>
+
+<p class="section-caption">
+Можно вести несколько загрузок одновременно.
+</p>
+
+<div class="card">
+
+<div class="settings-label">
+Машинки
+</div>
+
+${machines.map(m=>`
+<span class="machine-chip">
+${esc(m)}
+</span>
+`).join('')}
+
+</div>
+
+${
+a.length
+?
+a.map(loadCard).join('')
+:
+`
+<div class="card empty">
+
+<div class="empty-icon">🫧</div>
+
+<div class="empty-title">
+Активных стирок пока нет
+</div>
+
+</div>
+`
+}
+
+<button
+class="add-button"
+data-action="addLoad">
+＋ Добавить стирку
+</button>
+
+`
+
 }
 
 function renderHistory(){
-  const list = loads.filter(x=>x.done).sort((a,b)=>
-    (b.finishedAt||b.createdAt||0)-(a.finishedAt||a.createdAt||0)
-  );
-  const total = list.length;
-  return `
-    <h2 class="page-title">История стирок 🕊️</h2>
-    <p class="section-caption">Завершённые загрузки сохраняются здесь, пока ты сама их не удалишь.</p>
-    <div class="card">
-      <div class="settings-row">
-        <div>
-          <div class="settings-label">Всего завершено</div>
-          <div class="settings-help">Количество записей в истории</div>
-        </div>
-        <span class="counter">${total}</span>
-      </div>
-      ${total?`<button class="settings-action" data-action="clearHistory">Очистить историю</button>`:''}
-    </div>
-    ${list.length?list.map(x=>loadCard(x,true)).join(''):`
-      <div class="card empty">
-        <div class="empty-icon">🕊️</div>
-        <div class="empty-title">История пока пустая</div>
-        <div style="margin-top:5px">Когда отметишь бельё готовым, запись появится здесь.</div>
-      </div>
-    `}
-  `;
+
+let a=loads
+.filter(x=>x.done)
+.sort(
+(x,y)=>
+(y.finishedAt||0)-
+(x.finishedAt||0)
+);
+
+return `
+
+<h2 class="page-title">
+История стирок 🕊️
+</h2>
+
+<p class="section-caption">
+Завершённые загрузки сохраняются здесь.
+</p>
+
+<div class="card">
+
+<div class="settings-row">
+
+<div>
+
+<div class="settings-label">
+Всего завершено
+</div>
+
+</div>
+
+<span class="counter">
+${a.length}
+</span>
+
+</div>
+
+${
+a.length
+?
+`
+<button
+class="settings-action"
+data-action="clearHistory">
+Очистить историю
+</button>
+`
+:''
+}
+
+</div>
+
+${
+a.length
+?
+a.map(x=>loadCard(x,true)).join('')
+:
+`
+<div class="card empty">
+
+<div class="empty-icon">🕊️</div>
+
+<div class="empty-title">
+История пока пустая
+</div>
+
+</div>
+`
+}
+
+`
+
+}
+
+function renderPlan(){
+
+let d=today();
+
+let a=tasks
+.filter(x=>x.date===d)
+.sort((x,y)=>
+(x.time||'99:99')
+.localeCompare(
+y.time||'99:99'
+)
+);
+
+let future=tasks
+.filter(x=>x.date>d)
+.sort((x,y)=>
+(x.date+x.time)
+.localeCompare(
+y.date+y.time
+)
+);
+
+return `
+
+<h2 class="page-title">
+План дня 📋
+</h2>
+
+<p class="section-caption">
+Ты сама выстраиваешь день:
+задача, дата, время и длительность.
+</p>
+
+<button
+class="add-button"
+data-action="addTask">
+＋ Добавить задачу
+</button>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+Сегодня · ${fmtDate(d)}
+</h3>
+
+${
+a.length
+?
+a.map(taskRow).join('')
+:
+`
+<div class="empty"
+style="padding:22px 5px">
+На сегодня задач нет ✨
+</div>
+`
+}
+
+</div>
+
+${
+future.length
+?
+`
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+Дальше
+</h3>
+
+${future.map(taskRow).join('')}
+
+</div>
+`
+:''
+}
+
+`
+
+}
+
+function taskRow(t){
+
+return `
+
+<div class="task ${t.done?'done':''}">
+
+<button
+class="task-check ${t.done?'done':''}"
+data-action="toggleTask"
+data-id="${t.id}">
+${t.done?'✓':''}
+</button>
+
+<div class="task-main">
+
+<div class="task-title">
+${esc(t.title)}
+</div>
+
+<div class="task-time">
+${fmtDate(t.date)}
+·
+${t.time||'без времени'}
+·
+${durLabel(t.duration)}
+${t.category?
+' · '+esc(t.category):
+''}
+</div>
+
+</div>
+
+<div class="task-actions">
+
+<button
+data-action="editTask"
+data-id="${t.id}">
+✎
+</button>
+
+<button
+data-action="deleteTask"
+data-id="${t.id}">
+×
+</button>
+
+</div>
+
+</div>
+
+`
+
+}
+
+function budgetSafe(){
+
+return budget.accounts.reduce(
+(s,a)=>s+num(a.balance),
+0
+)
+-
+budget.mandatory
+.filter(x=>!x.paid)
+.reduce(
+(s,x)=>s+num(x.amount),
+0
+)
+
+}
+
+function budgetDaily(){
+
+let now=new Date();
+
+let days=
+new Date(
+now.getFullYear(),
+now.getMonth()+1,
+0
+).getDate()
+-
+now.getDate()
++
+1;
+
+return Math.max(
+0,
+budgetSafe()/
+Math.max(1,days)
+)
+
+}
+
+function accountRow(a){
+
+return `
+
+<div class="account">
+
+<div>
+
+<div class="account-name">
+${esc(a.name)}
+</div>
+
+<div class="small-note">
+Счёт / карта
+</div>
+
+</div>
+
+<div style="text-align:right">
+
+<div class="money">
+${money(a.balance)}
+</div>
+
+<div>
+
+<button
+class="action"
+data-action="editAccount"
+data-id="${a.id}">
+Изменить
+</button>
+
+<button
+class="action pink"
+data-action="deleteAccount"
+data-id="${a.id}">
+×
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
+}
+
+function renderTransactions(){
+
+let a=[...budget.transactions]
+.sort(
+(x,y)=>
+(y.date||'').localeCompare(
+x.date||''
+)
+)
+.slice(0,12);
+
+if(!a.length)
+
+return `
+<div class="small-note"
+style="margin-top:12px">
+Операций пока нет.
+</div>
+`;
+
+return a.map(x=>{
+
+let ac=budget.accounts.find(
+a=>a.id===x.accountId
+);
+
+return `
+
+<div class="account">
+
+<div>
+
+<div class="account-name">
+${esc(x.name)}
+</div>
+
+<div class="small-note">
+${fmtDate(x.date)}
+·
+${esc(ac?.name||'Счёт удалён')}
+</div>
+
+</div>
+
+<div class="money ${
+x.type==='income'
+?'positive'
+:'negative'
+}">
+
+${x.type==='income'?'+':'−'}
+${money(x.amount)}
+
+</div>
+
+</div>
+
+`
+
+}).join('')
+
+}
+
+function mandatoryRow(x){
+
+let ac=budget.accounts.find(
+a=>a.id===x.accountId
+);
+
+return `
+
+<div class="account">
+
+<div>
+
+<div class="account-name">
+${esc(x.name)}
+</div>
+
+<div class="small-note">
+до ${fmtDate(x.date)}
+·
+${esc(ac?.name||'без счёта')}
+</div>
+
+</div>
+
+<div style="text-align:right">
+
+<div class="money">
+${money(x.amount)}
+</div>
+
+<button
+class="action ${x.paid?'primary':''}"
+data-action="toggleMandatory"
+data-id="${x.id}">
+${x.paid?'Оплачено ✓':'Оплатить'}
+</button>
+
+<button
+class="action pink"
+data-action="deleteMandatory"
+data-id="${x.id}">
+×
+</button>
+
+</div>
+
+</div>
+
+`
+
+}
+
+function renderBudget(){
+
+let total=budget.accounts.reduce(
+(s,a)=>s+num(a.balance),
+0
+);
+
+let unpaid=budget.mandatory
+.filter(x=>!x.paid)
+.reduce(
+(s,x)=>s+num(x.amount),
+0
+);
+
+let daily=budgetDaily();
+
+let month=today().slice(0,7);
+
+let inc=budget.transactions
+.filter(
+x=>x.date?.startsWith(month)&&
+x.type==='income'
+)
+.reduce(
+(s,x)=>s+num(x.amount),
+0
+);
+
+let exp=budget.transactions
+.filter(
+x=>x.date?.startsWith(month)&&
+x.type==='expense'
+)
+.reduce(
+(s,x)=>s+num(x.amount),
+0
+);
+
+return `
+
+<h2 class="page-title">
+Бюджет 💰
+</h2>
+
+<p class="section-caption">
+Счета — это реальные текущие суммы.
+Доходы и расходы сохраняются отдельно
+для истории.
+</p>
+
+<div class="summary-grid">
+
+<div class="summary">
+<div class="lbl">Сейчас всего</div>
+<div class="num">${money(total)}</div>
+</div>
+
+<div class="summary">
+<div class="lbl">После обязательных</div>
+<div class="num">${money(total-unpaid)}</div>
+</div>
+
+<div class="summary">
+<div class="lbl">Доходы за месяц</div>
+<div class="num">${money(inc)}</div>
+</div>
+
+<div class="summary">
+<div class="lbl">Расходы за месяц</div>
+<div class="num">${money(exp)}</div>
+</div>
+
+</div>
+
+<div class="hero-mini">
+
+<h2>
+💸 Можно тратить сегодня:
+${money(daily)}
+</h2>
+
+<p>
+Сумма после вычета неоплаченных
+обязательных платежей,
+разделённая на оставшиеся дни месяца.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+🏦 Счета и карты
+</h3>
+
+${
+budget.accounts.length
+?
+budget.accounts.map(accountRow).join('')
+:
+`
+<div class="empty"
+style="padding:20px 5px">
+Добавь первую карту или счёт.
+</div>
+`
+}
+
+<button
+class="settings-action"
+data-action="addAccount">
+＋ Добавить счёт / карту
+</button>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+Операции
+</h3>
+
+<button
+class="settings-action"
+data-action="addIncome">
+＋ Добавить доход
+</button>
+
+<button
+class="settings-action"
+data-action="addExpense">
+− Добавить расход
+</button>
+
+${renderTransactions()}
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+📌 Обязательные платежи
+</h3>
+
+${
+budget.mandatory.length
+?
+budget.mandatory.map(mandatoryRow).join('')
+:
+`
+<div class="small-note"
+style="margin-top:8px">
+Например: аренда, интернет,
+кредит или коммуналка.
+</div>
+`
+}
+
+<button
+class="settings-action"
+data-action="addMandatory">
+＋ Добавить обязательный платёж
+</button>
+
+</div>
+
+`
+
 }
 
 function renderSettings(){
-  return `
-    <h2 class="page-title">Настройки ⚙️</h2>
-    <p class="section-caption">Настрой «Бельё дома» под себя. Изменения сохраняются на этом устройстве.</p>
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">🎨 Внешний вид</h3>
-      <div class="settings-row">
-        <div><div class="settings-label">Тема</div><div class="settings-help">Выбери любимое оформление</div></div>
-        <select id="settingTheme">
-          <option value="sage" ${settings.theme==='sage'?'selected':''}>Sage & Milk</option>
-          <option value="pink" ${settings.theme==='pink'?'selected':''}>Pink Laundry</option>
-          <option value="lilac" ${settings.theme==='lilac'?'selected':''}>Лавандовая</option>
-          <option value="dark" ${settings.theme==='dark'?'selected':''}>Тёмная</option>
-        </select>
-      </div>
-      <div class="settings-row">
-        <div><div class="settings-label">Формат времени</div><div class="settings-help">Например, 18:30 или 6:30 PM</div></div>
-        <select id="settingTime">
-          <option value="24" ${settings.timeFormat==='24'?'selected':''}>24 часа</option>
-          <option value="12" ${settings.timeFormat==='12'?'selected':''}>12 часов</option>
-        </select>
-      </div>
-      <div class="settings-row">
-        <div><div class="settings-label">Показывать погоду</div><div class="settings-help">Погода помогает оценить сушку на воздухе</div></div>
-        <input type="checkbox" id="settingWeather" ${settings.showWeather?'checked':''}>
-      </div>
-    </div>
+return `
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">🧺 Машинки и места</h3>
-      <div class="settings-row">
-        <div><div class="settings-label">Машинок добавлено</div><div class="settings-help">Можно вести несколько машин</div></div>
-        <span class="counter">${machines.length}</span>
-      </div>
-      ${machines.map((m,i)=>`
-        <div class="settings-row">
-          <div><div class="settings-label">${escapeHtml(m)}</div><div class="settings-help">${loads.filter(x=>x.machine===m&&!x.done).length} активных загрузок</div></div>
-          <button class="action pink" data-action="removeMachine" data-index="${i}" ${machines.length===1?'disabled':''}>Удалить</button>
-        </div>
-      `).join('')}
-      <button class="settings-action" data-action="addMachine">＋ Добавить машинку</button>
-      <div class="settings-row">
-        <div><div class="settings-label">Машинка по умолчанию</div></div>
-        <select id="settingDefaultMachine">${machineOptions(settings.defaultMachine)}</select>
-      </div>
-    </div>
+<h2 class="page-title">
+Настройки ⚙️
+</h2>
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">🫧 Свои программы</h3>
-      <div class="small-note">Создавай собственные названия программ. Для них можно выбрать тип ткани при добавлении стирки.</div>
-      ${customPrograms.length?customPrograms.map((p,i)=>`
-        <div class="settings-row">
-          <div><div class="settings-label">${escapeHtml(p.name)}</div><div class="settings-help">${escapeHtml(fabricName(p.fabric))}</div></div>
-          <button class="action pink" data-action="removeProgram" data-index="${i}">Удалить</button>
-        </div>
-      `).join(''):`<p class="small-note">Пока нет собственных программ.</p>`}
-      <button class="settings-action" data-action="addProgram">＋ Добавить программу</button>
-    </div>
+<p class="section-caption">
+Настрой приложение под себя.
+Всё хранится на этом устройстве.
+</p>
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">🔔 Уведомления</h3>
-      <div class="settings-row">
-        <div><div class="settings-label">Напоминания</div><div class="settings-help">Уведомление о завершении стирки и расчётной сушке, пока сайт открыт</div></div>
-        <input type="checkbox" id="settingNotifications" ${settings.notifications?'checked':''}>
-      </div>
-      <button class="settings-action" data-action="testNotification">Проверить уведомления</button>
-      <p class="small-note">На iPhone уведомления браузера могут требовать разрешения и не гарантируют срабатывание, когда страница закрыта. Для надёжной работы держи сайт открытым.</p>
-    </div>
+<div class="card">
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">💾 Данные</h3>
-      <div class="small-note">Стирки, история, настройки и программы хранятся локально в браузере на этом устройстве. Очистка данных Safari может удалить их.</div>
-      <button class="settings-action" data-action="exportData">Экспортировать резервную копию</button>
-      <button class="settings-action" data-action="importData">Импортировать резервную копию</button>
-      <input class="hidden" id="importFile" type="file" accept="application/json,.json">
-      <button class="settings-action" data-action="resetSettings">Сбросить настройки</button>
-    </div>
+<h3 style="margin:0 0 5px">
+👤 Профиль
+</h3>
 
-    <div class="card">
-      <h3 style="margin:0 0 5px">♡ О проекте</h3>
-      <div class="small-note">«Бельё дома» — уютный помощник для стирки и сушки. Бесплатные функции доступны без подписки. Будущие премиум-возможности можно добавить отдельно.</div>
-      <div class="small-note" style="margin-top:10px">Версия 2.0 · данные сохраняются на устройстве</div>
-    </div>
-  `;
+<div class="settings-row">
+
+<div>
+
+<div class="settings-label">
+Твоё имя
+</div>
+
+<div class="settings-help">
+Оно появится на главной странице.
+</div>
+
+</div>
+
+<input
+id="profileName"
+type="text"
+maxlength="40"
+placeholder="Например, Анна"
+value="${esc(settings.name||'')}">
+
+</div>
+
+<button
+class="settings-action"
+data-action="saveProfile">
+Сохранить имя ♡
+</button>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+🎨 Внешний вид
+</h3>
+
+<div class="settings-row">
+
+<div>
+<div class="settings-label">Тема</div>
+</div>
+
+<select id="settingTheme">
+
+<option value="sage"
+${settings.theme==='sage'?'selected':''}>
+Sage & Milk
+</option>
+
+<option value="pink"
+${settings.theme==='pink'?'selected':''}>
+Pink Laundry
+</option>
+
+<option value="lilac"
+${settings.theme==='lilac'?'selected':''}>
+Лавандовая
+</option>
+
+<option value="dark"
+${settings.theme==='dark'?'selected':''}>
+Тёмная
+</option>
+
+</select>
+
+</div>
+
+<div class="settings-row">
+
+<div>
+<div class="settings-label">
+Формат времени
+</div>
+</div>
+
+<select id="settingTime">
+
+<option value="24"
+${settings.timeFormat==='24'?'selected':''}>
+24 часа
+</option>
+
+<option value="12"
+${settings.timeFormat==='12'?'selected':''}>
+12 часов
+</option>
+
+</select>
+
+</div>
+
+<div class="settings-row">
+
+<div>
+<div class="settings-label">
+Показывать погоду
+</div>
+</div>
+
+<input
+type="checkbox"
+id="settingWeather"
+${settings.showWeather?'checked':''}>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+🧺 Машинки
+</h3>
+
+${machines.map((m,i)=>`
+
+<div class="settings-row">
+
+<div>
+
+<div class="settings-label">
+${esc(m)}
+</div>
+
+<div class="settings-help">
+${loads.filter(
+x=>x.machine===m&&!x.done
+).length}
+активных
+</div>
+
+</div>
+
+<button
+class="action pink"
+data-action="removeMachine"
+data-index="${i}"
+${machines.length===1?'disabled':''}>
+Удалить
+</button>
+
+</div>
+
+`).join('')}
+
+<button
+class="settings-action"
+data-action="addMachine">
+＋ Добавить машинку
+</button>
+
+<div class="settings-row">
+
+<div>
+<div class="settings-label">
+По умолчанию
+</div>
+</div>
+
+<select id="defaultMachine">
+${machineOptions(settings.defaultMachine)}
+</select>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+💾 Данные
+</h3>
+
+<div class="small-note">
+Теперь резервная копия включает стирки,
+профиль, план и бюджет.
+</div>
+
+<button
+class="settings-action"
+data-action="exportData">
+Экспортировать резервную копию
+</button>
+
+<button
+class="settings-action"
+data-action="importData">
+Импортировать резервную копию
+</button>
+
+<input
+class="hidden"
+id="importFile"
+type="file"
+accept="application/json,.json">
+
+<button
+class="settings-action"
+data-action="resetSettings">
+Сбросить настройки
+</button>
+
+</div>
+
+<div class="card">
+
+<h3 style="margin:0 0 5px">
+♡ О проекте
+</h3>
+
+<div class="small-note">
+«Бельё дома» — уютный помощник
+для дома, стирки, планов и бюджета.
+</div>
+
+<div
+class="small-note"
+style="margin-top:10px">
+Версия 3.0 · профиль + план дня + бюджет
+</div>
+
+</div>
+
+`
+
 }
 
 function render(){
-  const page = $('pageContent');
-  if(currentPage==='home') page.innerHTML=renderHome();
-  else if(currentPage==='laundry') page.innerHTML=renderLaundry();
-  else if(currentPage==='history') page.innerHTML=renderHistory();
-  else if(currentPage==='settings') page.innerHTML=renderSettings();
 
-  document.querySelectorAll('.nav-button').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.page===currentPage);
-  });
+let p=$('pageContent');
 
-  $('weatherCard').classList.toggle('hidden',!settings.showWeather);
-  $('greeting').textContent = 'Привет! 🧺';
-  $('subtitle').textContent = currentPage==='settings'
-    ? 'Всё можно настроить под себя ♡'
-    : currentPage==='history'
-      ? 'Все твои завершённые стирки в одном месте.'
-      : currentPage==='laundry'
-        ? 'Следим за каждой загрузкой.'
-        : 'Посмотрим, что сейчас сушится?';
+if(currentPage==='home')
+p.innerHTML=renderHome();
+
+else if(currentPage==='laundry')
+p.innerHTML=renderLaundry();
+
+else if(currentPage==='history')
+p.innerHTML=renderHistory();
+
+else if(currentPage==='plan')
+p.innerHTML=renderPlan();
+
+else if(currentPage==='budget')
+p.innerHTML=renderBudget();
+
+else
+p.innerHTML=renderSettings();
+
+document
+.querySelectorAll('.nav-button')
+.forEach(
+b=>
+b.classList.toggle(
+'active',
+b.dataset.page===currentPage
+)
+);
+
+$('greeting').textContent=
+settings.name
+?
+`Привет, ${settings.name}! 🧺`
+:
+'Привет! 🧺';
+
+$('subtitle').textContent=
+currentPage==='settings'
+?
+'Всё можно настроить под себя ♡'
+:
+currentPage==='plan'
+?
+'Соберём твой день без суеты.'
+:
+currentPage==='budget'
+?
+'Смотрим деньги спокойно и по делу.'
+:
+currentPage==='laundry'
+?
+'Следим за каждой загрузкой.'
+:
+currentPage==='history'
+?
+'Все завершённые стирки в одном месте.'
+:
+'Твой уютный помощник по дому.';
+
+applyTheme();
+
 }
 
-function openForm(id=null){
-  editingId=id;
-  const old = id ? loads.find(x=>x.id===id) : null;
-  if(id && !old){
-    toast('Не удалось найти эту стирку');
-    return;
-  }
+function openLoadForm(id=null){
 
-  $('pageContent').innerHTML = `
-    <section class="card form-card active">
-      <h2 class="form-title">${old?'Изменить стирку':'Новая стирка'}</h2>
-      <p class="form-subtitle">Заполни параметры — я рассчитаю примерное время окончания сушки.</p>
+editingId=id;
 
-      <label for="name">Название</label>
-      <input id="name" type="text" maxlength="80" placeholder="Например, постельное бельё" value="${escapeHtml(old?.name||'')}">
+let x=id?
+loads.find(a=>a.id===id):
+null;
 
-      <label for="machine">Какая машинка?</label>
-      <select id="machine">${machineOptions(old?.machine||settings.defaultMachine||machines[0])}</select>
+$('pageContent').innerHTML=`
 
-      <label for="duration">Длительность стирки</label>
-      <select id="duration">
-        <option value="15">15 минут</option>
-        <option value="30">30 минут</option>
-        <option value="45">45 минут</option>
-        <option value="60">1 час</option>
-        <option value="75">1 час 15 минут</option>
-        <option value="90">1 час 30 минут</option>
-        <option value="105">1 час 45 минут</option>
-        <option value="120">2 часа</option>
-        <option value="150">2 часа 30 минут</option>
-        <option value="180">3 часа</option>
-        <option value="240">4 часа</option>
-        <option value="custom">Своё время…</option>
-      </select>
-      <label for="customDuration">Своя длительность в минутах</label>
-      <input id="customDuration" type="number" min="1" max="1440" placeholder="Например, 80" class="hidden">
+<section class="card form-card active">
 
-      <label for="fabric">Что стираем?</label>
-      <select id="fabric">${programOptions(old?.fabric||'mixed')}</select>
+<h2 class="form-title">
+${x?'Изменить стирку':'Новая стирка'}
+</h2>
 
-      <label for="spin">Отжим</label>
-      <select id="spin">
-        <option value="low">Низкий</option>
-        <option value="medium">Средний</option>
-        <option value="high">Высокий</option>
-      </select>
+<p class="form-subtitle">
+Параметры помогут рассчитать
+примерное время сушки.
+</p>
 
-      <label for="place">Где будет сушиться?</label>
-      <select id="place">
-        <option value="balcony">Балкон</option>
-        <option value="glazed">Застеклённый балкон</option>
-        <option value="radiator">Батарея</option>
-        <option value="room">В комнате</option>
-        <option value="dryer">Сушильная машина</option>
-      </select>
+<label>Название</label>
 
-      <label for="amount">Количество белья</label>
-      <select id="amount">
-        <option value="small">Немного</option>
-        <option value="medium">Средняя загрузка</option>
-        <option value="large">Много</option>
-      </select>
+<input
+id="name"
+maxlength="80"
+placeholder="Например, постельное бельё"
+value="${esc(x?.name||'')}">
 
-      <label for="air">Движение воздуха</label>
-      <select id="air">
-        <option value="still">Почти нет воздуха</option>
-        <option value="normal">Обычное</option>
-        <option value="windy">Хорошо проветривается</option>
-      </select>
+<label>Машинка</label>
 
-      <label for="startMode">Когда началась стирка?</label>
-      <select id="startMode">
-        <option value="now">Сейчас</option>
-        <option value="custom">Указать дату и время</option>
-      </select>
-      <input id="customStart" type="datetime-local" class="hidden">
+<select id="machine">
+${machineOptions(
+x?.machine||
+settings.defaultMachine||
+machines[0]
+)}
+</select>
 
-      <label for="notes">Заметка (необязательно)</label>
-      <input id="notes" type="text" maxlength="120" placeholder="Например, белые вещи">
+<label>Длительность стирки</label>
 
-      <div class="form-buttons">
-        <button class="cancel-button" data-action="cancelForm">Отмена</button>
-        <button class="save-button" data-action="saveLoad">Сохранить</button>
-      </div>
-    </section>
-    <div class="notice">💡 Расчёт приблизительный. Фактическое время сушки зависит от условий и ткани.</div>
-  `;
+<select id="duration">
 
-  $('duration').value=String(old?.duration||60);
-  if(![15,30,45,60,75,90,105,120,150,180,240].includes(Number(old?.duration||60))){
-    $('duration').value='custom';
-    $('customDuration').value=old.duration;
-    $('customDuration').classList.remove('hidden');
-  }
+${[
+15,30,45,60,75,90,105,120,150,180,240
+].map(n=>`
 
-  $('fabric').value=old?.fabric||'mixed';
-  $('spin').value=old?.spin||'medium';
-  $('place').value=old?.place||'balcony';
-  $('amount').value=old?.amount||'medium';
-  $('air').value=old?.air||'normal';
-  $('notes').value=old?.notes||'';
+<option value="${n}">
+${durLabel(n)}
+</option>
 
-  $('startMode').value=old?'custom':'now';
-  if(old){
-    const date = new Date(old.startedAt);
-    $('customStart').value =
-      `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}T${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`;
-    $('customStart').classList.remove('hidden');
-  }
+`).join('')}
 
-  window.scrollTo({top:0,behavior:'smooth'});
+<option value="custom">
+Своё время…
+</option>
+
+</select>
+
+<input
+id="customDuration"
+type="number"
+min="1"
+max="1440"
+placeholder="Минуты"
+class="hidden">
+
+<label>Что стираем?</label>
+
+<select id="fabric">
+${programOptions(x?.fabric||'mixed')}
+</select>
+
+<label>Отжим</label>
+
+<select id="spin">
+
+<option value="low">Низкий</option>
+<option value="medium">Средний</option>
+<option value="high">Высокий</option>
+
+</select>
+
+<label>Где сушится?</label>
+
+<select id="place">
+
+<option value="balcony">Балкон</option>
+<option value="glazed">Застеклённый балкон</option>
+<option value="radiator">Батарея</option>
+<option value="room">В комнате</option>
+<option value="dryer">Сушильная машина</option>
+
+</select>
+
+<label>Количество</label>
+
+<select id="amount">
+
+<option value="small">Немного</option>
+<option value="medium">Средняя загрузка</option>
+<option value="large">Много</option>
+
+</select>
+
+<label>Воздух</label>
+
+<select id="air">
+
+<option value="still">
+Почти нет воздуха
+</option>
+
+<option value="normal">
+Обычное
+</option>
+
+<option value="windy">
+Хорошо проветривается
+</option>
+
+</select>
+
+<label>Когда началась?</label>
+
+<select id="startMode">
+
+<option value="now">
+Сейчас
+</option>
+
+<option value="custom">
+Указать дату и время
+</option>
+
+</select>
+
+<input
+id="customStart"
+type="datetime-local"
+class="hidden">
+
+<label>Заметка</label>
+
+<input
+id="notes"
+maxlength="120"
+placeholder="Необязательно"
+value="${esc(x?.notes||'')}">
+
+<div class="form-buttons">
+
+<button
+class="cancel-button"
+data-action="cancelForm">
+Отмена
+</button>
+
+<button
+class="save-button"
+data-action="saveLoad">
+Сохранить
+</button>
+
+</div>
+
+</section>
+
+`;
+
+$('duration').value=
+String(x?.duration||60);
+
+if(
+![
+'15','30','45','60',
+'75','90','105','120',
+'150','180','240'
+].includes(
+String(x?.duration||60)
+)
+){
+
+$('duration').value='custom';
+
+$('customDuration').value=x.duration;
+
+$('customDuration')
+.classList.remove('hidden');
+
 }
 
-function cancelForm(){
-  currentPage='home';
-  render();
-  window.scrollTo({top:0,behavior:'smooth'});
+$('fabric').value=x?.fabric||'mixed';
+$('spin').value=x?.spin||'medium';
+$('place').value=x?.place||'balcony';
+$('amount').value=x?.amount||'medium';
+$('air').value=x?.air||'normal';
+
+if(x){
+
+$('startMode').value='custom';
+
+let d=new Date(x.startedAt);
+
+$('customStart').value=
+`${d.getFullYear()}-${
+String(d.getMonth()+1).padStart(2,'0')
+}-${
+String(d.getDate()).padStart(2,'0')
+}T${
+String(d.getHours()).padStart(2,'0')
+}:${
+String(d.getMinutes()).padStart(2,'0')
+}`;
+
+$('customStart')
+.classList.remove('hidden');
+
 }
 
-function getDuration(){
-  if($('duration').value==='custom'){
-    const custom=Number($('customDuration').value);
-    if(!Number.isFinite(custom)||custom<1||custom>1440){
-      toast('Укажи длительность от 1 до 1440 минут');
-      return null;
-    }
-    return Math.round(custom);
-  }
-  return Number($('duration').value);
-}
+window.scrollTo(0,0);
 
-function getStartTime(){
-  if($('startMode').value==='custom'){
-    if(!$('customStart').value){
-      toast('Укажи дату и время начала');
-      return null;
-    }
-    const date=new Date($('customStart').value);
-    if(isNaN(date.getTime())){
-      toast('Проверь дату и время');
-      return null;
-    }
-    if(date.getTime()>Date.now()+60000){
-      toast('Время начала не может быть в будущем');
-      return null;
-    }
-    return date.getTime();
-  }
-  return Date.now();
 }
 
 function saveLoad(){
-  const duration=getDuration();
-  if(duration===null) return;
 
-  const startedAt=getStartTime();
-  if(startedAt===null) return;
+let duration=
+$('duration').value==='custom'
+?
+num($('customDuration').value)
+:
+num($('duration').value);
 
-  const id=editingId||String(Date.now())+'_'+Math.random().toString(36).slice(2,7);
-  const old=loads.find(x=>x.id===id);
+if(!duration){
+toast('Укажи длительность');
+return
+}
 
-  const data={
-    id,
-    name:$('name').value.trim()||'Моя стирка',
-    machine:$('machine').value||machines[0],
-    duration,
-    fabric:$('fabric').value,
-    spin:$('spin').value,
-    place:$('place').value,
-    amount:$('amount').value,
-    air:$('air').value,
-    notes:$('notes').value.trim(),
-    startedAt,
-    createdAt:old?.createdAt||Date.now(),
-    done:old?.done||false,
-    finishedAt:old?.finishedAt||null
-  };
+let started=
+$('startMode').value==='custom'
+?
+new Date($('customStart').value).getTime()
+:
+Date.now();
 
-  if(old){
-    const index=loads.findIndex(x=>x.id===id);
-    loads[index]=data;
-  }else{
-    loads.unshift(data);
-  }
+if(
+!started||
+started>Date.now()+60000
+){
+toast('Проверь дату и время');
+return
+}
 
-  save();
-  currentPage='home';
-  editingId=null;
-  render();
-  toast(old?'Стирка обновлена ✨':'Стирка добавлена 🧺');
-  window.scrollTo({top:0,behavior:'smooth'});
+let old=
+loads.find(
+x=>x.id===editingId
+);
+
+let data={
+
+id:editingId||uid(),
+
+name:
+$('name').value.trim()||
+'Моя стирка',
+
+machine:$('machine').value,
+
+duration,
+
+fabric:$('fabric').value,
+
+spin:$('spin').value,
+
+place:$('place').value,
+
+amount:$('amount').value,
+
+air:$('air').value,
+
+notes:$('notes').value.trim(),
+
+startedAt:started,
+
+createdAt:
+old?.createdAt||
+Date.now(),
+
+done:
+old?.done||
+false,
+
+finishedAt:
+old?.finishedAt||
+null
+
+};
+
+if(old)
+
+loads[
+loads.findIndex(
+x=>x.id===editingId
+)
+]=data;
+
+else
+loads.unshift(data);
+
+saveAll();
+
+editingId=null;
+
+currentPage='home';
+
+render();
+
+toast(
+old?
+'Стирка обновлена ✨'
+:
+'Стирка добавлена 🧺'
+);
+
+}
+
+function finishLoad(id){
+
+let x=loads.find(
+a=>a.id===id
+);
+
+if(!x)return;
+
+x.done=true;
+x.finishedAt=Date.now();
+
+saveAll();
+
+render();
+
+toast(
+'Записала в историю ✨'
+);
+
 }
 
 function deleteLoad(id){
-  if(!confirm('Удалить эту стирку?')) return;
-  loads=loads.filter(x=>x.id!==id);
-  save();
-  render();
-  toast('Стирка удалена');
-}
 
-function markDone(id){
-  const item=loads.find(x=>x.id===id);
-  if(!item) return;
-  item.done=true;
-  item.finishedAt=Date.now();
-  save();
-  render();
-  toast('Записала в историю ✨');
+if(!confirm('Удалить эту стирку?'))
+return;
+
+loads=loads.filter(
+x=>x.id!==id
+);
+
+saveAll();
+
+render();
+
+toast('Стирка удалена');
+
 }
 
 function restoreLoad(id){
-  const item=loads.find(x=>x.id===id);
-  if(!item) return;
-  item.done=false;
-  item.finishedAt=null;
-  // Не начинаем старую стирку заново: время остаётся прежним.
-  save();
-  currentPage='laundry';
-  render();
-  toast('Вернула в активные стирки');
-}
 
-function changePage(page){
-  currentPage=page;
-  render();
-  window.scrollTo({top:0,behavior:'smooth'});
+let x=loads.find(
+a=>a.id===id
+);
+
+if(!x)return;
+
+x.done=false;
+x.finishedAt=null;
+
+saveAll();
+
+currentPage='laundry';
+
+render();
+
+toast(
+'Вернула в активные стирки'
+);
+
 }
 
 function addMachine(){
-  const name=prompt('Как назвать машинку? Например, Машинка 2');
-  if(!name) return;
-  const clean=name.trim().slice(0,40);
-  if(!clean) return;
-  if(machines.some(x=>x.toLowerCase()===clean.toLowerCase())){
-    toast('Такая машинка уже есть');
-    return;
-  }
-  machines.push(clean);
-  settings.defaultMachine=clean;
-  saveMachines();
-  saveSettings();
-  render();
-  toast('Машинка добавлена 🧺');
+
+let n=prompt(
+'Как назвать машинку?'
+);
+
+if(!n)return;
+
+n=n.trim().slice(0,40);
+
+if(!n)return;
+
+if(
+machines.some(
+x=>x.toLowerCase()===n.toLowerCase()
+)
+)
+return toast(
+'Такая машинка уже есть'
+);
+
+machines.push(n);
+
+settings.defaultMachine=n;
+
+saveAll();
+
+render();
+
+toast(
+'Машинка добавлена 🧺'
+);
+
 }
 
-function removeMachine(index){
-  if(machines.length<=1){
-    toast('Нужно оставить хотя бы одну машинку');
-    return;
-  }
-  const name=machines[index];
-  if(loads.some(x=>x.machine===name&&!x.done)){
-    if(!confirm('У этой машинки есть активные стирки. Удалить её из списка?')) return;
-  }else if(!confirm('Удалить машинку «'+name+'»?')) return;
+function removeMachine(i){
 
-  const replacement=machines.find((_,i)=>i!==index);
-  machines.splice(index,1);
-  loads.forEach(x=>{
-    if(x.machine===name) x.machine=replacement;
-  });
-  if(settings.defaultMachine===name) settings.defaultMachine=replacement;
-  saveMachines();
-  saveSettings();
-  save();
-  render();
-  toast('Список машинок обновлён');
+if(machines.length===1)
+return toast(
+'Нужно оставить хотя бы одну машинку'
+);
+
+let n=machines[i];
+
+if(!confirm(
+'Удалить «'+n+'»?'
+))
+return;
+
+let r=machines.find(
+(_,j)=>j!==i
+);
+
+machines.splice(i,1);
+
+loads.forEach(x=>{
+if(x.machine===n)
+x.machine=r
+});
+
+if(settings.defaultMachine===n)
+settings.defaultMachine=r;
+
+saveAll();
+
+render();
+
 }
 
-function addProgram(){
-  const name=prompt('Название своей программы, например «Детские вещи»');
-  if(!name||!name.trim()) return;
-  const clean=name.trim().slice(0,50);
-  const fabric=prompt('Тип ткани: cotton, synthetic, mixed, delicate, towels или bed','mixed');
-  const allowed=['cotton','synthetic','mixed','delicate','towels','bed'];
-  const chosen=(fabric||'mixed').trim().toLowerCase();
-  if(!allowed.includes(chosen)){
-    toast('Неизвестный тип ткани. Используй mixed, cotton и т. д.');
-    return;
-  }
-  if(customPrograms.some(p=>p.name.toLowerCase()===clean.toLowerCase())){
-    toast('Программа с таким названием уже есть');
-    return;
-  }
-  customPrograms.push({name:clean,fabric:chosen});
-  savePrograms();
-  render();
-  toast('Своя программа добавлена ♡');
+function saveProfile(){
+
+settings.name=
+$('profileName')
+.value
+.trim()
+.slice(0,40);
+
+saveAll();
+
+render();
+
+toast(
+settings.name
+?
+`Рада знакомству, ${settings.name} ♡`
+:
+'Имя очищено'
+);
+
 }
 
-function removeProgram(index){
-  if(!confirm('Удалить эту программу из списка?')) return;
-  customPrograms.splice(index,1);
-  savePrograms();
-  render();
-  toast('Программа удалена');
+function addTaskForm(id=null){
+
+let x=id?
+tasks.find(t=>t.id===id):
+null;
+
+editingId=id;
+
+$('pageContent').innerHTML=`
+
+<section class="card form-card active">
+
+<h2 class="form-title">
+${x?'Изменить задачу':'Новая задача'}
+</h2>
+
+<p class="form-subtitle">
+Ты сама решаешь,
+как будет выглядеть твой день.
+</p>
+
+<label>
+Что нужно сделать?
+</label>
+
+<input
+id="taskTitle"
+maxlength="100"
+placeholder="Например, убраться в спальне"
+value="${esc(x?.title||'')}">
+
+<label>Дата</label>
+
+<input
+id="taskDate"
+type="date"
+value="${x?.date||today()}">
+
+<label>
+Время начала
+</label>
+
+<input
+id="taskTime"
+type="time"
+value="${x?.time||''}">
+
+<label>
+Продолжительность
+</label>
+
+<select id="taskDuration">
+
+<option value="15">
+15 минут
+</option>
+
+<option value="30">
+30 минут
+</option>
+
+<option value="45">
+45 минут
+</option>
+
+<option value="60">
+1 час
+</option>
+
+<option value="90">
+1 час 30 минут
+</option>
+
+<option value="120">
+2 часа
+</option>
+
+<option value="180">
+3 часа
+</option>
+
+<option value="custom">
+Своё время
+</option>
+
+</select>
+
+<input
+id="taskCustomDuration"
+type="number"
+min="1"
+max="1440"
+placeholder="Минуты"
+class="hidden">
+
+<label>
+Категория
+</label>
+
+<select id="taskCategory">
+
+<option>Дом</option>
+<option>Работа</option>
+<option>Личное</option>
+<option>Покупки</option>
+<option>Отдых</option>
+<option>Другое</option>
+
+</select>
+
+<label>
+Заметка
+</label>
+
+<input
+id="taskNote"
+maxlength="120"
+placeholder="Необязательно"
+value="${esc(x?.note||'')}">
+
+<div class="form-buttons">
+
+<button
+class="cancel-button"
+data-action="cancelForm">
+Отмена
+</button>
+
+<button
+class="save-button"
+data-action="saveTask">
+Сохранить
+</button>
+
+</div>
+
+</section>
+
+`;
+
+$('taskDuration').value=
+String(x?.duration||60);
+
+if(
+![
+'15',
+'30',
+'45',
+'60',
+'90',
+'120',
+'180'
+].includes(
+String(x?.duration||60)
+)
+){
+
+$('taskDuration').value='custom';
+
+$('taskCustomDuration').value=x.duration;
+
+$('taskCustomDuration')
+.classList.remove('hidden');
+
+}
+
+$('taskCategory').value=
+x?.category||
+'Дом';
+
+window.scrollTo(0,0);
+
+}
+
+function saveTask(){
+
+let title=
+$('taskTitle')
+.value
+.trim();
+
+if(!title){
+toast(
+'Напиши название задачи'
+);
+return
+}
+
+let d=
+$('taskDuration').value==='custom'
+?
+num($('taskCustomDuration').value)
+:
+num($('taskDuration').value);
+
+if(!d){
+toast(
+'Укажи длительность'
+);
+return
+}
+
+let x=
+tasks.find(
+t=>t.id===editingId
+);
+
+let o={
+
+id:editingId||uid(),
+
+title,
+
+date:
+$('taskDate').value||
+today(),
+
+time:
+$('taskTime').value||
+'',
+
+duration:d,
+
+category:
+$('taskCategory').value,
+
+note:
+$('taskNote').value.trim(),
+
+done:
+x?.done||
+false
+
+};
+
+if(x)
+
+tasks[
+tasks.findIndex(
+t=>t.id===editingId
+)
+]=o;
+
+else
+tasks.push(o);
+
+editingId=null;
+
+saveAll();
+
+currentPage='plan';
+
+render();
+
+toast(
+'Задача сохранена 📋'
+);
+
+}
+
+function toggleTask(id){
+
+let x=tasks.find(
+t=>t.id===id
+);
+
+if(!x)return;
+
+x.done=!x.done;
+
+saveAll();
+
+render();
+
+toast(
+x.done
+?
+'Задача выполнена ✨'
+:
+'Задачу вернула в план'
+);
+
+}
+
+function deleteTask(id){
+
+if(!confirm(
+'Удалить задачу?'
+))
+return;
+
+tasks=tasks.filter(
+x=>x.id!==id
+);
+
+saveAll();
+
+render();
+
+}
+
+function accountForm(id=null){
+
+let x=id?
+budget.accounts.find(
+a=>a.id===id
+):
+null;
+
+editingId=id;
+
+$('pageContent').innerHTML=`
+
+<section class="card form-card active">
+
+<h2 class="form-title">
+${x?
+'Изменить счёт':
+'Новый счёт / карта'}
+</h2>
+
+<label>Название</label>
+
+<input
+id="accountName"
+maxlength="50"
+placeholder="Например, Тинькофф"
+value="${esc(x?.name||'')}">
+
+<label>
+Текущий баланс
+</label>
+
+<input
+id="accountBalance"
+type="number"
+step="0.01"
+inputmode="decimal"
+placeholder="0"
+value="${x?.balance??''}">
+
+<div class="form-buttons">
+
+<button
+class="cancel-button"
+data-action="cancelForm">
+Отмена
+</button>
+
+<button
+class="save-button"
+data-action="saveAccount">
+Сохранить
+</button>
+
+</div>
+
+</section>
+
+`;
+
+window.scrollTo(0,0);
+
+}
+
+function saveAccount(){
+
+let n=
+$('accountName')
+.value
+.trim();
+
+if(!n)
+return toast(
+'Назови счёт или карту'
+);
+
+let b=
+num(
+$('accountBalance').value
+);
+
+let x=
+budget.accounts.find(
+a=>a.id===editingId
+);
+
+if(x){
+
+x.name=n;
+x.balance=b;
+
+}else{
+
+budget.accounts.push({
+id:uid(),
+name:n,
+balance:b
+});
+
+}
+
+editingId=null;
+
+saveAll();
+
+currentPage='budget';
+
+render();
+
+toast(
+'Счёт сохранён 💳'
+);
+
+}
+
+function deleteAccount(id){
+
+if(
+budget.transactions.some(
+x=>x.accountId===id
+)
+||
+budget.mandatory.some(
+x=>x.accountId===id
+)
+)
+return toast(
+'Сначала убери операции этого счёта'
+);
+
+if(!confirm(
+'Удалить счёт?'
+))
+return;
+
+budget.accounts=
+budget.accounts.filter(
+x=>x.id!==id
+);
+
+saveAll();
+
+render();
+
+}
+
+function transactionForm(type){
+
+editingId=null;
+
+$('pageContent').innerHTML=`
+
+<section class="card form-card active">
+
+<h2 class="form-title">
+${type==='income'
+?'Новый доход'
+:'Новый расход'}
+</h2>
+
+<label>Название</label>
+
+<input
+id="txName"
+maxlength="80"
+placeholder="${
+type==='income'
+?'Зарплата'
+:'Продукты'
+}">
+
+<label>Сумма</label>
+
+<input
+id="txAmount"
+type="number"
+step="0.01"
+inputmode="decimal"
+placeholder="0">
+
+<label>
+Счёт / карта
+</label>
+
+<select id="txAccount">
+
+${budget.accounts.map(a=>`
+
+<option value="${a.id}">
+${esc(a.name)}
+·
+${money(a.balance)}
+</option>
+
+`).join('')}
+
+</select>
+
+<label>Дата</label>
+
+<input
+id="txDate"
+type="date"
+value="${today()}">
+
+<div class="form-buttons">
+
+<button
+class="cancel-button"
+data-action="cancelForm">
+Отмена
+</button>
+
+<button
+class="save-button"
+data-action="saveTransaction"
+data-type="${type}">
+Сохранить
+</button>
+
+</div>
+
+</section>
+
+`;
+
+if(!budget.accounts.length)
+toast(
+'Сначала добавь счёт или карту'
+);
+
+window.scrollTo(0,0);
+
+}
+
+function saveTransaction(type){
+
+let n=
+$('txName')
+.value
+.trim();
+
+let a=
+num(
+$('txAmount').value
+);
+
+let ac=
+budget.accounts.find(
+x=>x.id===
+$('txAccount').value
+);
+
+if(!n||a<=0||!ac)
+return toast(
+'Заполни название, сумму и счёт'
+);
+
+if(type==='income')
+ac.balance+=a;
+else
+ac.balance-=a;
+
+budget.transactions.push({
+
+id:uid(),
+
+type,
+
+name:n,
+
+amount:a,
+
+accountId:ac.id,
+
+date:
+$('txDate').value||
+today()
+
+});
+
+saveAll();
+
+currentPage='budget';
+
+render();
+
+toast(
+type==='income'
+?
+'Доход добавлен 💚'
+:
+'Расход добавлен 💸'
+);
+
+}
+
+function mandatoryForm(){
+
+editingId=null;
+
+$('pageContent').innerHTML=`
+
+<section class="card form-card active">
+
+<h2 class="form-title">
+Обязательный платёж
+</h2>
+
+<label>Название</label>
+
+<input
+id="mandName"
+maxlength="80"
+placeholder="Например, интернет">
+
+<label>Сумма</label>
+
+<input
+id="mandAmount"
+type="number"
+step="0.01"
+inputmode="decimal"
+placeholder="0">
+
+<label>
+Дата платежа
+</label>
+
+<input
+id="mandDate"
+type="date"
+value="${today()}">
+
+<label>
+Счёт / карта
+</label>
+
+<select id="mandAccount">
+
+<option value="">
+Не выбрано
+</option>
+
+${budget.accounts.map(a=>`
+
+<option value="${a.id}">
+${esc(a.name)}
+</option>
+
+`).join('')}
+
+</select>
+
+<div class="form-buttons">
+
+<button
+class="cancel-button"
+data-action="cancelForm">
+Отмена
+</button>
+
+<button
+class="save-button"
+data-action="saveMandatory">
+Сохранить
+</button>
+
+</div>
+
+</section>
+
+`;
+
+window.scrollTo(0,0);
+
+}
+
+function saveMandatory(){
+
+let n=
+$('mandName')
+.value
+.trim();
+
+let a=
+num(
+$('mandAmount').value
+);
+
+if(!n||a<=0)
+return toast(
+'Заполни название и сумму'
+);
+
+budget.mandatory.push({
+
+id:uid(),
+
+name:n,
+
+amount:a,
+
+date:
+$('mandDate').value||
+today(),
+
+accountId:
+$('mandAccount').value,
+
+paid:false
+
+});
+
+saveAll();
+
+currentPage='budget';
+
+render();
+
+toast(
+'Платёж добавлен 📌'
+);
+
+}
+
+function toggleMandatory(id){
+
+let x=
+budget.mandatory.find(
+a=>a.id===id
+);
+
+if(!x)return;
+
+if(!x.paid){
+
+let ac=
+budget.accounts.find(
+a=>a.id===x.accountId
+);
+
+if(x.accountId&&!ac)
+return toast(
+'Счёт не найден'
+);
+
+if(ac)
+ac.balance-=num(x.amount);
+
+x.paid=true;
+
+}else{
+
+let ac=
+budget.accounts.find(
+a=>a.id===x.accountId
+);
+
+if(ac)
+ac.balance+=num(x.amount);
+
+x.paid=false;
+
+}
+
+saveAll();
+
+render();
+
+toast(
+x.paid
+?
+'Платёж отмечен как оплаченный ✓'
+:
+'Оплату отменили'
+);
+
+}
+
+function deleteMandatory(id){
+
+let x=
+budget.mandatory.find(
+a=>a.id===id
+);
+
+if(!x)return;
+
+if(x.paid){
+
+let ac=
+budget.accounts.find(
+a=>a.id===x.accountId
+);
+
+if(ac)
+ac.balance+=num(x.amount);
+
+}
+
+budget.mandatory=
+budget.mandatory.filter(
+a=>a.id!==id
+);
+
+saveAll();
+
+render();
+
 }
 
 function exportData(){
-  const data={
-    version:2,
-    exportedAt:new Date().toISOString(),
-    loads,settings,machines,customPrograms
-  };
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download='belyo-doma-backup.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-  toast('Резервная копия подготовлена');
-}
 
-function importData(){
-  $('importFile').click();
+let data={
+
+version:3,
+
+exportedAt:
+new Date().toISOString(),
+
+loads,
+
+settings,
+
+machines,
+
+customPrograms,
+
+tasks,
+
+budget
+
+};
+
+let blob=
+new Blob(
+[
+JSON.stringify(
+data,
+null,
+2
+)
+],
+{
+type:'application/json'
+}
+);
+
+let u=
+URL.createObjectURL(blob);
+
+let a=
+document.createElement('a');
+
+a.href=u;
+
+a.download=
+'belyo-doma-backup-v3.json';
+
+a.click();
+
+setTimeout(
+()=>{
+URL.revokeObjectURL(u)
+},
+1000
+);
+
+toast(
+'Резервная копия готова 💾'
+);
+
 }
 
 function resetSettings(){
-  if(!confirm('Сбросить оформление и настройки? Стирки и история останутся.')) return;
-  settings={
-    theme:'sage',
-    timeFormat:'24',
-    notifications:false,
-    showWeather:true,
-    defaultMachine:machines[0]||'Машинка 1',
-    language:'ru'
-  };
-  saveSettings();
-  applyTheme();
-  render();
-  toast('Настройки сброшены');
+
+if(!confirm(
+'Сбросить только настройки и имя? Стирки, план и бюджет останутся.'
+))
+return;
+
+settings={
+
+theme:'sage',
+
+timeFormat:'24',
+
+notifications:false,
+
+showWeather:true,
+
+defaultMachine:
+machines[0]||
+'Машинка 1',
+
+language:'ru',
+
+name:''
+
+};
+
+saveAll();
+
+render();
+
+toast(
+'Настройки сброшены'
+);
+
 }
 
-async function requestNotifications(){
-  if(!('Notification' in window)){
-    toast('Этот браузер не поддерживает уведомления');
-    return false;
-  }
-  try{
-    const permission=await Notification.requestPermission();
-    if(permission==='granted'){
-      settings.notifications=true;
-      saveSettings();
-      toast('Уведомления разрешены 🔔');
-      render();
-      return true;
-    }
-    settings.notifications=false;
-    saveSettings();
-    toast('Разрешение на уведомления не выдано');
-    render();
-    return false;
-  }catch(e){
-    toast('Не удалось включить уведомления');
-    return false;
-  }
+function importData(){
+
+$('importFile').click();
+
 }
 
-function alertUser(title,body){
-  if(settings.notifications &&
-     'Notification' in window &&
-     Notification.permission==='granted'){
-    try{
-      new Notification(title,{body});
-      return;
-    }catch(e){}
-  }
-  toast(title+': '+body);
+async function weatherLoad(){
+
+if(!settings.showWeather)
+return;
+
+try{
+
+let lat=55.79;
+let lon=42.74;
+
+if(navigator.geolocation){
+
+try{
+
+let p=
+await new Promise(
+(r,j)=>
+navigator.geolocation.getCurrentPosition(
+r,
+j,
+{
+timeout:3500,
+maximumAge:600000
+}
+)
+);
+
+lat=p.coords.latitude;
+lon=p.coords.longitude;
+
+}catch(e){}
+
 }
 
-function checkAlerts(){
-  for(const item of loads){
-    if(item.done) continue;
-    const s=stage(item);
-    const washEnd=item.startedAt+item.duration*60000;
+let r=
+await fetch(
+`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto`
+);
 
-    if(s.stage>=1 && Date.now()>=washEnd && !notified.has(item.id+':wash')){
-      notified.add(item.id+':wash');
-      alertUser('Стирка закончилась','«'+item.name+'»: пора развесить бельё.');
-    }
-    if(s.stage>=2 && !notified.has(item.id+':dry')){
-      notified.add(item.id+':dry');
-      alertUser('Пора проверить бельё','«'+item.name+'»: расчётное время сушки прошло.');
-    }
-  }
-  if(currentPage==='home'||currentPage==='laundry') render();
+let d=await r.json();
+
+weather.temp=
+Math.round(
+d.current.temperature_2m
+);
+
+weather.humidity=
+d.current.relative_humidity_2m;
+
+let c=d.current.weather_code;
+
+let info=
+c===0
+?
+['☀️','Ясно']
+:
+[1,2,3].includes(c)
+?
+['🌤️','Облачно']
+:
+[61,63,65].includes(c)
+?
+['🌧️','Дождь']
+:
+['☁️','Погода'];
+
+$('weatherIcon').textContent=
+info[0];
+
+$('weatherTemp').textContent=
+(weather.temp>0?'+':'')+
+weather.temp+
+'°';
+
+$('weatherText').textContent=
+info[1]+
+' · влажность '+
+weather.humidity+
+'%';
+
+if(currentPage==='home')
+render();
+
+}catch(e){
+
+$('weatherText').textContent=
+'Погода временно недоступна';
+
 }
 
-function weatherDescription(code){
-  if(code===0) return {icon:'☀️',text:'Ясно'};
-  if([1,2,3].includes(code)) return {icon:'🌤️',text:'Облачно'};
-  if([45,48].includes(code)) return {icon:'🌫️',text:'Туман'};
-  if([51,53,55,56,57].includes(code)) return {icon:'🌦️',text:'Морось'};
-  if([61,63,65,66,67].includes(code)) return {icon:'🌧️',text:'Дождь'};
-  if([71,73,75,77].includes(code)) return {icon:'🌨️',text:'Снег'};
-  if([80,81,82].includes(code)) return {icon:'🌦️',text:'Ливень'};
-  if([95,96,99].includes(code)) return {icon:'⛈️',text:'Гроза'};
-  return {icon:'☁️',text:'Погода'};
 }
 
-async function loadWeather(){
-  if(!settings.showWeather) return;
-  $('weatherText').textContent='Обновляем погоду…';
+$('pageContent').addEventListener(
+'click',
+async e=>{
 
-  try{
-    let latitude=55.79;
-    let longitude=42.74;
+let b=
+e.target.closest(
+'[data-action]'
+);
 
-    if(navigator.geolocation){
-      try{
-        const position=await new Promise((resolve,reject)=>{
-          navigator.geolocation.getCurrentPosition(resolve,reject,{
-            enableHighAccuracy:false,timeout:4000,maximumAge:600000
-          });
-        });
-        latitude=position.coords.latitude;
-        longitude=position.coords.longitude;
-      }catch(e){}
-    }
+if(!b)return;
 
-    const url='https://api.open-meteo.com/v1/forecast'
-      +'?latitude='+latitude
-      +'&longitude='+longitude
-      +'&current=temperature_2m,relative_humidity_2m,weather_code'
-      +'&timezone=auto';
+let a=b.dataset.action;
+let id=b.dataset.id;
 
-    const response=await fetch(url);
-    if(!response.ok) throw new Error('Weather request failed');
-    const data=await response.json();
-    if(!data.current) throw new Error('No weather data');
+if(a==='addLoad')
+openLoadForm();
 
-    weather.temp=Math.round(data.current.temperature_2m);
-    weather.humidity=data.current.relative_humidity_2m;
-    weather.code=data.current.weather_code;
+else if(a==='editLoad')
+openLoadForm(id);
 
-    const info=weatherDescription(weather.code);
-    $('weatherIcon').textContent=info.icon;
-    $('weatherTemp').textContent=(weather.temp>0?'+':'')+weather.temp+'°';
-    $('weatherText').textContent=info.text+' · влажность '+weather.humidity+'%';
+else if(a==='finishLoad')
+finishLoad(id);
 
-    if(currentPage==='home'||currentPage==='laundry') render();
-  }catch(e){
-    $('weatherIcon').textContent='🌤️';
-    $('weatherTemp').textContent='—°';
-    $('weatherText').textContent='Погода временно недоступна';
-  }
+else if(a==='deleteLoad')
+deleteLoad(id);
+
+else if(a==='restore')
+restoreLoad(id);
+
+else if(a==='cancelForm'){
+
+editingId=null;
+currentPage='home';
+render();
+
 }
 
-$('pageContent').addEventListener('click',async event=>{
-  const button=event.target.closest('[data-action]');
-  if(!button) return;
+else if(a==='saveLoad')
+saveLoad();
 
-  const action=button.dataset.action;
-  const id=button.dataset.id;
+else if(a==='addMachine')
+addMachine();
 
-  if(action==='add') openForm();
-  else if(action==='edit') openForm(id);
-  else if(action==='delete') deleteLoad(id);
-  else if(action==='finish') markDone(id);
-  else if(action==='restore') restoreLoad(id);
-  else if(action==='cancelForm') cancelForm();
-  else if(action==='saveLoad') saveLoad();
-  else if(action==='addMachine') addMachine();
-  else if(action==='removeMachine') removeMachine(Number(button.dataset.index));
-  else if(action==='addProgram') addProgram();
-  else if(action==='removeProgram') removeProgram(Number(button.dataset.index));
-  else if(action==='exportData') exportData();
-  else if(action==='importData') importData();
-  else if(action==='resetSettings') resetSettings();
-  else if(action==='clearHistory'){
-    if(confirm('Удалить все завершённые стирки из истории?')){
-      loads=loads.filter(x=>!x.done);
-      save();
-      render();
-      toast('История очищена');
-    }
-  }
-  else if(action==='testNotification'){
-    if(!settings.notifications){
-      const granted=await requestNotifications();
-      if(!granted) return;
-    }
-    alertUser('Бельё дома 🧺','Проверка уведомлений прошла успешно!');
-  }
+else if(a==='removeMachine')
+removeMachine(
+Number(b.dataset.index)
+);
+
+else if(a==='saveProfile')
+saveProfile();
+
+else if(a==='addTask')
+addTaskForm();
+
+else if(a==='editTask')
+addTaskForm(id);
+
+else if(a==='saveTask')
+saveTask();
+
+else if(a==='toggleTask')
+toggleTask(id);
+
+else if(a==='deleteTask')
+deleteTask(id);
+
+else if(a==='addAccount')
+accountForm();
+
+else if(a==='editAccount')
+accountForm(id);
+
+else if(a==='saveAccount')
+saveAccount();
+
+else if(a==='deleteAccount')
+deleteAccount(id);
+
+else if(a==='addIncome')
+transactionForm('income');
+
+else if(a==='addExpense')
+transactionForm('expense');
+
+else if(a==='saveTransaction')
+saveTransaction(
+b.dataset.type
+);
+
+else if(a==='addMandatory')
+mandatoryForm();
+
+else if(a==='saveMandatory')
+saveMandatory();
+
+else if(a==='toggleMandatory')
+toggleMandatory(id);
+
+else if(a==='deleteMandatory')
+deleteMandatory(id);
+
+else if(a==='exportData')
+exportData();
+
+else if(a==='importData')
+importData();
+
+else if(a==='resetSettings')
+resetSettings();
+
+else if(a==='clearHistory'){
+
+if(confirm(
+'Удалить историю?'
+)){
+
+loads=
+loads.filter(
+x=>!x.done
+);
+
+saveAll();
+
+render();
+
+}
+
+}
+
 });
 
-$('pageContent').addEventListener('change',async event=>{
-  const el=event.target;
+$('pageContent').addEventListener(
+'change',
+e=>{
 
-  if(el.id==='duration'){
-    $('customDuration').classList.toggle('hidden',el.value!=='custom');
-  }
+let x=e.target;
 
-  if(el.id==='startMode'){
-    $('customStart').classList.toggle('hidden',el.value!=='custom');
-    if(el.value==='custom'&&!$('customStart').value){
-      const now=new Date();
-      $('customStart').value=
-        `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}T${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-    }
-  }
+if(x.id==='duration')
 
-  if(el.id==='settingTheme'){
-    settings.theme=el.value;
-    saveSettings();
-    applyTheme();
-    toast('Тема обновлена 🎨');
-  }
+$('customDuration')
+.classList.toggle(
+'hidden',
+x.value!=='custom'
+);
 
-  if(el.id==='settingTime'){
-    settings.timeFormat=el.value;
-    saveSettings();
-    render();
-    toast('Формат времени изменён');
-  }
+if(x.id==='startMode')
 
-  if(el.id==='settingWeather'){
-    settings.showWeather=el.checked;
-    saveSettings();
-    applyTheme();
-    render();
-    if(el.checked) loadWeather();
-  }
+$('customStart')
+.classList.toggle(
+'hidden',
+x.value!=='custom'
+);
 
-  if(el.id==='settingDefaultMachine'){
-    settings.defaultMachine=el.value;
-    saveSettings();
-    toast('Машинка по умолчанию изменена');
-  }
+if(x.id==='taskDuration')
 
-  if(el.id==='settingNotifications'){
-    if(el.checked){
-      await requestNotifications();
-    }else{
-      settings.notifications=false;
-      saveSettings();
-      render();
-      toast('Напоминания выключены');
-    }
-  }
+$('taskCustomDuration')
+.classList.toggle(
+'hidden',
+x.value!=='custom'
+);
+
+if(x.id==='settingTheme'){
+
+settings.theme=x.value;
+
+saveAll();
+
+applyTheme();
+
+toast(
+'Тема обновлена 🎨'
+);
+
+}
+
+if(x.id==='settingTime'){
+
+settings.timeFormat=x.value;
+
+saveAll();
+
+render();
+
+}
+
+if(x.id==='settingWeather'){
+
+settings.showWeather=
+x.checked;
+
+saveAll();
+
+applyTheme();
+
+render();
+
+weatherLoad();
+
+}
+
+if(x.id==='defaultMachine'){
+
+settings.defaultMachine=
+x.value;
+
+saveAll();
+
+}
+
+if(
+x.id==='importFile'&&
+x.files[0]
+){
+
+let f=x.files[0];
+
+f.text()
+.then(t=>{
+
+try{
+
+let d=JSON.parse(t);
+
+if(!confirm(
+'Заменить текущие данные резервной копией?'
+))
+return;
+
+if(Array.isArray(d.loads))
+loads=d.loads;
+
+if(d.settings)
+settings={
+...settings,
+...d.settings
+};
+
+if(Array.isArray(d.machines))
+machines=d.machines;
+
+if(Array.isArray(d.customPrograms))
+customPrograms=
+d.customPrograms;
+
+if(Array.isArray(d.tasks))
+tasks=d.tasks;
+
+if(d.budget)
+budget={
+...budget,
+...d.budget
+};
+
+saveAll();
+
+applyTheme();
+
+render();
+
+toast(
+'Резервная копия восстановлена ✨'
+);
+
+}catch(e){
+
+toast(
+'Не удалось прочитать копию'
+);
+
+}
+
+})
+
+}
+
 });
 
-$('pageContent').addEventListener('change',async event=>{
-  if(event.target.id!=='importFile') return;
-  const file=event.target.files && event.target.files[0];
-  if(!file) return;
+document
+.querySelectorAll('.nav-button')
+.forEach(
+b=>
+b.addEventListener(
+'click',
+()=>{
 
-  try{
-    const data=JSON.parse(await file.text());
-    if(!data || !Array.isArray(data.loads) || !Array.isArray(data.machines)){
-      throw new Error('Invalid backup');
-    }
-    if(!confirm('Импортировать резервную копию? Текущие стирки и настройки будут заменены.')) return;
+currentPage=
+b.dataset.page;
 
-    loads=data.loads;
-    if(data.settings && typeof data.settings==='object') settings={...settings,...data.settings};
-    machines=data.machines.length?data.machines:['Машинка 1'];
-    customPrograms=Array.isArray(data.customPrograms)?data.customPrograms:[];
-    save();
-    saveSettings();
-    saveMachines();
-    savePrograms();
-    applyTheme();
-    render();
-    toast('Резервная копия восстановлена ✨');
-  }catch(e){
-    toast('Не удалось прочитать файл резервной копии');
-  }finally{
-    event.target.value='';
-  }
-});
+editingId=null;
 
-document.querySelectorAll('.nav-button').forEach(button=>{
-  button.addEventListener('click',()=>changePage(button.dataset.page));
-});
+render();
 
-$('refreshWeather').addEventListener('click',loadWeather);
+window.scrollTo(0,0);
 
-document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden){
-    loads=readStorage(STORAGE_KEY,loads);
-    render();
-    checkAlerts();
-  }
+}
+)
+);
+
+$('refreshWeather')
+.addEventListener(
+'click',
+weatherLoad
+);
+
+document.addEventListener(
+'visibilitychange',
+()=>{
+
+if(!document.hidden){
+
+loadSaved();
+
+render();
+
+}
+
 });
 
 loadSaved();
-render();
-loadWeather();
 
-setInterval(()=>{
-  // Проверка уведомлений временно отключена
-},15000);
+render();
+
+weatherLoad();
+
+setInterval(
+()=>{
+
+if(
+currentPage==='home'||
+currentPage==='laundry'
+)
+render();
+
+},
+30000
+);
+
 </script>
+
 </body>
 </html>
