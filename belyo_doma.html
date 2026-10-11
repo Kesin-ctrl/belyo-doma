@@ -91,14 +91,15 @@ let loads=[],tasks=[];
 let settings={theme:'sage',timeFormat:'24',notifications:false,showWeather:true,defaultMachine:'Машинка 1',language:'ru',name:''};
 let machines=['Машинка 1'],customPrograms=[];
 let budget={accounts:[],transactions:[],mandatory:[]};
-let editingId=null,currentPage='home',toastTimer=null;
+let editingId=null,editingTransactionId=null,editingMandatoryId=null,currentPage='home',toastTimer=null;
 let weather={temp:null,humidity:null,code:null};
 
 const $=id=>document.getElementById(id);
 function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 function read(key,fallback){try{let x=JSON.parse(localStorage.getItem(key));return x==null?fallback:x}catch(e){return fallback}}
 function toast(m){let e=$('toast');e.textContent=m;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),2500)}
-function money(n){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:2}).format(Number(n)||0)}
+
+  function money(n){return new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',maximumFractionDigits:2}).format(Number(n)||0)}
 function num(v){return Number(String(v).replace(',','.'))||0}
 function today(){return new Date().toISOString().slice(0,10)}
 function fmtDate(s){if(!s)return '';let d=new Date(s+'T12:00');return d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}
@@ -115,6 +116,7 @@ function loadSaved(){
  tasks=read(TASKS_KEY,[]);if(!Array.isArray(tasks))tasks=[];
  budget={...budget,...read(BUDGET_KEY,{})};
  if(!Array.isArray(budget.accounts))budget.accounts=[];if(!Array.isArray(budget.transactions))budget.transactions=[];if(!Array.isArray(budget.mandatory))budget.mandatory=[];
+ budget.mandatory=budget.mandatory.map(x=>({...x,frequency:x.frequency||'once'}));
  loads=loads.map(x=>({...x,machine:x.machine||machines[0],startedAt:Number(x.startedAt)||Number(x.createdAt)||Date.now(),duration:Number(x.duration)||60,done:Boolean(x.done)}));
  applyTheme();
 }
@@ -137,7 +139,6 @@ function renderHome(){
  return `<div class="hero-mini"><h2>${settings.name?`Привет, ${esc(settings.name)}! ♡`:'Привет! ♡'}</h2><p>${todayTasks.filter(x=>!x.done).length?`На сегодня запланировано ${todayTasks.filter(x=>!x.done).length} ${taskWord(todayTasks.filter(x=>!x.done).length)}.`:'Сегодня пока ничего не запланировано — можно выдохнуть.'}</p></div>
  <div class="summary-grid"><div class="summary"><div class="lbl">Задач сегодня</div><div class="num">${todayTasks.length}</div></div><div class="summary"><div class="lbl">Можно тратить сегодня</div><div class="num">${money(daily)}</div></div></div>
  <div class="section-head"><h2>Сушится / стирается</h2><span class="counter">${active.filter(x=>stage(x).stage===1).length}</span></div>
-
  <div class="section-caption">Твои текущие загрузки.</div>${active.length?active.map(loadCard).join(''):`<div class="card empty"><div class="empty-icon">🧺</div><div class="empty-title">Пока здесь пусто</div><div style="margin-top:5px">Добавь первую стирку — будем следить за ней вместе ♡</div></div>`}
  <button class="add-button" data-action="addLoad">＋ Добавить стирку</button>
  ${todayTasks.length?`<div class="card"><h3 style="margin:0 0 5px">📋 Сегодня</h3>${todayTasks.slice(0,4).map(taskMini).join('')}<button class="settings-action" data-page-go="plan">Открыть план дня</button></div>`:''}
@@ -163,321 +164,231 @@ function renderBudget(){
  <div class="card"><h3 style="margin:0 0 5px">📌 Обязательные платежи</h3>${budget.mandatory.length?budget.mandatory.map(mandatoryRow).join(''):`<div class="small-note" style="margin-top:8px">Например: аренда, интернет, кредит или коммуналка.</div>`}<button class="settings-action" data-action="addMandatory">＋ Добавить обязательный платёж</button></div>`;
 }
 function accountRow(a){return `<div class="account"><div><div class="account-name">${esc(a.name)}</div><div class="small-note">Счёт / карта</div></div><div style="text-align:right"><div class="money">${money(a.balance)}</div><div><button class="action" data-action="editAccount" data-id="${a.id}">Изменить</button> <button class="action pink" data-action="deleteAccount" data-id="${a.id}">×</button></div></div></div>`}
-function renderTransactions(){let a=[...budget.transactions].sort((x,y)=>(y.date||'').localeCompare(x.date||'')).slice(0,12);if(!a.length)return `<div class="small-note" style="margin-top:12px">Операций пока нет.</div>`;return a.map(x=>{let ac=budget.accounts.find(a=>a.id===x.accountId);return `<div class="account"><div><div class="account-name">${esc(x.name)}</div><div class="small-note">${fmtDate(x.date)} · ${esc(ac?.name||'Счёт удалён')}</div></div><div class="money ${x.type==='income'?'positive':'negative'}">${x.type==='income'?'+':'−'}${money(x.amount)}</div></div>`}).join('')}
-function mandatoryRow(x){let ac=budget.accounts.find(a=>a.id===x.accountId);return `<div class="account"><div><div class="account-name">${esc(x.name)}</div><div class="small-note">до ${fmtDate(x.date)} · ${esc(ac?.name||'без счёта')}</div></div><div style="text-align:right"><div class="money">${money(x.amount)}</div><button class="action ${x.paid?'primary':''}" data-action="toggleMandatory" data-id="${x.id}">${x.paid?'Оплачено ✓':'Оплатить'}</button> <button class="action pink" data-action="deleteMandatory" data-id="${x.id}">×</button></div></div>`}
+function renderTransactions(){let a=[...budget.transactions].sort((x,y)=>(y.date||'').localeCompare(x.date||'')).slice(0,20);if(!a.length)return `<div class="small-note" style="margin-top:12px">Операций пока нет.</div>`;return a.map(x=>{let ac=budget.accounts.find(a=>a.id===x.accountId);return `<div class="account"><div><div class="account-name">${esc(x.name)}</div><div class="small-note">${fmtDate(x.date)} · ${esc(ac?.name||'Счёт удалён')}</div></div><div style="text-align:right"><div class="money ${x.type==='income'?'positive':'negative'}">${x.type==='income'?'+':'−'}${money(x.amount)}</div><div><button class="action" data-action="editTransaction" data-id="${x.id}">Изменить</button> <button class="action pink" data-action="deleteTransaction" data-id="${x.id}">×</button></div></div></div>`}).join('')}
+function frequencyName(v){return({once:'Разовый',weekly:'Раз в неделю',monthly:'Раз в месяц',yearly:'Раз в год'})[v]||'Разовый'}
+function mandatoryRow(x){let ac=budget.accounts.find(a=>a.id===x.accountId);return `<div class="account"><div><div class="account-name">${esc(x.name)}</div><div class="small-note">до ${fmtDate(x.date)} · ${frequencyName(x.frequency)} · ${esc(ac?.name||'без счёта')}</div></div><div style="text-align:right"><div class="money">${money(x.amount)}</div><button class="action ${x.paid?'primary':''}" data-action="toggleMandatory" data-id="${x.id}">${x.paid?'Оплачено ✓':'Оплатить'}</button> <button class="action" data-action="editMandatory" data-id="${x.id}">Изменить</button> <button class="action pink" data-action="deleteMandatory" data-id="${x.id}">×</button></div></div>`}
 function budgetSafe(){return budget.accounts.reduce((s,a)=>s+num(a.balance),0)-budget.mandatory.filter(x=>!x.paid).reduce((s,x)=>s+num(x.amount),0)}
 function budgetDaily(){let now=new Date(),days=new Date(now.getFullYear(),now.getMonth()+1,0).getDate()-now.getDate()+1;return Math.max(0,budgetSafe()/Math.max(1,days))}
 
 function renderSettings(){return `<h2 class="page-title">Настройки ⚙️</h2><p class="section-caption">Настрой приложение под себя. Всё хранится на этом устройстве.</p>
-<div class="card"><h3 style="margin:0 0 5px">♡ Профиль</h3><label>Как тебя называть?</label><input id="profileName" maxlength="40" placeholder="Твоё имя" value="${esc(settings.name||'')}"><button class="settings-action" data-action="saveProfile">Сохранить имя</button></div>
-<div class="card"><h3 style="margin:0 0 5px">🎨 Оформление</h3><div class="settings-row"><div><div class="settings-label">Тема</div><div class="settings-help">Выбирай настроение приложения.</div></div><select id="settingTheme"><option value="sage" ${settings.theme==='sage'?'selected':''}>Шалфейная</option><option value="pink" ${settings.theme==='pink'?'selected':''}>Розовая</option><option value="lilac" ${settings.theme==='lilac'?'selected':''}>Сиреневая</option><option value="dark" ${settings.theme==='dark'?'selected':''}>Тёмная</option></select></div>
-<div class="settings-row"><div><div class="settings-label">Формат времени</div></div><select id="settingTime"><option value="24" ${settings.timeFormat==='24'?'selected':''}>24 часа</option><option value="12" ${settings.timeFormat==='12'?'selected':''}>12 часов</option></select></div>
-<div class="settings-row"><div><div class="settings-label">Показывать погоду</div><div class="settings-help">Погода помогает оценить сушку.</div></div><input id="settingWeather" type="checkbox" ${settings.showWeather?'checked':''}></div></div>
+<div class="card"><h3 style="margin:0 0 5px">👤 Профиль</h3><div class="settings-row"><div><div class="settings-label">Твоё имя</div><div class="settings-help">Оно появится на главной странице.</div></div><input id="profileName" type="text" maxlength="40" placeholder="Например, Анна" value="${esc(settings.name||'')}"></div><button class="settings-action" data-action="saveProfile">Сохранить имя ♡</button></div>
+<div class="card"><h3 style="margin:0 0 5px">🎨 Внешний вид</h3><div class="settings-row"><div><div class="settings-label">Тема</div></div><select id="settingTheme"><option value="sage" ${settings.theme==='sage'?'selected':''}>Sage & Milk</option><option value="pink" ${settings.theme==='pink'?'selected':''}>Pink Laundry</option><option value="lilac" ${settings.theme==='lilac'?'selected':''}>Лавандовая</option><option value="dark" ${settings.theme==='dark'?'selected':''}>Тёмная</option></select></div><div class="settings-row"><div><div class="settings-label">Формат времени</div></div><select id="settingTime"><option value="24" ${settings.timeFormat==='24'?'selected':''}>24 часа</option><option value="12" ${settings.timeFormat==='12'?'selected':''}>12 часов</option></select></div><div class="settings-row"><div><div class="settings-label">Показывать погоду</div></div><input type="checkbox" id="settingWeather" ${settings.showWeather?'checked':''}></div></div>
 <div class="card"><h3 style="margin:0 0 5px">🧺 Машинки</h3>${machines.map((m,i)=>`<div class="settings-row"><div><div class="settings-label">${esc(m)}</div><div class="settings-help">${loads.filter(x=>x.machine===m&&!x.done).length} активных</div></div><button class="action pink" data-action="removeMachine" data-index="${i}" ${machines.length===1?'disabled':''}>Удалить</button></div>`).join('')}<button class="settings-action" data-action="addMachine">＋ Добавить машинку</button><div class="settings-row"><div><div class="settings-label">По умолчанию</div></div><select id="defaultMachine">${machineOptions(settings.defaultMachine)}</select></div></div>
 <div class="card"><h3 style="margin:0 0 5px">💾 Данные</h3><div class="small-note">Теперь резервная копия включает стирки, профиль, план и бюджет.</div><button class="settings-action" data-action="openHistory">🕊️ История стирок</button>
-<button class="settings-action" data-action="exportData">Экспортировать резервную копию</button><button class="settings-action" data-action="importData">Импортировать резервную копию</button><input class="hidden" id="importFile" type="file" accept="application/json,.json"><button class="settings-action" data-action="resetSettings">Сбросить настройки</button></div>
+  <button class="settings-action" data-action="exportData">Экспортировать резервную копию</button><button class="settings-action" data-action="importData">Импортировать резервную копию</button><input class="hidden" id="importFile" type="file" accept="application/json,.json"><button class="settings-action" data-action="resetSettings">Сбросить настройки</button></div>
 <div class="card"><h3 style="margin:0 0 5px">♡ О проекте</h3><div class="small-note">«Бельё дома» — уютный помощник для дома, стирки, планов и бюджета.</div><div class="small-note" style="margin-top:10px">Версия 3.0 · профиль + план дня + бюджет</div></div>`}
 
-document.addEventListener('click',async e=>{
-  let nav=e.target.closest('.nav-button');
-  if(nav){
-    currentPage=nav.dataset.page;
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
+function renderPet(){
+  return `<div class="hero-mini"><h2>🐾 Питомец</h2><p>Здесь скоро поселится твой милый помощник ♡</p></div>
+  <div class="card empty"><div class="empty-icon">🐾</div><div class="empty-title">Питомец пока спит</div><div style="margin-top:5px">Сначала закончим основные функции приложения, а потом сделаем ему имя, анимации, кормление, поглаживание и другие действия.</div></div>`;
+}
+function render(){let p=$('pageContent');if(currentPage==='home')p.innerHTML=renderHome();else if(currentPage==='laundry')p.innerHTML=renderLaundry();else if(currentPage==='history')p.innerHTML=renderHistory();else if(currentPage==='plan')p.innerHTML=renderPlan();else if(currentPage==='budget')p.innerHTML=renderBudget();else if(currentPage==='pet')p.innerHTML=renderPet();else p.innerHTML=renderSettings();document.querySelectorAll('.nav-button').forEach(b=>b.classList.toggle('active',b.dataset.page===currentPage));$('greeting').textContent=settings.name?`Привет, ${settings.name}! 🧺`:'Привет! 🧺';$('subtitle').textContent=currentPage==='settings'?'Всё можно настроить под себя ♡':currentPage==='plan'?'Соберём твой день без суеты.':currentPage==='budget'?'Смотрим деньги спокойно и по делу.':currentPage==='laundry'?'Следим за каждой загрузкой.':currentPage==='history'?'Все завершённые стирки в одном месте.':currentPage==='pet'?'Здесь будет жить твой маленький помощник.':'Твой уютный помощник по дому.';applyTheme()}
 
-  let pg=e.target.closest('[data-page-go]');
-  if(pg){
-    currentPage=pg.dataset.pageGo;
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
+function openLoadForm(id=null){editingId=id;let x=id?loads.find(a=>a.id===id):null;$('pageContent').innerHTML=`<section class="card form-card active"><h2 class="form-title">${x?'Изменить стирку':'Новая стирка'}</h2><p class="form-subtitle">Параметры помогут рассчитать примерное время сушки.</p><label>Название</label><input id="name" maxlength="80" placeholder="Например, постельное бельё" value="${esc(x?.name||'')}"><label>Машинка</label><select id="machine">${machineOptions(x?.machine||settings.defaultMachine||machines[0])}</select><label>Длительность стирки</label><select id="duration">${[15,30,45,60,75,90,105,120,150,180,240].map(n=>`<option value="${n}">${durLabel(n)}</option>`).join('')}<option value="custom">Своё время…</option></select><input id="customDuration" type="number" min="1" max="1440" placeholder="Минуты" class="hidden"><label>Что стираем?</label><select id="fabric">${programOptions(x?.fabric||'mixed')}</select><label>Отжим</label><select id="spin"><option value="low">Низкий</option><option value="medium">Средний</option><option value="high">Высокий</select><label>Где сушится?</label><select id="place"><option value="balcony">Балкон</option><option value="glazed">Застеклённый балкон</option><option value="radiator">Батарея</option><option value="room">В комнате</option><option value="dryer">Сушильная машина</option></select><label>Количество</label><select id="amount"><option value="small">Немного</option><option value="medium">Средняя загрузка</option><option value="large">Много</option></select><label>Воздух</label><select id="air"><option value="still">Почти нет воздуха</option><option value="normal">Обычное</option><option value="windy">Хорошо проветривается</option></select><label>Когда началась?</label><select id="startMode"><option value="now">Сейчас</option><option value="custom">Указать дату и время</option></select><input id="customStart" type="datetime-local" class="hidden"><label>Заметка</label><input id="notes" maxlength="120" placeholder="Необязательно" value="${esc(x?.notes||'')}"><div class="form-buttons"><button class="cancel-button" data-action="cancelForm">Отмена</button><button class="save-button" data-action="saveLoad">Сохранить</button></div></section>`;$('duration').value=String(x?.duration||60);if($('duration').value==='60'&&x?.duration===60){}else if(!['15','30','45','60','75','90','105','120','150','180','240'].includes(String(x?.duration||60))){$('duration').value='custom';$('customDuration').value=x.duration;$('customDuration').classList.remove('hidden')}$('fabric').value=x?.fabric||'mixed';$('spin').value=x?.spin||'medium';$('place').value=x?.place||'balcony';$('amount').value=x?.amount||'medium';$('air').value=x?.air||'normal';if(x){$('startMode').value='custom';let d=new Date(x.startedAt);$('customStart').value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}T${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;$('customStart').classList.remove('hidden')}window.scrollTo(0,0)}
+function saveLoad(){let duration=$('duration').value==='custom'?num($('customDuration').value):num($('duration').value);if(!duration){toast('Укажи длительность');return}let started=$('startMode').value==='custom'?new Date($('customStart').value).getTime():Date.now();if(!started||started>Date.now()+60000){toast('Проверь дату и время');return}let old=loads.find(x=>x.id===editingId),data={id:editingId||uid(),name:$('name').value.trim()||'Моя стирка',machine:$('machine').value,duration,fabric:$('fabric').value,spin:$('spin').value,place:$('place').value,amount:$('amount').value,air:$('air').value,notes:$('notes').value.trim(),startedAt:started,createdAt:old?.createdAt||Date.now(),done:old?.done||false,finishedAt:old?.finishedAt||null};if(old)loads[loads.findIndex(x=>x.id===editingId)]=data;else loads.unshift(data);saveAll();editingId=null;currentPage='home';render();toast(old?'Стирка обновлена ✨':'Стирка добавлена 🧺')}
+function finishLoad(id){let x=loads.find(a=>a.id===id);if(!x)return;x.done=true;x.finishedAt=Date.now();saveAll();render();toast('Записала в историю ✨')}
+function deleteLoad(id){if(!confirm('Удалить эту стирку?'))return;loads=loads.filter(x=>x.id!==id);saveAll();render();toast('Стирка удалена')}
+function restoreLoad(id){let x=loads.find(a=>a.id===id);if(!x)return;x.done=false;x.finishedAt=null;saveAll();currentPage='laundry';render();toast('Вернула в активные стирки')}
+function addMachine(){let n=prompt('Как назвать машинку?');if(!n)return;n=n.trim().slice(0,40);if(!n)return;if(machines.some(x=>x.toLowerCase()===n.toLowerCase()))return toast('Такая машинка уже есть');machines.push(n);settings.defaultMachine=n;saveAll();render();toast('Машинка добавлена 🧺')}
+function removeMachine(i){if(machines.length===1)return toast('Нужно оставить хотя бы одну машинку');let n=machines[i];if(!confirm('Удалить «'+n+'»?'))return;let r=machines.find((_,j)=>j!==i);machines.splice(i,1);loads.forEach(x=>{if(x.machine===n)x.machine=r});if(settings.defaultMachine===n)settings.defaultMachine=r;saveAll();render()}
+function saveProfile(){settings.name=$('profileName').value.trim().slice(0,40);saveAll();render();toast(settings.name?`Рада знакомству, ${settings.name} ♡`:'Имя очищено')}
+function addTaskForm(id=null){let x=id?tasks.find(t=>t.id===id):null;editingId=id;$('pageContent').innerHTML=`<section class="card form-card active"><h2 class="form-title">${x?'Изменить задачу':'Новая задача'}</h2><p class="form-subtitle">Ты сама решаешь, как будет выглядеть твой день.</p><label>Что нужно сделать?</label><input id="taskTitle" maxlength="100" placeholder="Например, убраться в спальне" value="${esc(x?.title||'')}"><label>Дата</label><input id="taskDate" type="date" value="${x?.date||today()}"><label>Время начала</label><input id="taskTime" type="time" value="${x?.time||''}"><label>Продолжительность</label><select id="taskDuration"><option value="15">15 минут</option><option value="30">30 минут</option><option value="45">45 минут</option><option value="60">1 час</option><option value="90">1 час 30 минут</option><option value="120">2 часа</option><option value="180">3 часа</option><option value="custom">Своё время</option></select><input id="taskCustomDuration" type="number" min="1" max="1440" placeholder="Минуты" class="hidden"><label>Категория</label><select id="taskCategory"><option>Дом</option><option>Работа</option><option>Личное</option><option>Покупки</option><option>Отдых</option><option>Другое</option></select><label>Заметка</label><input id="taskNote" maxlength="120" placeholder="Необязательно" value="${esc(x?.note||'')}"><div class="form-buttons"><button class="cancel-button" data-action="cancelForm">Отмена</button><button class="save-button" data-action="saveTask">Сохранить</button></div></section>`;$('taskDuration').value=String(x?.duration||60);if(!['15','30','45','60','90','120','180'].includes(String(x?.duration||60))){$('taskDuration').value='custom';$('taskCustomDuration').value=x.duration;$('taskCustomDuration').classList.remove('hidden')}$('taskCategory').value=x?.category||'Дом';window.scrollTo(0,0)}
+function saveTask(){let title=$('taskTitle').value.trim();if(!title)return toast('Напиши название задачи');let d=$('taskDuration').value==='custom'?num($('taskCustomDuration').value):num($('taskDuration').value);if(!d)return toast('Укажи длительность');let x=tasks.find(t=>t.id===editingId),o={id:editingId||uid(),title,date:$('taskDate').value||today(),time:$('taskTime').value||'',duration:d,category:$('taskCategory').value,note:$('taskNote').value.trim(),done:x?.done||false};if(x)tasks[tasks.findIndex(t=>t.id===editingId)]=o;else tasks.push(o);editingId=null;saveAll();currentPage='plan';render();toast('Задача сохранена 📋')}
+function toggleTask(id){let x=tasks.find(t=>t.id===id);if(!x)return;x.done=!x.done;saveAll();render();toast(x.done?'Задача выполнена ✨':'Задачу вернула в план')}
+function deleteTask(id){if(!confirm('Удалить задачу?'))return;tasks=tasks.filter(x=>x.id!==id);saveAll();render()}
+function accountForm(id=null){let x=id?budget.accounts.find(a=>a.id===id):null;editingId=id;$('pageContent').innerHTML=`<section class="card form-card active"><h2 class="form-title">${x?'Изменить счёт':'Новый счёт / карта'}</h2><label>Название</label><input id="accountName" maxlength="50" placeholder="Например, Тинькофф" value="${esc(x?.name||'')}"><label>Текущий баланс</label><input id="accountBalance" type="number" step="0.01" inputmode="decimal" placeholder="0" value="${x?.balance??''}"><div class="form-buttons"><button class="cancel-button" data-action="cancelForm">Отмена</button><button class="save-button" data-action="saveAccount">Сохранить</button></div></section>`;window.scrollTo(0,0)}
+function saveAccount(){let n=$('accountName').value.trim();if(!n)return toast('Назови счёт или карту');let b=num($('accountBalance').value),x=budget.accounts.find(a=>a.id===editingId);if(x){x.name=n;x.balance=b}else budget.accounts.push({id:uid(),name:n,balance:b});editingId=null;saveAll();currentPage='budget';render();toast('Счёт сохранён 💳')}
+function deleteAccount(id){if(budget.transactions.some(x=>x.accountId===id)||budget.mandatory.some(x=>x.accountId===id))return toast('Сначала убери операции этого счёта');if(!confirm('Удалить счёт?'))return;budget.accounts=budget.accounts.filter(x=>x.id!==id);saveAll();render()}
 
-  let b=e.target.closest('[data-action]');
-  if(!b)return;
+  function transactionForm(type,id=null){
+ let x=id?budget.transactions.find(a=>a.id===id):null;
+ editingTransactionId=id||null;
+ let selectedAccount=x?.accountId||budget.accounts[0]?.id||'';
+ $('pageContent').innerHTML=`<section class="card form-card active"><h2 class="form-title">${x?'Изменить':'Новый'} ${type==='income'?'доход':'расход'}</h2><p class="form-subtitle">Можно изменить дату, сумму, название и счёт, с которого списана операция.</p><label>Название</label><input id="txName" maxlength="80" placeholder="${type==='income'?'Зарплата':'Продукты'}" value="${esc(x?.name||'')}"><label>Сумма</label><input id="txAmount" type="number" step="0.01" inputmode="decimal" placeholder="0" value="${x?.amount??''}"><label>Счёт / карта</label><select id="txAccount">${budget.accounts.length?budget.accounts.map(a=>`<option value="${a.id}" ${a.id===selectedAccount?'selected':''}>${esc(a.name)} · ${money(a.balance)}</option>`).join(''):'<option value="">Нет счетов</option>'}</select><label>Дата</label><input id="txDate" type="date" value="${x?.date||today()}"><div class="form-buttons"><button class="cancel-button" data-action="cancelForm">Отмена</button><button class="save-button" data-action="saveTransaction" data-type="${type}">Сохранить</button></div></section>`;if(!budget.accounts.length)toast('Сначала добавь счёт или карту');window.scrollTo(0,0)
+}
+function saveTransaction(type){
+ let n=$('txName').value.trim(),a=num($('txAmount').value),accountId=$('txAccount').value,ac=budget.accounts.find(x=>x.id===accountId);
+ if(!n||a<=0||!ac)return toast('Заполни название, сумму и счёт');
+ let date=$('txDate').value||today();
+ if(editingTransactionId){
+  let x=budget.transactions.find(t=>t.id===editingTransactionId);
+  if(!x)return toast('Операция не найдена');
+  let oldAc=budget.accounts.find(q=>q.id===x.accountId);
+  if(oldAc){if(x.type==='income')oldAc.balance-=num(x.amount);else oldAc.balance+=num(x.amount)}
+  if(type==='income')ac.balance+=a;else ac.balance-=a;
+  x.name=n;x.amount=a;x.accountId=ac.id;x.date=date;x.type=type;
+  editingTransactionId=null;
+  saveAll();currentPage='budget';render();toast('Операция изменена ✨');return;
+ }
+ if(type==='income')ac.balance+=a;else ac.balance-=a;
+ budget.transactions.push({id:uid(),type,name:n,amount:a,accountId:ac.id,date});
+ saveAll();currentPage='budget';render();toast(type==='income'?'Доход добавлен 💚':'Расход добавлен 💸')
+}
+function deleteTransaction(id){
+ let x=budget.transactions.find(t=>t.id===id);if(!x)return;
+ if(!confirm(`Удалить ${x.type==='expense'?'расход':'доход'} «${x.name}»?`))return;
+ let ac=budget.accounts.find(q=>q.id===x.accountId);
+ if(ac){if(x.type==='income')ac.balance-=num(x.amount);else ac.balance+=num(x.amount)}
+ budget.transactions=budget.transactions.filter(t=>t.id!==id);saveAll();render();toast('Операция удалена')
+}
+function mandatoryForm(id=null){
+ let x=id?budget.mandatory.find(a=>a.id===id):null;
+ editingMandatoryId=id||null;
+ $('pageContent').innerHTML=`<section class="card form-card active"><h2 class="form-title">${x?'Изменить обязательный платёж':'Обязательный платёж'}</h2><label>Название</label><input id="mandName" maxlength="80" placeholder="Например, интернет" value="${esc(x?.name||'')}"><label>Сумма</label><input id="mandAmount" type="number" step="0.01" inputmode="decimal" placeholder="0" value="${x?.amount??''}"><label>Дата платежа</label><input id="mandDate" type="date" value="${x?.date||today()}"><label>Регулярность</label><select id="mandFrequency"><option value="once" ${(!x?.frequency||x.frequency==='once')?'selected':''}>Разовый</option><option value="weekly" ${x?.frequency==='weekly'?'selected':''}>Раз в неделю</option><option value="monthly" ${x?.frequency==='monthly'?'selected':''}>Раз в месяц</option><option value="yearly" ${x?.frequency==='yearly'?'selected':''}>Раз в год</option></select><label>Счёт / карта</label><select id="mandAccount"><option value="">Не выбрано</option>${budget.accounts.map(a=>`<option value="${a.id}" ${a.id===(x?.accountId||'')?'selected':''}>${esc(a.name)}</option>`).join('')}</select><div class="form-buttons"><button class="cancel-button" data-action="cancelForm">Отмена</button><button class="save-button" data-action="saveMandatory">Сохранить</button></div></section>`;window.scrollTo(0,0)
+}
+function saveMandatory(){
+ let n=$('mandName').value.trim(),a=num($('mandAmount').value);
+ if(!n||a<=0)return toast('Заполни название и сумму');
+ let data={name:n,amount:a,date:$('mandDate').value||today(),frequency:$('mandFrequency').value||'once',accountId:$('mandAccount').value,paid:false};
+ if(editingMandatoryId){let x=budget.mandatory.find(q=>q.id===editingMandatoryId);if(!x)return toast('Платёж не найден');Object.assign(x,data,{paid:x.paid});editingMandatoryId=null;toast('Платёж изменён ✨')}else{budget.mandatory.push({id:uid(),...data});toast('Платёж добавлен 📌')}
+ saveAll();currentPage='budget';render()
+}
+function toggleMandatory(id){
+ let x=budget.mandatory.find(a=>a.id===id);
+ if(!x)return;
+ if(!x.paid){
+  let ac=budget.accounts.find(a=>a.id===x.accountId);
+  if(x.accountId&&!ac)return toast('Счёт не найден');
+  if(ac)ac.balance-=num(x.amount);
+  x.paid=true
+ }else{
+  let ac=budget.accounts.find(a=>a.id===x.accountId);
+  if(ac)ac.balance+=num(x.amount);
+  x.paid=false
+ }
+ saveAll();render();
+ toast(x.paid?'Платёж отмечен как оплаченный ✓':'Оплату отменили')
+}
+function deleteMandatory(id){
+ let x=budget.mandatory.find(a=>a.id===id);
+ if(!x)return;
+ if(!confirm('Удалить обязательный платёж?'))return;
+ if(x.paid){
+  let ac=budget.accounts.find(a=>a.id===x.accountId);
+  if(ac)ac.balance+=num(x.amount)
+ }
+ budget.mandatory=budget.mandatory.filter(a=>a.id!==id);
+ saveAll();render();toast('Платёж удалён')
+}
+function exportData(){let data={version:3,exportedAt:new Date().toISOString(),loads,settings,machines,customPrograms,tasks,budget};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='belyo-doma-backup-v3.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);toast('Резервная копия готова 💾')}
+function resetSettings(){if(!confirm('Сбросить только настройки и имя? Стирки, план и бюджет останутся.'))return;settings={theme:'sage',timeFormat:'24',notifications:false,showWeather:true,defaultMachine:machines[0]||'Машинка 1',language:'ru',name:''};saveAll();render();toast('Настройки сброшены')}
+async function importData(){let e=$('importFile');e.click()}
+async function weatherLoad(){if(!settings.showWeather)return;try{let lat=55.79,lon=42.74;if(navigator.geolocation){try{let p=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:3500,maximumAge:600000}));lat=p.coords.latitude;lon=p.coords.longitude}catch(e){}}let r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code&timezone=auto`);let d=await r.json();weather.temp=Math.round(d.current.temperature_2m);weather.humidity=d.current.relative_humidity_2m;let c=d.current.weather_code;let info=c===0?['☀️','Ясно']:[1,2,3].includes(c)?['🌤️','Облачно']:[61,63,65].includes(c)?['🌧️','Дождь']:['☁️','Погода'];$('weatherIcon').textContent=info[0];$('weatherTemp').textContent=(weather.temp>0?'+':'')+weather.temp+'°';$('weatherText').textContent=info[1]+' · влажность '+weather.humidity+'%';if(currentPage==='home')render()}catch(e){$('weatherText').textContent='Погода временно недоступна'}}
 
-  let a=b.dataset.action;
-  let id=b.dataset.id;
-
-  if(a==='open-plan'){
-    currentPage='plan';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='open-laundry'){
-    currentPage='laundry';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='open-budget'){
-    currentPage='budget';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='open-pet'){
-    currentPage='pet';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='open-settings'){
-    currentPage='settings';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='history'){
-    currentPage='history';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='back'){
-    currentPage='home';
-    editingId=null;
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='new-laundry'){
-    editingId=null;
-    currentPage='laundry';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='edit-laundry'){
-    editingId=id;
-    currentPage='laundry';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='delete-laundry'){
-    if(!confirm('Удалить эту стирку?'))return;
-    laundries=laundries.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Стирка удалена');
-    return
-  }
-
-  if(a==='finish-laundry'){
-    let x=laundries.find(x=>x.id===id);
-    if(x){
-      x.status='done';
-      x.finishedAt=new Date().toISOString();
-      saveAll();
-      render();
-      toast('Стирка завершена 🧺');
-    }
-    return
-  }
-
-  if(a==='cancel-laundry'){
-    let x=laundries.find(x=>x.id===id);
-    if(x){
-      x.status='cancelled';
-      saveAll();
-      render();
-      toast('Стирка отменена');
-    }
-    return
-  }
-
-  if(a==='new-task'){
-    editingId=null;
-    currentPage='plan';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='edit-task'){
-    editingId=id;
-    currentPage='plan';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='delete-task'){
-    if(!confirm('Удалить задачу?'))return;
-    tasks=tasks.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Задача удалена');
-    return
-  }
-
-  if(a==='toggle-task'){
-    let x=tasks.find(x=>x.id===id);
-    if(x){
-      x.done=!x.done;
-      saveAll();
-      render();
-    }
-    return
-  }
-
-  if(a==='new-income'){
-    editingId=null;
-    currentPage='budget';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='new-expense'){
-    editingId=null;
-    currentPage='budget';
-    render();
-    window.scrollTo(0,0);
-    return
-  }
-
-  if(a==='delete-income'){
-    if(!confirm('Удалить доход?'))return;
-    budget.incomes=budget.incomes.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Доход удалён');
-    return
-  }
-
-  if(a==='delete-expense'){
-    if(!confirm('Удалить расход?'))return;
-    budget.expenses=budget.expenses.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Расход удалён');
-    return
-  }
-
-  if(a==='delete-account'){
-    if(!confirm('Удалить этот счёт?'))return;
-    budget.accounts=budget.accounts.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Счёт удалён');
-    return
-  }
-
-  if(a==='delete-machine'){
-    if(!confirm('Удалить стиральную машину?'))return;
-    machines=machines.filter(x=>x.id!==id);
-    saveAll();
-    render();
-    toast('Машина удалена');
-    return
-  }
-
-  if(a==='theme'){
-    let t=b.dataset.theme;
-    if(t){
-      settings.theme=t;
-      saveAll();
-      applyTheme();
-      render();
-    }
-    return
-  }
-
-  if(a==='export'){
-    let data={
-      settings,
-      laundries,
-      tasks,
-      budget,
-      machines,
-      profile,
-      exportedAt:new Date().toISOString()
-    };
-
-    let blob=new Blob(
-      [JSON.stringify(data,null,2)],
-      {type:'application/json'}
-    );
-
-    let url=URL.createObjectURL(blob);
-    let link=document.createElement('a');
-    link.href=url;
-    link.download='belyo-doma-backup.json';
-    link.click();
-    URL.revokeObjectURL(url);
-    toast('Резервная копия создана 💾');
-    return
-  }
-
-  if(a==='import'){
-    let input=document.createElement('input');
-    input.type='file';
-    input.accept='.json,application/json';
-
-    input.onchange=async()=>{
-      let file=input.files?.[0];
-      if(!file)return;
-
-      try{
-        let text=await file.text();
-        let d=JSON.parse(text);
-
-        if(d.settings)settings={...settings,...d.settings};
-        if(Array.isArray(d.laundries))laundries=d.laundries;
-        if(Array.isArray(d.tasks))tasks=d.tasks;
-        if(d.budget)budget={...budget,...d.budget};
-        if(Array.isArray(d.machines))machines=d.machines;
-        if(d.profile)profile={...profile,...d.profile};
-
-        saveAll();
-        applyTheme();
-        render();
-        toast('Резервная копия восстановлена ✨');
-      }catch(e){
-        toast('Не удалось прочитать копию');
-      }
-    };
-
-    input.click();
-    return
-  }
+$('pageContent').addEventListener('change',e=>{
+ let x=e.target;
+ if(x.id==='duration')$('customDuration').classList.toggle('hidden',x.value!=='custom');
+ if(x.id==='startMode')$('customStart').classList.toggle('hidden',x.value!=='custom');
+ if(x.id==='taskDuration')$('taskCustomDuration').classList.toggle('hidden',x.value!=='custom');
+ if(x.id==='settingTheme'){settings.theme=x.value;saveAll();applyTheme();toast('Тема обновлена 🎨')}
+ if(x.id==='settingTime'){settings.timeFormat=x.value;saveAll();render()}
+ if(x.id==='settingWeather'){settings.showWeather=x.checked;saveAll();applyTheme();render();weatherLoad()}
+ if(x.id==='defaultMachine'){settings.defaultMachine=x.value;saveAll()}
+ if(x.id==='importFile'&&x.files[0]){
+  let f=x.files[0];
+  f.text().then(t=>{
+   try{
+    let d=JSON.parse(t);
+    if(!confirm('Заменить текущие данные резервной копией?'))return;
+    if(Array.isArray(d.loads))loads=d.loads;
+    if(d.settings)settings={...settings,...d.settings};
+    if(Array.isArray(d.machines))machines=d.machines;
+    if(Array.isArray(d.customPrograms))customPrograms=d.customPrograms;
+    if(Array.isArray(d.tasks))tasks=d.tasks;
+    if(d.budget)budget={...budget,...d.budget};
+    budget.mandatory=(budget.mandatory||[]).map(x=>({...x,frequency:x.frequency||'once'}));
+    saveAll();applyTheme();render();toast('Резервная копия восстановлена ✨')
+   }catch(e){toast('Не удалось прочитать копию')}
+  })
+ }
 });
 
 $('refreshWeather').addEventListener('click',weatherLoad);
 
-document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden){
-    loadSaved();
-    render();
+document.addEventListener('click',async e=>{
+ let nav=e.target.closest('.nav-button');
+ if(nav){
+  currentPage=nav.dataset.page;
+  editingId=null;
+  editingTransactionId=null;
+  editingMandatoryId=null;
+  render();
+  window.scrollTo(0,0);
+  return
+ }
+
+ let pg=e.target.closest('[data-page-go]');
+ if(pg){
+  currentPage=pg.dataset.pageGo;
+  editingId=null;
+  editingTransactionId=null;
+  editingMandatoryId=null;
+  render();
+  window.scrollTo(0,0);
+  return
+ }
+
+ let b=e.target.closest('[data-action]');
+ if(!b)return;
+
+ let a=b.dataset.action,id=b.dataset.id;
+
+ if(a==='addLoad')openLoadForm();
+ else if(a==='editLoad')openLoadForm(id);
+ else if(a==='finishLoad')finishLoad(id);
+ else if(a==='deleteLoad')deleteLoad(id);
+ else if(a==='restore')restoreLoad(id);
+ else if(a==='cancelForm'){
+  editingId=null;
+  editingTransactionId=null;
+  editingMandatoryId=null;
+  currentPage='home';
+  render()
+ }
+ else if(a==='saveLoad')saveLoad();
+ else if(a==='addMachine')addMachine();
+ else if(a==='removeMachine')removeMachine(Number(b.dataset.index));
+ else if(a==='saveProfile')saveProfile();
+ else if(a==='addTask')addTaskForm();
+ else if(a==='editTask')addTaskForm(id);
+ else if(a==='saveTask')saveTask();
+ else if(a==='toggleTask')toggleTask(id);
+ else if(a==='deleteTask')deleteTask(id);
+ else if(a==='addAccount')accountForm();
+ else if(a==='editAccount')accountForm(id);
+ else if(a==='saveAccount')saveAccount();
+ else if(a==='deleteAccount')deleteAccount(id);
+ else if(a==='addIncome')transactionForm('income');
+ else if(a==='addExpense')transactionForm('expense');
+ else if(a==='editTransaction'){
+  let x=budget.transactions.find(t=>t.id===id);
+  if(x)transactionForm(x.type,id)
+ }
+ else if(a==='deleteTransaction')deleteTransaction(id);
+ else if(a==='saveTransaction')saveTransaction(b.dataset.type);
+ else if(a==='addMandatory')mandatoryForm();
+ else if(a==='editMandatory')mandatoryForm(id);
+ else if(a==='saveMandatory')saveMandatory();
+ else if(a==='toggleMandatory')toggleMandatory(id);
+ else if(a==='deleteMandatory')deleteMandatory(id);
+ else if(a==='exportData')exportData();
+ else if(a==='importData')importData();
+ else if(a==='resetSettings')resetSettings();
+ else if(a==='openHistory'){
+  currentPage='history';
+  render();
+  window.scrollTo(0,0)
+ }
+ else if(a==='clearHistory'){
+  if(confirm('Удалить историю?')){
+   loads=loads.filter(x=>!x.done);
+   saveAll();
+   render()
   }
+ }
 });
 
-loadSaved();
-render();
-weatherLoad();
-
+loadSaved();render();weatherLoad();
 // Перерисовка по таймеру отключена: открытые формы не должны сбрасываться.
 </script>
 </body>
